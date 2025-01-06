@@ -1,0 +1,25 @@
+# Node modules
+node_modules/
+
+# Build output
+/dist
+
+# Prisma generated files
+/prisma/dev.db
+/prisma/migrations
+
+# Environment variables
+.env
+
+# Logs
+*.log
+
+# Mac system files
+.DS_Store
+
+# IDE configuration files
+.idea/
+.vscode/
+
+# TypeScript v1
+*.tsbuildinfo
