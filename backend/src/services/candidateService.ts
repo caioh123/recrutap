@@ -24,6 +24,9 @@ export class CandidateService {
         where: {
           id,
         },
+        include: {
+          JobCandidate: true
+        }
       });
 
       return candidate;
