@@ -116,9 +116,9 @@ model JobCandidate {
 model Interview {
   id          String   @id @default(uuid()) @db.Uuid
   recruiter   String
-  interviewee String
   dateTime    DateTime
   notes       String?
+  evaluation  String?
 
   candidate   Candidate @relation(fields: [candidateId], references: [id])
   candidateId String    @db.Uuid
