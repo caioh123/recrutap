@@ -9,6 +9,7 @@ interface Filter {
   skills?: string | string[];
   wageExpectation?: number; 
   availabilityOfChange?: boolean;
+  jobId?: string;
 }
 
 function parseQueryParams(query: any): Filter {
@@ -19,6 +20,7 @@ function parseQueryParams(query: any): Filter {
       skills: query.skills ? query.skills.split(',').map((skill: any) => skill.trim()) : undefined,
       wageExpectation: query.wageExpectation ? Number(query.wageExpectation) : undefined,
       availabilityOfChange: query.availabilityOfChange === 'true' ? true : query.availabilityOfChange === 'false' ? false : undefined,
+    jobId: query.jobId || undefined,
   };
 }
 
@@ -59,6 +61,20 @@ export class CandidateService {
     if (filter.availabilityOfChange !== undefined) {
         filters.availabilityOfChange = { equals: filter.availabilityOfChange }; 
     }
+    if (filter.jobId) {
+      const candidates = await this.prisma.candidate.findMany({
+        where: {
+          ...filters,
+          JobCandidate: {
+            some: {
+              jobId: filter.jobId, 
+            },
+          },
+        },
+      });
+      return candidates;
+    }
+
 
         const candidates = await this.prisma.candidate.findMany({
             where: filters,
