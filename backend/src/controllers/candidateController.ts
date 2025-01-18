@@ -8,7 +8,7 @@ const candidateService = new CandidateService();
 export class CandidateController {
     public async getAllCandidates(req: Request, res: Response): Promise<any> {
         try {
-            const candidates = await candidateService.getAllCandidates();
+            const candidates = await candidateService.getAllCandidates(req);
 
             if (candidates.length === 0) {
                 return res.status(204).send();
@@ -26,6 +26,7 @@ export class CandidateController {
     public async getCandidate(req: Request, res: Response): Promise<any> {
         try {
             const candidateId = req.params.id;
+
 
             if (!candidateId) {
                 return res.status(400).json({ error: "Candidate ID is required" });
