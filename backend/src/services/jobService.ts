@@ -1,24 +1,24 @@
 import { PrismaClient } from "@prisma/client";
 import { Job } from "../models/job";
-import {Request} from "express";
+import { Request } from "express";
 
 interface Filter {
-    title?: string;
     city?: string;
     seniority?: string;
     salary?: number;
     companyId?: string;
     language?: string;
+    education?: string;
 }
 
 function parseQueryParams(query: any): Filter {
     return {
-        title: query.title || undefined,
         city: query.city || undefined,
         seniority: query.seniority || undefined,
         salary: query.salary ? Number(query.salary) : undefined,
         companyId: query.companyId || undefined,
-}
+        education: query.education || undefined,
+    }
 }
 
 export class JobService {
@@ -34,9 +34,7 @@ export class JobService {
         try {
             const filters: any = {};
 
-            if (filter.title) {
-                filters.title = { contains: filter.title };
-            }
+
 
             if (filter.city) {
                 filters.city = { contains: filter.city };
@@ -51,7 +49,11 @@ export class JobService {
             }
 
             if (filter.companyId) {
-                filters.companyId = { contains: filter.companyId };
+                filters.companyId = { equals: filter.companyId };
+            }
+
+            if (filter.education) {
+                filters.education = { equals: filter.education };
             }
 
             const jobs = await this.prisma.job.findMany({
@@ -97,10 +99,10 @@ export class JobService {
         }
     }
 
-    public updateJob = async (id: string, data:Job) => {
+    public updateJob = async (id: string, data: Job) => {
         try {
             const job = await this.prisma.job.update({
-                where: {id},
+                where: { id },
                 data
             })
 
@@ -111,10 +113,10 @@ export class JobService {
         }
     }
 
-    public deleteJob = async(id: string) => {
+    public deleteJob = async (id: string) => {
         try {
             const job = await this.prisma.job.delete({
-                where: {id}
+                where: { id }
             })
 
             return job

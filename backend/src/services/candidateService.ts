@@ -26,7 +26,6 @@ function parseQueryParams(query: any): Filter {
   };
 }
 
-
 export class CandidateService {
   private prisma: PrismaClient;
 
