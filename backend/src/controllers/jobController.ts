@@ -1,9 +1,25 @@
-import { PrismaClient } from "@prisma/client";
-import { Request, Response } from "express";
+import e, { Request, Response } from "express";
 import { JobService } from "../services/jobService";
+import { z } from "zod";
 
-const prisma = new PrismaClient();
 const jobService = new JobService();
+
+const jobSchema = z.object({
+  title: z.string().min(3, "O título deve ter pelo menos 3 caracteres."),
+  description: z.string().min(10, "A descrição deve ter pelo menos 10 caracteres."),
+  location: z.string().optional(),
+  seniority: z.enum(["Junior", "Mid", "Senior"], {
+    errorMap: () => ({ message: "A senioridade deve ser Junior, Mid ou Senior." }),
+  }),
+  salary: z.number().positive("O salário deve ser um número positivo.").optional(),
+  isRemote: z.boolean().optional(),
+  companyId: z.string(), 
+  education: z.string().optional(),
+  skills: z.array(z.string()),
+  pcd: z.boolean(),
+  travel: z.boolean(),
+  quantity: z.number().positive("A quantidade deve ser um número positivo."),
+});
 
 export class JobController {
   public async getAllJobs(req: Request, res: Response): Promise<any> {
@@ -44,25 +60,31 @@ export class JobController {
 
   public async createJob(req: Request, res: Response): Promise<any> {
     try {
-      const jobData = req.body;
-      const newJob = await jobService.createJob(jobData);
-      return res.status(201).json(newJob);
+        const parsedData = jobSchema.parse(req.body); 
+
+        const newJob = await jobService.createJob({
+            ...parsedData,
+            salary: parsedData.salary,
+        });
+
+        return res.status(201).json(newJob);
     } catch (error) {
-      console.error(error);
-      return res.status(500).json({ error: "Erro ao criar o job." });
+        console.error("Error creating job:", error);
+        return res.status(500).json({ error: "Erro ao criar o job." });
     }
-  }
+}
+
 
   public async updateJob(req: Request, res: Response): Promise<any> {
     try {
       const jobId = req.params.id;
-      const jobData = req.body;
+      const parsedData = jobSchema.parse(req.body); 
 
       if (!jobId) {
         return res.status(400).json({ error: "Job ID is required" });
       }
 
-      const updatedJob = await jobService.updateJob(jobId, jobData);
+      const updatedJob = await jobService.updateJob(jobId, parsedData);
       return res.status(200).json(updatedJob);
     } catch (error) {
       console.error("Error:", error);

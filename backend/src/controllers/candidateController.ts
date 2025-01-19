@@ -1,9 +1,22 @@
 import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
 import { CandidateService } from "../services/candidateService";
+import { z } from "zod";
 
 const prisma = new PrismaClient();
 const candidateService = new CandidateService();
+
+const candidateSchema = z.object({
+    name: z.string().regex(/^[A-Za-z\s]+$/, "O nome deve conter apenas letras e espaços."),
+    email: z.string().email("E-mail inválido."),
+    age: z.number().min(18, "A idade mínima é 18 anos."),
+    seniority: z.enum(["Junior", "Mid", "Senior"]).refine((val) => ["Junior", "Pleno", "Senior"].includes(val), {
+        message: "The seniority must be either Junior, Mid or Senior level.",
+    }),
+    skills: z.array(z.string()).optional(),
+    restricted: z.boolean().optional(),
+    observation: z.string().optional(),
+  });
 
 export class CandidateController {
     public async getAllCandidates(req: Request, res: Response): Promise<any> {
@@ -52,12 +65,16 @@ export class CandidateController {
         res: Response
     ): Promise<any> {
         try {
-            const candidateData = req.body;
 
-            const newCandidate = await candidateService.createCandidate(candidateData);
+            const parsedData = candidateSchema.parse(req.body);
+
+            const newCandidate = await candidateService.createCandidate(parsedData);
             return res.status(201).json(newCandidate);
         } catch (error) {
             console.error(error);
+            if (error instanceof z.ZodError) {
+                return res.status(400).json({ error: error.errors });
+            }
             return res
                 .status(500)
                 .json({ error: "Erro ao criar o candidato." });
@@ -70,20 +87,24 @@ export class CandidateController {
     ): Promise<any> {
         try {
             const candidateId = req.params.id;
-            const candidateData = req.body;
 
             if (!candidateId) {
                 return res.status(400).json({ error: "Candidate ID is required" });
             }
 
+            const parsedData = candidateSchema.parse(req.body)
+
             const updatedCandidate = await candidateService.updateCandidate(
                 candidateId,
-                candidateData
+                parsedData
             );
 
             return res.status(200).json(updatedCandidate);
         } catch (error) {
             console.error("Error:", error);
+            if (error instanceof z.ZodError) {
+                return res.status(400).json({ error: error.errors });
+            }
             return res
                 .status(500)
                 .json({

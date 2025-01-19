@@ -19,5 +19,5 @@ export interface Job {
     priority?: string;
     status?: string;
     internalNotes?: string;
-    salary?: string;
+    salary?: number;
 }

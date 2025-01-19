@@ -84,26 +84,30 @@ export class JobService {
         }
     }
 
-    public createJob = async (data: Job) => {
+    public createJob = async (data: any) => {
         try {
             const job = await this.prisma.job.create({
                 data: {
-                    ...data
-                }
-            })
-
-            return job
+                    ...data,
+                    salary: data.salary, 
+                },
+            });
+    
+            return job;
         } catch (error) {
-            console.log("error", error)
-            throw new Error('An error occured when creating a job.');
+            console.log("error", error);
+            throw new Error("An error occurred when creating a job.");
         }
-    }
+    };
 
-    public updateJob = async (id: string, data: Job) => {
+    public updateJob = async (id: string, data: any) => {
         try {
             const job = await this.prisma.job.update({
                 where: { id },
-                data
+                data: {
+                    ...data,
+                    salary: data.salary
+                }
             })
 
             return job

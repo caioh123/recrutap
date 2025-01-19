@@ -6,7 +6,7 @@ export interface Candidate {
     updatedAt?: Date;
   
     telephone?: string;
-    ageGroup?: string;
+    age?: number;
     wageExpectation?: number; 
     wageActual?: number; 
     lastCompany?: string;
