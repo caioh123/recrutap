@@ -66,6 +66,9 @@ model Candidate {
 
   JobCandidate JobCandidate[]
   Interview    Interview[]
+
+  restricted Boolean?
+  observation_blacklist String?
 }
 
 model Job {
