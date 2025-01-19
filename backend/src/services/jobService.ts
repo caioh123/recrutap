@@ -1,5 +1,25 @@
 import { PrismaClient } from "@prisma/client";
 import { Job } from "../models/job";
+import {Request} from "express";
+
+interface Filter {
+    title?: string;
+    city?: string;
+    seniority?: string;
+    salary?: number;
+    companyId?: string;
+    language?: string;
+}
+
+function parseQueryParams(query: any): Filter {
+    return {
+        title: query.title || undefined,
+        city: query.city || undefined,
+        seniority: query.seniority || undefined,
+        salary: query.salary ? Number(query.salary) : undefined,
+        companyId: query.companyId || undefined,
+}
+}
 
 export class JobService {
     private prisma: PrismaClient
@@ -7,14 +27,43 @@ export class JobService {
     constructor() {
         this.prisma = new PrismaClient()
     }
-    public getAlljobs = async () => {
+    public getAlljobs = async (req: Request) => {
+
+        const filter = parseQueryParams(req.query);
+
         try {
-            const jobs = await this.prisma.job.findMany();
+            const filters: any = {};
+
+            if (filter.title) {
+                filters.title = { contains: filter.title };
+            }
+
+            if (filter.city) {
+                filters.city = { contains: filter.city };
+            }
+
+            if (filter.seniority) {
+                filters.seniority = { contains: filter.seniority };
+            }
+
+            if (filter.salary) {
+                filters.salary = { lte: filter.salary };
+            }
+
+            if (filter.companyId) {
+                filters.companyId = { contains: filter.companyId };
+            }
+
+            const jobs = await this.prisma.job.findMany({
+                where: {
+                    ...filters
+                }
+            })
 
             return jobs
         } catch (error) {
             console.log("error", error)
-            throw new Error('An error occured while finding all jobs.');
+            throw new Error('An error occured while fetching jobs.');
         }
     }
 

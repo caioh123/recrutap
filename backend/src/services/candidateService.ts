@@ -10,6 +10,7 @@ interface Filter {
   wageExpectation?: number; 
   availabilityOfChange?: boolean;
   jobId?: string;
+  restricted?: boolean;
 }
 
 function parseQueryParams(query: any): Filter {
@@ -20,7 +21,8 @@ function parseQueryParams(query: any): Filter {
       skills: query.skills ? query.skills.split(',').map((skill: any) => skill.trim()) : undefined,
       wageExpectation: query.wageExpectation ? Number(query.wageExpectation) : undefined,
       availabilityOfChange: query.availabilityOfChange === 'true' ? true : query.availabilityOfChange === 'false' ? false : undefined,
-    jobId: query.jobId || undefined,
+      jobId: query.jobId || undefined,
+      restricted: query.restricted === 'true' ? true : query.restricted === 'false' ? false : undefined,
   };
 }
 
@@ -61,6 +63,12 @@ export class CandidateService {
     if (filter.availabilityOfChange !== undefined) {
         filters.availabilityOfChange = { equals: filter.availabilityOfChange }; 
     }
+
+    if (filter.restricted !== undefined) {
+      filters.restricted = { equals: filter.restricted };
+    }
+
+
     if (filter.jobId) {
       const candidates = await this.prisma.candidate.findMany({
         where: {

@@ -8,7 +8,7 @@ const jobService = new JobService();
 export class JobController {
   public async getAllJobs(req: Request, res: Response): Promise<any> {
     try {
-      const getAllJobss = await jobService.getAlljobs();
+      const getAllJobss = await jobService.getAlljobs(req);
 
       if (getAllJobss.length === 0) {
         return res.status(204).send();
