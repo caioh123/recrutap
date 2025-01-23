@@ -26,7 +26,6 @@ export class CompanyService {
                 },
                 include: {
                     Job: true,
-                    users: true
                 }
             })
 

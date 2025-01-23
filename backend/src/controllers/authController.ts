@@ -40,11 +40,46 @@ export class AuthController {
                 role,
                 createdAt: new Date(),
                 updatedAt: new Date(),
-                
+
 
             }
         });
 
         return res.status(201).json({ message: "User created successfully", user: newUser });
+    }
+
+    public signin = async (req: Request, res: Response): Promise<any> => {
+        try {
+            const { email, password } = req.body;
+
+        if (!email || !password) {
+            
+            return res.status(400).json({ error: 'Email and password are required' });
+        }
+
+        const user = await prisma.user.findUnique({
+            where: {
+                email
+            }
+        });
+
+        if (!user) {
+            
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        const isPasswordValid = await this.authService.verifyPassword(password, user.password);
+
+        if (!isPasswordValid) {
+            return res.status(401).json({ error: 'Invalid credentials' });
+        }
+
+        const token = this.authService.generateToken(user);
+
+        return res.status(200).json({ token });
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ error: "An error occurred during sign-in." });    
+        }
     }
 }
