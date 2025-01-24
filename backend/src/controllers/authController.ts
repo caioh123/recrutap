@@ -26,8 +26,8 @@ export class AuthController {
         });
 
         if (existingUser) {
-            res.status(400).json({ error: 'Email already in use' });
-            return;
+            return res.status(400).json({ error: 'Email already in use' });
+            
         }
 
         const hashedPassword = await this.authService.hashPassword(password);
@@ -40,8 +40,6 @@ export class AuthController {
                 role,
                 createdAt: new Date(),
                 updatedAt: new Date(),
-
-
             }
         });
 
