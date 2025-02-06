@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Layout } from "./pages/Layout";
 import  Dashboard  from "./pages/Dashboard";
+import Candidates from "./pages/Candidates";
 // import Candidates from "./pages/Candidates";
 // import Jobs from "./pages/Jobs";
 
@@ -21,7 +22,7 @@ const App = () => {
       <Layout user={user} onLogout={handleLogout}>
         <Routes>
           <Route path="/" element={<Dashboard />} />
-          {/* <Route path="/candidates" element={<Candidates />} /> */}
+          <Route path="/candidates" element={<Candidates />} />
           {/* <Route path="/jobs" element={<Jobs />} /> */}
         </Routes>
       </Layout>
