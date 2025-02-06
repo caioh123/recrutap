@@ -1,6 +1,14 @@
 import { createGlobalStyle } from "styled-components";
+import "../index.css";
 
 const GlobalStyles = createGlobalStyle`
+ body, #root {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
   * {
     margin: 0;
     padding: 0;
@@ -8,7 +16,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Source Sans 3', sans-serif;
     background-color: ${({ theme }) => theme.colors.background};
     color: ${({ theme }) => theme.colors.textPrimary};
   }

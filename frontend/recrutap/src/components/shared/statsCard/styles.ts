@@ -8,8 +8,8 @@ export const CardContainer = styled.div`
   border-radius: ${({ theme }) => theme.borderRadius.medium};
   background-color: ${({ theme }) => theme.colors.fill};
   box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  height: 16rem;
-  width: 16rem;
+  height: 12rem;
+  width: 14rem;
   align-items: center;
   justify-content: center;
 `;
@@ -21,7 +21,7 @@ export const CardTitle = styled.h2`
 `
 
 export const CardValue = styled.p`
-    font-size: ${({ theme }) => theme.spacing.large};
+    font-size: 2rem;
     font-weight: 600;
     color: ${({ theme }) => theme.colors.title};
 `

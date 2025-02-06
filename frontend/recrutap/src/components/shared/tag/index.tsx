@@ -7,8 +7,6 @@ interface TagProps {
     children: React.ReactNode;
 }
 
-const Tag: React.FC<TagProps> = ({ status, children }) => {
+export const Tag: React.FC<TagProps> = ({ status, children }) => {
     return <StyledTag status={status}>{children}</StyledTag>
 }
-
-export default Tag;

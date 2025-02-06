@@ -1,16 +1,15 @@
 import React from 'react'
+import { StyledButton } from './styles'
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     variant?: 'primary' | 'secondary'
     size?: 'small' | 'medium' | 'large'
 }
 
-const Button: React.FC<ButtonProps> = ({ children, variant = 'primary', size = 'medium', ...rest }) => {
+export const Button: React.FC<ButtonProps> = ({ children, variant = 'primary', size = 'medium', ...rest }) => {
     return (
-        <button className={`button button--${variant} button--${size}`} {...rest}>
+        <StyledButton variant={variant} size={size} {...rest}>
             {children}
-        </button>
+        </StyledButton>
     )
 }
-
-export default Button;

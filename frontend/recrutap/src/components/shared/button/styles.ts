@@ -13,7 +13,7 @@ ${({ variant, theme }) =>
         variant === "primary"
             ? `
       background-color: ${theme.colors.primary};
-      color: ${theme.colors.white};
+      color: ${theme.colors.textSecondary};
       &:hover {
         background-color: ${theme.colors.primaryDark};
       }
@@ -21,10 +21,16 @@ ${({ variant, theme }) =>
             : variant === "secondary"
                 ? `
       background-color: ${theme.colors.secondary};
-      color: ${theme.colors.white};
+      color: ${theme.colors.textSecondary};
       &:hover {
         background-color: ${theme.colors.secondaryDark};
       }
+    `       : variant === "tertiary" ? `
+      background-color: ${theme.colors.primary};
+      color: ${theme.colors.primary};
+      &:hover {
+        background-color: ${theme.colors.primary};
+        color: ${theme.colors.textSecondary};
     `
                 : `
       border: 1px solid ${theme.colors.primary};
