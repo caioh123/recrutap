@@ -12,6 +12,7 @@ import {
     NavItem,
     LogoutButton,
   } from "./styles";
+  import { useNavigate } from "react-router-dom";
 import { LogOut } from "lucide-react";
 
   interface SidebarProps {
@@ -26,7 +27,14 @@ import { LogOut } from "lucide-react";
 
 
 export const Sidebar = ({user, onLogout}: SidebarProps) => {
-  const [activeItem, setActiveItem] = useState("home");
+  const [activeItem, setActiveItem] = useState("");
+
+  const navigate = useNavigate()
+
+  const handleNavigation = (path: string) => {
+    setActiveItem(path)
+    navigate(`/${path}`)
+  }
 
 
 
@@ -43,14 +51,14 @@ export const Sidebar = ({user, onLogout}: SidebarProps) => {
             <NavMenu>
                 <NavList>
                     <NavItem
-                    active={activeItem === "home"}
-                    onClick={() => setActiveItem("home")}>Dashboard</NavItem>
+                    active={activeItem === ""}
+                    onClick={() =>handleNavigation("")}>Dashboard</NavItem>
                     <NavItem
                     active={activeItem === "candidates"}
-                    onClick={() => setActiveItem("candidates") }>Candidates</NavItem>
+                    onClick={() => handleNavigation("candidates") }>Candidates</NavItem>
                     <NavItem
                     active={activeItem === "jobs"}
-                    onClick={() => setActiveItem("jobs")}>Jobs</NavItem>
+                    onClick={() => handleNavigation("jobs")}>Jobs</NavItem>
                 </NavList>
             </NavMenu>
 
