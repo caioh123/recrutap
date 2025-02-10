@@ -20,6 +20,8 @@ export const theme = {
       textPrimary: "#272833", 
       textSecondary: "#FFFFFF", 
       textTertiary: "#ABABAB", 
+
+      backgroundGrey: "#F5F5F5",
   
      
       link: "#0053F0", 

@@ -7,6 +7,15 @@ import { Tag } from '../../components/shared/tag'
 import { ArrowDownUp, ArrowRightFromLine, Filter } from 'lucide-react'
 import { Modal } from '../../components/ui/modal'
 import { InviteForm } from '../../components/ui/formModal'
+import { DataTable } from '../../components/ui/dataTable'
+
+interface Job {
+  title: string;
+  creator: string;
+  date: string;
+  priority: "analysis" | "hired" | "urgent";
+}
+
 
 const Dashboard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -43,6 +52,11 @@ const Dashboard = () => {
     console.log("Invite submitted", data);
     setIsModalOpen(false);
   }
+
+  const handleActionClick = (job: Job) => {
+    console.log("Action clicked for job:", job);
+  };
+
   return (
     <DashboardContainer>
       <OverviewContainer>
@@ -53,96 +67,26 @@ const Dashboard = () => {
       <Button style={{ width: "30%" }} onClick={() => setIsModalOpen(true)}>Invite your team</Button>
       <ActivitySection>
         <Typography variant="h2">Last Activities</Typography>
-        <Table>
-          <thead>
-            <TableRow>
-              <TableHeader>
-                <TableHeaderContainer>
-                  Vacancy
-                </TableHeaderContainer>
-              </TableHeader>
-              <TableHeader>
-                <TableHeaderContainer>
-                  <ArrowDownUp size={16} />
-                  Sort
-                </TableHeaderContainer>
-              </TableHeader>
-              <TableHeader>
-                <TableHeaderContainer>
-                  <Filter size={16} />
-                  Filter
-                </TableHeaderContainer>
-              </TableHeader>
-              <TableHeader>
-                <TableHeaderContainer>
-                  <ArrowRightFromLine size={16} />
-                  Action
-                </TableHeaderContainer>
-              </TableHeader>
-            </TableRow>
-          </thead>
-          <thead>
-            <TableRow>
-              <TableHeaderSecondary>Vacancies</TableHeaderSecondary>
-              <TableHeaderSecondary>Date</TableHeaderSecondary>
-              <TableHeaderSecondary>Priority</TableHeaderSecondary>
-              <TableHeaderSecondary>Action</TableHeaderSecondary>
-            </TableRow>
-          </thead>
-          <tbody>
-            {jobs.map((job, index) => (
-              <TableRow key={index}>
-                <TableCell>
-                  <JobTitle>{job.title}</JobTitle>
-                  <JobCreator>{job.creator}</JobCreator>
-                </TableCell>
-                <TableCell>{job.date}</TableCell>
-                <TableCell>
-                  <Tag status={job.priority}>{job.priority}</Tag>
-                </TableCell>
-                <TableCell>
-                  <Button>See Details</Button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </tbody>
-        </Table>
-
-        <Table>
-          <thead>
-            <tr>
-              <TableHeader>Candidate</TableHeader>
-              <TableHeader>Sort</TableHeader>
-              <TableHeader>Filter</TableHeader>
-              <TableHeader>Action</TableHeader>
-            </tr>
-          </thead>
-          <thead>
-            <tr>
-              <TableHeaderSecondary>Candidates</TableHeaderSecondary>
-              <TableHeaderSecondary>Date</TableHeaderSecondary>
-              <TableHeaderSecondary>Priority</TableHeaderSecondary>
-              <TableHeaderSecondary>Action</TableHeaderSecondary>
-            </tr>
-          </thead>
-          <tbody>
-            {jobs.map((job, index) => (
-              <TableRow key={index}>
-                <TableCell>
-                  <JobTitle>{job.title}</JobTitle>
-                  <JobCreator>{job.creator}</JobCreator>
-                </TableCell>
-                <TableCell>{job.date}</TableCell>
-                <TableCell>
-                  <Tag status={job.priority}>{job.priority}</Tag>
-                </TableCell>
-                <TableCell>
-                  <Button>See Details</Button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </tbody>
-        </Table>
+        <DataTable
+          headers={[
+            { main: "Vacancy", secondary: "Vacancies" },
+            { main: "Sort", secondary: "Date" },
+            { main: "Filter", secondary: "Priority" },
+            { main: "Action", secondary: "Action" },
+          ]}
+          onActionClick={handleActionClick as (job: Job) => void}
+          data={jobs}
+        />
+                <DataTable
+          headers={[
+            { main: "Candidate", secondary: "Candidate" },
+            { main: "Sort", secondary: "Date" },
+            { main: "Filter", secondary: "Priority" },
+            { main: "Action", secondary: "Action" },
+          ]}
+          onActionClick={handleActionClick as (job: Job) => void}
+          data={jobs}
+        />
       </ActivitySection>
       <Modal
         isOpen={isModalOpen}

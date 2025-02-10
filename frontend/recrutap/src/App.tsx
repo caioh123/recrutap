@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Layout } from "./pages/Layout";
 import  Dashboard  from "./pages/Dashboard";
 import Candidates from "./pages/Candidates";
+import { CandidateForm } from "./pages/CandidateForm";
 // import Candidates from "./pages/Candidates";
 // import Jobs from "./pages/Jobs";
 
@@ -23,7 +24,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/candidates" element={<Candidates />} />
-          {/* <Route path="/jobs" element={<Jobs />} /> */}
+          <Route path="/candidate-form" element={<CandidateForm  />} />
         </Routes>
       </Layout>
     </BrowserRouter>
