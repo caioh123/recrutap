@@ -3,6 +3,11 @@ import styled from "styled-components";
 export const InputContainer = styled.div`
     display: flex;
     flex-direction: column;
+    min-width: 200px;
+    @media (max-width: 600px) {
+        margin-right: 0; 
+        margin-bottom: 1rem; 
+    }
 `;
 
 export const StyledSelect = styled.select`
@@ -15,6 +20,7 @@ export const StyledSelect = styled.select`
         outline: none;
         border: 1px solid ${({ theme }) => theme.colors.textTertiary};
     }
+    width: 100%;
 `;
 
 export const ErrorMessage = styled.p`
