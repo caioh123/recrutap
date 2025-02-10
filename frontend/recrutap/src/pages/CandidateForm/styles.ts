@@ -1,4 +1,4 @@
-import { CirclePlus } from 'lucide-react';
+import { CirclePlus, Paperclip } from 'lucide-react';
 import styled from 'styled-components';
 import { Button } from '../../components/shared/button';
 
@@ -35,6 +35,10 @@ export const FormActions = styled.div`
 `;
 
 export const Icon = styled(CirclePlus)`
+margin-right: 0.5rem;
+`
+
+export const PaperClip = styled(Paperclip)`
 margin-right: 0.5rem;
 `
 

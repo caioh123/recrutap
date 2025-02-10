@@ -7,7 +7,7 @@ import { Input } from '../../components/shared/input';
 import { Button } from '../../components/shared/button';
 import { Select } from '../../components/shared/select';
 import { Checkbox } from '../../components/shared/checkbox';
-import { CirclePlus, Linkedin, LinkedinIcon } from 'lucide-react';
+import { CirclePlus, Linkedin, LinkedinIcon, Paperclip } from 'lucide-react';
 
 const validationSchema = Yup.object({
   firstName: Yup.string().required('Name is required'),
@@ -28,10 +28,11 @@ const validationSchema = Yup.object({
   language2Level: Yup.string().required('Language level is required'),
   socialMedia: Yup.string().required('Social media is required'),
   webLink: Yup.string().url('Invalid URL').required('Web link is required'),
-  sex: Yup.string().required()
+  sex: Yup.string().required("Sex is required"),
+  status: Yup.string().required('Status is required'),
 });
 
-export const CandidateForm: React.FC = () => {
+ const CandidateForm: React.FC = () => {
   const initialValues = {
     firstName: '',
     lastName: '',
@@ -60,7 +61,8 @@ export const CandidateForm: React.FC = () => {
     language2Level: '',
     socialMedia: '',
     webLink: '',
-    sex: ''
+    sex: '',
+    status: '',
 
   };
 
@@ -70,7 +72,7 @@ export const CandidateForm: React.FC = () => {
 
   return (
     <FormContainer>
-      <FormTitle>Adicionar Candidato</FormTitle>
+      <FormTitle>Add Candidate</FormTitle>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -318,6 +320,24 @@ export const CandidateForm: React.FC = () => {
             <Icon /> Add another web link
             </ButtonContainer>
           </FormRow>
+          <FormRow>
+
+              <label>Status</label>
+          </FormRow>
+          <FormRow>
+              <Field type="radio" name="status" value="available" />
+              <label>Available</label>
+              <Field type="radio" name="status" value="hired" />
+              <label>Hired</label>
+              <Field type="radio" name="status" value="under_review" />
+              <label>Under Review</label>
+            </FormRow>
+            <FormRow>
+              <ButtonContainer type="button" variant="primary" onClick={() => console.log('Attach resume')}>
+                <Paperclip />
+                Attach Resume
+              </ButtonContainer>
+            </FormRow>
           <FormActions>
             <Button type="submit">Add</Button>
             <Button type="button" variant="secondary">
@@ -330,3 +350,5 @@ export const CandidateForm: React.FC = () => {
     </FormContainer>
   );
 };
+
+export default CandidateForm;

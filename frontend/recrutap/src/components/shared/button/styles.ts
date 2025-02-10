@@ -7,8 +7,11 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 export const StyledButton = styled.button<ButtonProps>`
 border-radius: ${({ theme }) => theme.borderRadius.medium};
+min-width: 200px;
 font-weight: 500;
 transition: all 0.2s;
+display: flex;
+align-items: center;
 ${({ variant, theme }) =>
         variant === "primary"
             ? `
