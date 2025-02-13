@@ -14,7 +14,7 @@ interface SelectProps {
 export const Select: React.FC<SelectProps> = ({ label, name, options, error, touched, ...props }) => {
   return (
     <InputContainer>
-            <Label htmlFor={name}>{label} *</Label>
+            <Label htmlFor={name}>{label}</Label>
             <StyledSelect id={name} name={name}>
                 <option value="" label="Select an option" />
                 {options.map((option) => (

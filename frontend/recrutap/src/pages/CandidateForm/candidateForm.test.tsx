@@ -17,4 +17,37 @@ describe("CandidateForm", ()=> {
         expect(title).toBeInTheDocument()
     })
 
+    test("renders first name input", ()=> {   
+        render((
+            <ThemeProvider theme={theme}>
+
+                <CandidateForm />
+            </ThemeProvider>
+    ))
+        const input = screen.getByLabelText(/First Name *\*/i)
+        expect(input).toBeInTheDocument()
+    })
+
+    test('allows user to fill in the form', () => {
+        render((
+            <ThemeProvider theme={theme}>
+                <CandidateForm />
+            </ThemeProvider>
+    ));
+        const firstNameInput = screen.getByLabelText(/First Name *\*/i) as HTMLInputElement;
+        fireEvent.change(firstNameInput, { target: { value: 'John' } });
+        expect(firstNameInput.value).toBe('John');
+      });
+    
+    //   test('checks if PCD checkbox works', () => {
+    //     render((
+    //         <ThemeProvider theme={theme}>
+    //             <CandidateForm />
+    //         </ThemeProvider>
+    //     ));
+    //     const pcdCheckbox = screen.getByLabelText(/PCD/i);
+    //     fireEvent.click(pcdCheckbox);
+    //     expect(pcdCheckbox).toBeChecked();
+    //   });
+
 })

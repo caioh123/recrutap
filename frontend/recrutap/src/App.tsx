@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Layout } from "./pages/Layout";
 import  Dashboard  from "./pages/Dashboard";
 import Candidates from "./pages/Candidates";
-import { CandidateForm } from "./pages/CandidateForm";
+import  CandidateForm  from "./pages/CandidateForm";
 // import Candidates from "./pages/Candidates";
 // import Jobs from "./pages/Jobs";
 
