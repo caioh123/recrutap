@@ -395,7 +395,7 @@ export const CandidateForm: React.FC = () => {
               </ButtonContainer>
             </FormRow>
             <FormActions>
-              <Button type="submit">Add</Button>
+              <Button type="submit">Submit new candidate</Button>
               <Button type="button" variant="secondary">
                 Cancel
               </Button>

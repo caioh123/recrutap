@@ -4,6 +4,7 @@ import  CandidateForm  from "./index";
 import '@testing-library/jest-dom';
 import { ThemeProvider } from "styled-components";
 import { theme } from "../../styles/theme";
+import { act } from '@testing-library/react';
 
 describe("CandidateForm", ()=> {
     test("renders form title", ()=> {   
@@ -35,7 +36,10 @@ describe("CandidateForm", ()=> {
             </ThemeProvider>
     ));
         const firstNameInput = screen.getByLabelText(/First Name *\*/i) as HTMLInputElement;
-        fireEvent.change(firstNameInput, { target: { value: 'John' } });
+        act(() => {
+
+            fireEvent.change(firstNameInput, { target: { value: 'John' } });
+        })
         expect(firstNameInput.value).toBe('John');
       });
     
@@ -46,8 +50,27 @@ describe("CandidateForm", ()=> {
     //         </ThemeProvider>
     //     ));
     //     const pcdCheckbox = screen.getByLabelText(/PCD/i);
-    //     fireEvent.click(pcdCheckbox);
+    //     act(() => {
+    //         fireEvent.click(pcdCheckbox);
+    //     })
     //     expect(pcdCheckbox).toBeChecked();
     //   });
+
+    test('checks if first name input shows error message', async () => {
+        render((
+            <ThemeProvider theme={theme}>
+                <CandidateForm />
+            </ThemeProvider>
+    ));
+        const firstNameInput = screen.getByLabelText(/First Name *\*/i) as HTMLInputElement;
+        const submitButton = screen.getByRole('button', { name: /Submit new candidate/i });
+        await act(async ()=> {
+            
+            fireEvent.change(firstNameInput, { target: { value: '' } });
+            fireEvent.click(submitButton);
+        })
+        const errorMessage = await screen.findByText(/First name is required/i);
+        expect(errorMessage).toBeInTheDocument();
+      });
 
 })
