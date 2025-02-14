@@ -43,18 +43,7 @@ describe("CandidateForm", ()=> {
         expect(firstNameInput.value).toBe('John');
       });
     
-    //   test('checks if PCD checkbox works', () => {
-    //     render((
-    //         <ThemeProvider theme={theme}>
-    //             <CandidateForm />
-    //         </ThemeProvider>
-    //     ));
-    //     const pcdCheckbox = screen.getByLabelText(/PCD/i);
-    //     act(() => {
-    //         fireEvent.click(pcdCheckbox);
-    //     })
-    //     expect(pcdCheckbox).toBeChecked();
-    //   });
+
 
     test('checks if first name input shows error message', async () => {
         render((
