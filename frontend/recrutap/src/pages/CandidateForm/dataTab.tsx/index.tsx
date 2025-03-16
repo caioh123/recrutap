@@ -18,7 +18,6 @@ export const DataTab: React.FC<DataTabProps> = ({initialValues, validationSchema
   
   return (
     <FormContainer>
-      <FormTitle>Add Candidate</FormTitle>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}

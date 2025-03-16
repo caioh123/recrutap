@@ -6,6 +6,7 @@ import { DataTab } from './dataTab.tsx';
 import { JobTab } from './jobTab.tsx/index.tsx';
 import { InterviewTab } from './InterviewTab/index.tsx';
 import { NotesTab } from './NotesTab/index.tsx';
+import { BlacklistTab } from './BlacklistTab/index.tsx';
 
 
 
@@ -27,25 +28,25 @@ export const CandidateForm: React.FC = () => {
     },
     {
       id: 'jobs',
-      label: 'Vagas',
+      label: 'Jobs',
       content: (
         <JobTab />
       )
     },
     {
       id: 'interview',
-      label: 'Entrevista',
+      label: 'Interview',
       content: <InterviewTab />,
     },
     {
       id: 'observation',
-      label: 'Observação',
+      label: 'Observation',
       content: <NotesTab />
     },
     {
       id: 'blacklist',
       label: 'Blacklist',
-      content: <div>Conteúdo da aba Blacklist</div> 
+      content: <BlacklistTab />
     }
   ]
 

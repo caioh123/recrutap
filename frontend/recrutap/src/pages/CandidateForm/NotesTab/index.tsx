@@ -1,141 +1,134 @@
 import React, { useState } from 'react';
 import { Button } from '../../../components/shared/button';
 import { Typography } from '../../../components/shared/typography';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { Pagination } from '../../../components/shared/pagination';
 import {
   Container,
   Form,
-  LabelContainer,
   TextArea,
   SubmitButtonContainer,
   HistorySection,
   HistoryItem,
   HistoryHeader,
-  HistoryTextContainer,
-  SeeMoreLink,
-  PaginationContainer,
-  PageButton
+  HistoryTextContainer
 } from './styles';
 
 interface Note {
   id: string;
   text: string;
-  date: string;
   author: string;
+  date: string;
 }
 
-// Mock data for notes history
-const mockNotes: Note[] = [
-  {
-    id: '1',
-    text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley.',
-    date: '05/04/2021',
-    author: 'Castro Nunes'
-  },
-  {
-    id: '2',
-    text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley.',
-    date: '02/03/2021',
-    author: 'Andrade'
-  },
-  {
-    id: '3',
-    text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley.',
-    date: '02/03/2021',
-    author: 'Andrade'
-  }
-];
-
-// Number of notes to display per page
-const NOTES_PER_PAGE = 2;
+const ITEMS_PER_PAGE = 3;
 
 export const NotesTab: React.FC = () => {
   const [note, setNote] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [saving, setSaving] = useState(false);
 
-  // Calculate total pages
-  const totalPages = Math.ceil(mockNotes.length / NOTES_PER_PAGE);
-  
-  // Get current page notes
-  const currentNotes = mockNotes.slice(
-    (currentPage - 1) * NOTES_PER_PAGE,
-    currentPage * NOTES_PER_PAGE
-  );
+  // Mock data - replace with API call
+  const mockNotes: Note[] = [
+    {
+      id: '1',
+      text: 'Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley.',
+      author: 'Castro Nunes',
+      date: '05/04/2021'
+    },
+    {
+      id: '2',
+      text: 'Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley.',
+      author: 'Andrade',
+      date: '02/03/2021'
+    },
+    {
+      id: '3',
+      text: 'Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley.',
+      author: 'Andrade',
+      date: '02/03/2021'
+    },
+    {
+      id: '4',
+      text: 'Another note for testing pagination',
+      author: 'Test User',
+      date: '01/03/2021'
+    },
+    {
+      id: '5',
+      text: 'One more note to test pagination',
+      author: 'Another User',
+      date: '28/02/2021'
+    }
+  ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const totalPages = Math.ceil(mockNotes.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const paginatedNotes = mockNotes.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Note submitted:', note);
-    setNote('');
-    // Here you would typically send the note to your backend
+    if (!note.trim()) return;
+
+    setSaving(true);
+    try {
+      // Here you would send the note to your backend API
+      // For example:
+      // await api.post('/candidates/notes', { note });
+      
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      setNote('');
+      alert('Note added successfully!');
+    } catch (error) {
+      console.error('Error saving note:', error);
+      alert('Failed to save note. Please try again.');
+    } finally {
+      setSaving(false);
+    }
   };
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
 
-  const handleSeeMore = (noteId: string) => {
-    console.log('See more clicked for note:', noteId);
-    // Here you would typically show a modal or navigate to a detail view
-  };
-
   return (
     <Container>
       <Form onSubmit={handleSubmit}>
-        <LabelContainer>
-          <Typography variant="h3">Notes</Typography>
-        </LabelContainer>
+        <Typography variant="h3">Notes</Typography>
         <TextArea
           value={note}
           onChange={(e) => setNote(e.target.value)}
-          placeholder="Add your notes here..."
+          placeholder="Add a note about the candidate..."
         />
         <SubmitButtonContainer>
-          <Button type="submit">SEND</Button>
+          <Button type="submit" disabled={saving}>
+            {saving ? 'SAVING...' : 'SEND'}
+          </Button>
         </SubmitButtonContainer>
       </Form>
 
       <HistorySection>
-        {currentNotes.map((note) => (
+        <Typography variant="h3">History</Typography>
+        {paginatedNotes.map((note) => (
           <HistoryItem key={note.id}>
             <HistoryHeader>
-              <Typography variant="small" color="textTertiary">{note.date}</Typography>
-              <Typography variant="small" color="textTertiary">Author: {note.author}</Typography>
+              <Typography variant="small" color="textTertiary">
+                {note.date} • {note.author}
+              </Typography>
             </HistoryHeader>
             <HistoryTextContainer>
               <Typography variant="p">{note.text}</Typography>
             </HistoryTextContainer>
-            <SeeMoreLink onClick={() => handleSeeMore(note.id)}>
-              <Typography variant="small" color="primary">See more</Typography>
-            </SeeMoreLink>
           </HistoryItem>
         ))}
 
-        {totalPages > 1 && (
-          <PaginationContainer>
-            <PageButton 
-              onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
-              disabled={currentPage === 1}
-            >
-              <ChevronLeft size={16} />
-            </PageButton>
-            
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
-              <PageButton
-                key={page}
-                active={page === currentPage}
-                onClick={() => handlePageChange(page)}
-              >
-                {page}
-              </PageButton>
-            ))}
-            
-            <PageButton 
-              onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
-              disabled={currentPage === totalPages}
-            >
-              <ChevronRight size={16} />
-            </PageButton>
-          </PaginationContainer>
+        {mockNotes.length > ITEMS_PER_PAGE && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
         )}
       </HistorySection>
     </Container>

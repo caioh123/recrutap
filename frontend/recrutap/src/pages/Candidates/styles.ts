@@ -118,7 +118,7 @@ export const DateInfo = styled.div`
   }
 `;
 
-export const StatusTag = styled.span<{ status: 'EM ANÁLISE' | 'CONTRATADO' | 'DISPONÍVEL' }>`
+export const StatusTag = styled.span<{ status: 'ANALASING' | 'CONTRACTED' | 'AVAILABLE' }>`
   padding: ${({ theme }) => theme.spacing.small} ${({ theme }) => theme.spacing.medium};
   border-radius: ${({ theme }) => theme.borderRadius.small};
   font-size: 0.875rem;
@@ -126,17 +126,17 @@ export const StatusTag = styled.span<{ status: 'EM ANÁLISE' | 'CONTRATADO' | 'D
   
   ${({ status, theme }) => {
     switch (status) {
-      case 'EM ANÁLISE':
+      case 'ANALASING':
         return `
           background-color: ${theme.colors.warning}20;
           color: ${theme.colors.warning};
         `;
-      case 'CONTRATADO':
+      case 'CONTRACTED':
         return `
           background-color: ${theme.colors.success}20;
           color: ${theme.colors.success};
         `;
-      case 'DISPONÍVEL':
+      case 'AVAILABLE':
         return `
           background-color: ${theme.colors.info}20;
           color: ${theme.colors.info};

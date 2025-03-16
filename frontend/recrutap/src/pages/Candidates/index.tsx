@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Typography } from '../../components/shared/typography';
 import { Button } from '../../components/shared/button';
@@ -17,44 +17,69 @@ import {
 } from './styles';
 
 interface Candidate {
+  id: string;
   name: string;
   recruiter: string;
   date: string;
   time: string;
-  status: 'EM ANÁLISE' | 'CONTRATADO' | 'DISPONÍVEL';
+  status: 'ANALASING' | 'CONTRACTED' | 'AVAILABLE';
 }
 
 const Candidates = () => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [candidates, setCandidates] = useState<Candidate[]>([]);
 
-  const candidates: Candidate[] = [
+  const mockCandidates: Candidate[] = [
     {
+      id: '1',
       name: "Lívia Leite",
       recruiter: "Castro Nunes",
       date: "Abril 24, 2021",
       time: "10:30",
-      status: "EM ANÁLISE"
+      status: "ANALASING"
     },
     {
+      id: '2',
       name: "Carlos Henrique Silveira",
       recruiter: "Andrade",
       date: "Abril 22, 2021",
       time: "09:00",
-      status: "CONTRATADO"
+      status: "CONTRACTED"
     },
     {
+      id: '3',
       name: "Carlos Henrique Silveira",
       recruiter: "Andrade",
       date: "Abril 22, 2021",
       time: "09:00",
-      status: "DISPONÍVEL"
+      status: "AVAILABLE"
     }
   ];
 
   const handleAddCandidate = () => {
     navigate('/candidate-form');
   };
+
+  // Fetch candidates from API
+  useEffect(() => {
+    const fetchCandidates = async () => {
+      setIsLoading(true);
+      try {
+
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
+        setCandidates(mockCandidates);
+      } catch (error) {
+        console.error('Error fetching candidates:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchCandidates();
+  }, []);
 
   return (
     <CandidatesContainer>
@@ -96,32 +121,46 @@ const Candidates = () => {
             </tr>
           </thead>
           <tbody>
-            {candidates.map((candidate, index) => (
-              <tr key={index}>
-                <td>
-                  <CandidateInfo>
-                    <strong>{candidate.name}</strong>
-                    <div>Recrutador(a): {candidate.recruiter}</div>
-                  </CandidateInfo>
-                </td>
-                <td>
-                  <DateInfo>
-                    {candidate.date}
-                    <div>{candidate.time}</div>
-                  </DateInfo>
-                </td>
-                <td>
-                  <StatusTag status={candidate.status}>
-                    {candidate.status}
-                  </StatusTag>
-                </td>
-                <td>
-                  <Button variant="secondary" size="small" onClick={() => console.log('Ver detalhes', candidate)}>
-                    Ver detalhes
-                  </Button>
+            {isLoading ? (
+              <tr>
+                <td colSpan={4}>
+                  <Typography variant="p">Loading candidates...</Typography>
                 </td>
               </tr>
-            ))}
+            ) : candidates.length === 0 ? (
+              <tr>
+                <td colSpan={4}>
+                  <Typography variant="p">No candidates found</Typography>
+                </td>
+              </tr>
+            ) : (
+              candidates.map((candidate, index) => (
+                <tr key={index}>
+                  <td>
+                    <CandidateInfo>
+                      <strong>{candidate.name}</strong>
+                      <div>Recrutador(a): {candidate.recruiter}</div>
+                    </CandidateInfo>
+                  </td>
+                  <td>
+                    <DateInfo>
+                      {candidate.date}
+                      <div>{candidate.time}</div>
+                    </DateInfo>
+                  </td>
+                  <td>
+                    <StatusTag status={candidate.status}>
+                      {candidate.status}
+                    </StatusTag>
+                  </td>
+                  <td>
+                    <Button variant="secondary" size="small" onClick={() => console.log('Ver detalhes', candidate)}>
+                      Ver detalhes
+                    </Button>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </TableContainer>
