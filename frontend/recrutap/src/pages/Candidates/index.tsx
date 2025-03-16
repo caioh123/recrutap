@@ -22,7 +22,7 @@ interface Candidate {
   recruiter: string;
   date: string;
   time: string;
-  status: 'ANALASING' | 'CONTRACTED' | 'AVAILABLE';
+  status: 'ANALYSING' | 'CONTRACTED' | 'AVAILABLE';
 }
 
 const Candidates = () => {
@@ -38,7 +38,7 @@ const Candidates = () => {
       recruiter: "Castro Nunes",
       date: "Abril 24, 2021",
       time: "10:30",
-      status: "ANALASING"
+      status: "ANALYSING"
     },
     {
       id: '2',

@@ -118,7 +118,7 @@ export const DateInfo = styled.div`
   }
 `;
 
-export const StatusTag = styled.span<{ status: 'ANALASING' | 'CONTRACTED' | 'AVAILABLE' }>`
+export const StatusTag = styled.span<{ status: 'ANALYSING' | 'CONTRACTED' | 'AVAILABLE' }>`
   padding: ${({ theme }) => theme.spacing.small} ${({ theme }) => theme.spacing.medium};
   border-radius: ${({ theme }) => theme.borderRadius.small};
   font-size: 0.875rem;
@@ -126,7 +126,7 @@ export const StatusTag = styled.span<{ status: 'ANALASING' | 'CONTRACTED' | 'AVA
   
   ${({ status, theme }) => {
     switch (status) {
-      case 'ANALASING':
+      case 'ANALYSING':
         return `
           background-color: ${theme.colors.warning}20;
           color: ${theme.colors.warning};
