@@ -23,7 +23,11 @@ const validationSchema = Yup.object({
 
 })
 
-export const InviteForm = () => {
+interface InviteFormProps {
+    onClose: () => void;
+}
+
+export const InviteForm = ({ onClose }: InviteFormProps) => {
     const initialValues =
     {
         email: "",
@@ -61,7 +65,7 @@ export const InviteForm = () => {
 
                         <Footer>
                             <ButtonsContainer>
-                                <Button type="button" variant='secondary'>
+                                <Button type="button" variant='secondary' onClick={onClose}>
                                     Cancel
                                 </Button>
                                 <Button type="submit">Send Invite</Button>

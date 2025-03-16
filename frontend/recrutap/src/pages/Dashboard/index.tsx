@@ -94,6 +94,7 @@ const Dashboard = () => {
         title="Invite Team Member"
       >
         <InviteForm
+          onClose={() => setIsModalOpen(false)}
         />
       </Modal>
     </DashboardContainer>

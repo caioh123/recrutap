@@ -3,6 +3,9 @@ import { FormContainer, FormTitle } from './styles';
 import { Tabs } from '../../components/shared/tabs';
 import { initialValues, validationSchema } from './dataTab.tsx/constants';
 import { DataTab } from './dataTab.tsx';
+import { JobTab } from './jobTab.tsx/index.tsx';
+import { InterviewTab } from './InterviewTab/index.tsx';
+import { NotesTab } from './NotesTab/index.tsx';
 
 
 
@@ -25,17 +28,19 @@ export const CandidateForm: React.FC = () => {
     {
       id: 'jobs',
       label: 'Vagas',
-      content: <div>Conteúdo da aba Vagas</div> 
+      content: (
+        <JobTab />
+      )
     },
     {
       id: 'interview',
       label: 'Entrevista',
-      content: <div>Conteúdo da aba Entrevista</div> 
+      content: <InterviewTab />,
     },
     {
       id: 'observation',
       label: 'Observação',
-      content: <div>Conteúdo da aba Observação</div> 
+      content: <NotesTab />
     },
     {
       id: 'blacklist',
