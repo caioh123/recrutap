@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const CandidatesContainer = styled.div`
+export const JobsContainer = styled.div`
   padding: ${({ theme }) => theme.spacing.large};
 `;
 
@@ -24,7 +24,6 @@ export const SearchContainer = styled.div`
   flex: 1;
   margin-right: ${({ theme }) => theme.spacing.large};
 `;
-
 
 export const FilterBar = styled.div`
   display: flex;

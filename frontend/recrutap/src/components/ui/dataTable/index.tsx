@@ -1,78 +1,99 @@
-// src/components/shared/DataTable/DataTable.tsx
 import React from 'react';
+import { Typography } from '../../shared/typography';
+import { Button } from '../../shared/button';
 import {
   TableContainer,
-  Table,
-  TableHeader,
-  TableRow,
-  TableCell,
-  TableHeaderSecondary,
-  JobTitle,
-  JobCreator,
-  TableHeaderContainer,
+  JobInfo,
+  DateInfo,
+  PriorityTag
 } from './styles';
-import { Tag } from '../../shared/tag'; 
-import { Button } from '../../shared/button'; 
-import { ArrowDownUp, ArrowRightFromLine, Filter } from 'lucide-react';
 
-interface Job {
-  title: string;
-  creator: string;
+interface HeaderItem {
+  main: string;
+  secondary: string;
+}
+
+interface TableItem {
+  id: string;
+  primary: string;    
+  secondary: string;   
   date: string;
-  priority: "analysis" | "hired" | "urgent";
+  time: string;
+  status: string;      
+  statusType: string;  
 }
 
 interface DataTableProps {
-  headers: { main: string; secondary: string }[];
-  data: Job[];
-  onActionClick?: (job: Job) => void;
+  headers: HeaderItem[];
+  data: TableItem[];
+  onActionClick?: (id: string) => void;
+  isLoading?: boolean;
 }
 
-export const DataTable: React.FC<DataTableProps> = ({ headers, data, onActionClick }) => {
+export const DataTable: React.FC<DataTableProps> = ({ 
+  headers, 
+  data, 
+  onActionClick,
+  isLoading = false
+}) => {
+
   return (
     <TableContainer>
-      <Table>
+      <table>
         <thead>
-          <TableRow>
+          <tr>
             {headers.map((header, index) => (
-              <TableHeader key={index}>
-                <TableHeaderContainer>
-                {header.main}
-                  {header.main === "Sort" && <ArrowDownUp size={16} />}
-                  {header.main === "Filter" && <Filter size={16} />}
-                  {header.main === "Action" && <ArrowRightFromLine size={16} />}
-                </TableHeaderContainer>
-              </TableHeader>
+              <th key={index}>{header.main}</th>
             ))}
-          </TableRow>
-        </thead>
-        <thead>
-          <TableRow>
-            {headers.map((header, index) => (
-              <TableHeaderSecondary key={index}>
-                {header.secondary}
-              </TableHeaderSecondary>
-            ))}
-          </TableRow>
+          </tr>
         </thead>
         <tbody>
-          {data.map((job, index) => (
-            <TableRow key={index}>
-              <TableCell>
-                <JobTitle>{job.title}</JobTitle>
-                <JobCreator>{job.creator}</JobCreator>
-              </TableCell>
-              <TableCell>{job.date}</TableCell>
-              <TableCell>
-                <Tag status={job.priority}>{job.priority}</Tag>
-              </TableCell>
-              <TableCell>
-                <Button onClick={() => onActionClick?.(job)}>See Details</Button>
-              </TableCell>
-            </TableRow>
-          ))}
+          {isLoading ? (
+            <tr>
+              <td colSpan={headers.length}>
+                <Typography variant="p">Loading items...</Typography>
+              </td>
+            </tr>
+          ) : data.length === 0 ? (
+            <tr>
+              <td colSpan={headers.length}>
+                <Typography variant="p">No items found</Typography>
+              </td>
+            </tr>
+          ) : (
+            data.map((item) => (
+              <tr key={data ? item.id : item.id}>
+                <td>
+                  <JobInfo>
+                    <strong>{item.primary}</strong>
+                    <div>{item.secondary}</div>
+                  </JobInfo>
+                </td>
+                <td>
+                  <DateInfo>
+                    {item.date}
+                    <div>{item.time}</div>
+                  </DateInfo>
+                </td>
+                <td>
+                  <PriorityTag type={item.statusType}>
+                    {item.statusType.toUpperCase()}
+                  </PriorityTag>
+                </td>
+                <td>
+                  <Button 
+                    variant="noBackground" 
+                    size="small" 
+                    onClick={() => onActionClick?.(item.id)}
+                  >
+                    View details
+                  </Button>
+                </td>
+              </tr>
+            ))
+          )}
         </tbody>
-      </Table>
+      </table>
     </TableContainer>
   );
 };

@@ -3,19 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import { Typography } from '../../components/shared/typography';
 import { Button } from '../../components/shared/button';
 import { Filter, ArrowDownUp } from 'lucide-react';
+import { DataTable } from '../../components/ui/dataTable';
 import {
   CandidatesContainer,
   Header,
   SearchContainer,
-  SearchInput,
   FilterBar,
   FilterButton,
-  TableContainer,
-  StatusTag,
-  CandidateInfo,
-  DateInfo
 } from './styles';
 import { theme } from '../../styles/theme';
+import { SearchInput } from '../../components/shared/searchInput';
 
 interface Candidate {
   id: string;
@@ -24,6 +21,16 @@ interface Candidate {
   date: string;
   time: string;
   status: 'ANALYSING' | 'CONTRACTED' | 'AVAILABLE';
+}
+
+interface TableItem {
+  id: string;
+  primary: string;
+  secondary: string;
+  date: string;
+  time: string;
+  status: string;
+  statusType: string;
 }
 
 const Candidates = () => {
@@ -51,7 +58,7 @@ const Candidates = () => {
     },
     {
       id: '3',
-      name: "Carlos Henrique Silveira",
+      name: "Maria Silva",
       recruiter: "Andrade",
       date: "April 22, 2021",
       time: "09:00",
@@ -79,24 +86,40 @@ const Candidates = () => {
     fetchCandidates();
   }, []);
 
-  const handleViewDetails = (candidateId: string) => {
-    navigate(`/candidates/${candidateId}`);
+
+  const tableData: TableItem[] = candidates.map((candidate => (
+    {
+      id: candidate.id,
+      primary: candidate.name,
+      secondary: `Recruiter: ${candidate.recruiter}`,
+      date: candidate.date,
+      time: candidate.time,
+      status: candidate.status,
+      statusType: candidate.status
+    }
+  )))
+
+  const handleViewDetails = (id: string) => {
+    const candidate = candidates.find(c => c.id === id);
+    if (candidate) {
+      console.log('View candidate details:', candidate);
+    }
   };
+
 
   return (
     <CandidatesContainer>
       <Typography variant="h1">Candidates</Typography>
-      
+
       <Header>
         <SearchContainer>
-          <SearchInput
-            placeholder="Search"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+          <SearchInput 
+            placeholder="Search" 
+            value={searchTerm} 
+            onChange={(e) => setSearchTerm(e.target.value)} />
         </SearchContainer>
         <Button onClick={handleAddCandidate}>
-          Add Candidate
+          ADD CANDIDATE
         </Button>
       </Header>
 
@@ -112,60 +135,20 @@ const Candidates = () => {
         </FilterButton>
       </FilterBar>
 
-      <TableContainer>
-        <table>
-          <thead>
-            <tr>
-              <th>Candidates</th>
-              <th>Date</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {isLoading ? (
-              <tr>
-                <td>
-                  <Typography variant="p">Loading candidates...</Typography>
-                </td>
-              </tr>
-            ) : candidates.length === 0 ? (
-              <tr>
-                <td>
-                  <Typography variant="p">No candidates found</Typography>
-                </td>
-              </tr>
-            ) : (
-              candidates.map((candidate, index) => (
-                <tr key={index}>
-                  <td>
-                    <CandidateInfo>
-                      <strong>{candidate.name}</strong>
-                      <div>Recruiter: {candidate.recruiter}</div>
-                    </CandidateInfo>
-                  </td>
-                  <td>
-                    <DateInfo>
-                      {candidate.date}
-                      <div>{candidate.time}</div>
-                    </DateInfo>
-                  </td>
-                  <td>
-                    <StatusTag status={candidate.status}>
-                      {candidate.status}
-                    </StatusTag>
-                  </td>
-                  <td>
-                    <Button variant="noBackground" size="small" onClick={() => handleViewDetails(candidate.id)}>
-                      View details
-                    </Button>
-                  </td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-      </TableContainer>
+      {isLoading ? (
+        <Typography>Loading candidates...</Typography>
+      ) : (
+        <DataTable
+          headers={[
+            { main: "Candidate", secondary: "Information" },
+            { main: "Date", secondary: "Time" },
+            { main: "Status", secondary: "Status" },
+            { main: "Action", secondary: "Action" }
+          ]}
+          data={tableData}
+          onActionClick={handleViewDetails}
+        />
+      )}
     </CandidatesContainer>
   );
 };

@@ -5,6 +5,7 @@ import  Dashboard  from "./pages/Dashboard";
 import Candidates from "./pages/Candidates";
 import  CandidateForm  from "./pages/CandidateForm";
 import CandidateDetails from './pages/CandidateDetails';
+import Jobs from "./pages/Jobs";
 
 const App = () => {
   const user = {
@@ -25,6 +26,7 @@ const App = () => {
           <Route path="/candidates" element={<Candidates />} />
           <Route path="/candidate-form" element={<CandidateForm  />} />
           <Route path="/candidates/:id" element={<CandidateDetails candidateId=":id" />} />
+          <Route path="/jobs" element={<Jobs />} />
         </Routes>
       </Layout>
     </BrowserRouter>
