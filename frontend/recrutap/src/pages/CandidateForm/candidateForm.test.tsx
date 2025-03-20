@@ -5,6 +5,7 @@ import '@testing-library/jest-dom';
 import { ThemeProvider } from "styled-components";
 import { theme } from "../../styles/theme";
 import { act } from '@testing-library/react';
+import { BlacklistTab } from "./BlacklistTab";
 
 describe("CandidateForm", ()=> {
     test("renders form title", ()=> {   
@@ -62,4 +63,43 @@ describe("CandidateForm", ()=> {
         expect(errorMessage).toBeInTheDocument();
       });
 
+})
+
+describe("BlacklistTab", () => {
+    test("renders form title", () => {
+        render((
+            <ThemeProvider theme={theme}>
+                <BlacklistTab />
+            </ThemeProvider>
+
+
+        ))
+
+        const title = screen.getByText(/Restricted Candidate?/i)
+        expect(title).toBeInTheDocument()
+    })
+
+    test("renders checkbox", ()=> {
+        render((
+            <ThemeProvider theme={theme}>
+                <BlacklistTab />
+            </ThemeProvider>
+        ))
+
+        expect(screen.getByLabelText('Yes')).toBeInTheDocument()
+        expect(screen.getByLabelText('No')).toBeInTheDocument()
+    })
+
+    test("checkbox is checked when clicked", ()=> {
+        render((
+            <ThemeProvider theme={theme}>
+                <BlacklistTab />
+            </ThemeProvider>
+        ))
+
+        const checkbox = screen.getByLabelText('Yes')
+        fireEvent.click(checkbox)
+        expect(checkbox).toBeChecked()
+    })
+    
 })

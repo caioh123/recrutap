@@ -51,7 +51,7 @@ export const FilterButton = styled.button`
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.small};
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.textSecondary};
   background: none;
   border: none;
   cursor: pointer;
@@ -77,8 +77,8 @@ export const TableContainer = styled.div`
     text-align: left;
     padding: ${({ theme }) => theme.spacing.medium};
     border-bottom: 1px solid ${({ theme }) => theme.colors.border};
-    color: ${({ theme }) => theme.colors.textTertiary};
-    font-weight: 500;
+    color: ${({ theme }) => theme.colors.tertiary};
+    font-weight: bold;
   }
 
   td {
@@ -123,22 +123,25 @@ export const StatusTag = styled.span<{ status: 'ANALYSING' | 'CONTRACTED' | 'AVA
   border-radius: ${({ theme }) => theme.borderRadius.small};
   font-size: 0.875rem;
   font-weight: 500;
+  border-radius: 50px;
+  min-width: 140px;
+  display: inline-block;
   
   ${({ status, theme }) => {
     switch (status) {
       case 'ANALYSING':
         return `
-          background-color: ${theme.colors.warning}20;
+          background-color: ${theme.colors.tertiary}20;
           color: ${theme.colors.warning};
         `;
       case 'CONTRACTED':
         return `
-          background-color: ${theme.colors.success}20;
+          background-color: ${theme.colors.hired}20;
           color: ${theme.colors.success};
         `;
       case 'AVAILABLE':
         return `
-          background-color: ${theme.colors.info}20;
+          background-color: ${theme.colors.avaliable}20;
           color: ${theme.colors.info};
         `;
       default:

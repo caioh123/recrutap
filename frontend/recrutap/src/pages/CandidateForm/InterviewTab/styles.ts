@@ -13,33 +13,51 @@ export const Form = styled.form`
 export const FormRow = styled.div`
   display: flex;
   gap: ${({ theme }) => theme.spacing.medium};
-  align-items: flex-start;
-
+  
   @media (max-width: 768px) {
     flex-direction: column;
   }
 `;
 
 export const InputGroup = styled.div`
-  flex: 1;
   display: flex;
   flex-direction: column;
+  flex: 1;
   gap: ${({ theme }) => theme.spacing.small};
 `;
 
+// Alias for InputGroup to maintain compatibility
+export const FormGroup = InputGroup;
+
 export const Label = styled.label`
-  color: ${({ theme }) => theme.colors.textPrimary};
   font-weight: 500;
+  color: ${({ theme }) => theme.colors.textPrimary};
 `;
 
 export const Input = styled.input`
-  padding: ${({ theme }) => theme.spacing.medium};
+  padding: ${({ theme }) => theme.spacing.small};
   border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: ${({ theme }) => theme.borderRadius.medium};
-  font-size: 1rem;
+  border-radius: ${({ theme }) => theme.borderRadius.small};
+  font-size: 14px;
 
   &:focus {
     outline: none;
+    border-color: ${({ theme }) => theme.colors.primary};
+  }
+`;
+
+export const JobInput = styled.div`
+  padding: ${({ theme }) => theme.spacing.small};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: ${({ theme }) => theme.borderRadius.small};
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  background-color: white;
+
+  &:hover {
     border-color: ${({ theme }) => theme.colors.primary};
   }
 `;
@@ -47,7 +65,7 @@ export const Input = styled.input`
 export const RadioGroup = styled.div`
   display: flex;
   gap: ${({ theme }) => theme.spacing.medium};
-  align-items: center;
+  margin-top: ${({ theme }) => theme.spacing.small};
 `;
 
 export const RadioLabel = styled.label`
@@ -55,16 +73,23 @@ export const RadioLabel = styled.label`
   align-items: center;
   gap: ${({ theme }) => theme.spacing.small};
   cursor: pointer;
-  color: ${({ theme }) => theme.colors.textPrimary};
+`;
+
+// Alias for RadioLabel to maintain compatibility
+export const RadioOption = RadioLabel;
+
+export const RadioInput = styled.input`
+  cursor: pointer;
 `;
 
 export const TextArea = styled.textarea`
   padding: ${({ theme }) => theme.spacing.medium};
   border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: ${({ theme }) => theme.borderRadius.medium};
-  font-size: 1rem;
-  min-height: 150px;
+  border-radius: ${({ theme }) => theme.borderRadius.small};
   resize: vertical;
+  min-height: 120px;
+  font-family: inherit;
+  font-size: 14px;
 
   &:focus {
     outline: none;
@@ -72,19 +97,24 @@ export const TextArea = styled.textarea`
   }
 `;
 
+export const SubmitButtonContainer = styled.div`
+  display: flex;
+  margin-top: ${({ theme }) => theme.spacing.medium};
+  
+  button {
+    width: 120px;
+  }
+`;
+
 export const HistorySection = styled.div`
   margin-top: ${({ theme }) => theme.spacing.large};
-  border-top: 1px solid ${({ theme }) => theme.colors.border};
-  padding-top: ${({ theme }) => theme.spacing.large};
 `;
 
 export const HistoryItem = styled.div`
   padding: ${({ theme }) => theme.spacing.medium};
-  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
-
-  &:last-child {
-    border-bottom: none;
-  }
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: ${({ theme }) => theme.borderRadius.small};
+  margin-bottom: ${({ theme }) => theme.spacing.medium};
 `;
 
 export const HistoryHeader = styled.div`
@@ -92,20 +122,19 @@ export const HistoryHeader = styled.div`
   justify-content: space-between;
   margin-bottom: ${({ theme }) => theme.spacing.small};
   color: ${({ theme }) => theme.colors.textTertiary};
-  font-size: 0.875rem;
+  font-size: 14px;
 `;
 
 export const HistoryText = styled.p`
   color: ${({ theme }) => theme.colors.textPrimary};
-  margin: ${({ theme }) => theme.spacing.small} 0;
 `;
 
 export const SeeMore = styled.a`
   color: ${({ theme }) => theme.colors.primary};
   text-decoration: none;
-  font-size: 0.875rem;
+  font-size: 14px;
   cursor: pointer;
-
+  
   &:hover {
     text-decoration: underline;
   }
@@ -117,29 +146,16 @@ export const JobSelectionList = styled.div`
   gap: ${({ theme }) => theme.spacing.small};
   max-height: 300px;
   overflow-y: auto;
-  margin-top: ${({ theme }) => theme.spacing.medium};
 `;
 
 export const JobOption = styled.div`
-  padding: ${({ theme }) => theme.spacing.medium};
+  padding: ${({ theme }) => theme.spacing.small};
   border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: ${({ theme }) => theme.borderRadius.medium};
+  border-radius: ${({ theme }) => theme.borderRadius.small};
   cursor: pointer;
-  transition: all 0.2s;
-
+  
   &:hover {
     background-color: ${({ theme }) => theme.colors.background};
     border-color: ${({ theme }) => theme.colors.primary};
-  }
-
-  h3 {
-    color: ${({ theme }) => theme.colors.textPrimary};
-    font-size: 1rem;
-    margin-bottom: ${({ theme }) => theme.spacing.small};
-  }
-
-  p {
-    color: ${({ theme }) => theme.colors.textTertiary};
-    font-size: 0.875rem;
   }
 `; 

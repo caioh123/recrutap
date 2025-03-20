@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-    variant?: 'primary' | 'secondary'
+    variant?: 'primary' | 'secondary' | 'tertiary' | 'noBackground'
     size?: 'small' | 'medium' | 'large'
 }
 
@@ -35,6 +35,14 @@ ${({ variant, theme }) =>
         background-color: ${theme.colors.primary};
         color: ${theme.colors.textSecondary};
     `
+            : variant === "noBackground" ? `
+            background-color: transparent;
+            color: ${theme.colors.link};
+            &:hover {
+                background-color: transparent;
+                color: ${theme.colors.primary};
+            }
+            `
                 : `
       border: 1px solid ${theme.colors.primary};
       color: ${theme.colors.primary};

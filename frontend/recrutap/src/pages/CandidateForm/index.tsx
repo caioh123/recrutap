@@ -2,11 +2,11 @@ import React from 'react';
 import { FormContainer, FormTitle } from './styles';
 import { Tabs } from '../../components/shared/tabs';
 import { initialValues, validationSchema } from './dataTab.tsx/constants';
-import { DataTab } from './dataTab.tsx';
-import { JobTab } from './jobTab.tsx/index.tsx';
-import { InterviewTab } from './InterviewTab/index.tsx';
-import { NotesTab } from './NotesTab/index.tsx';
-import { BlacklistTab } from './BlacklistTab/index.tsx';
+import { DataTab } from './dataTab.tsx/index';
+import { JobTab } from './jobTab.tsx/index';
+import { InterviewTab } from './InterviewTab';
+import { NotesTab } from './NotesTab';
+import { BlacklistTab } from './BlacklistTab';
 
 
 

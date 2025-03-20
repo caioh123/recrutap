@@ -71,11 +71,7 @@ export const NotesTab: React.FC = () => {
 
     setSaving(true);
     try {
-      // Here you would send the note to your backend API
-      // For example:
-      // await api.post('/candidates/notes', { note });
-      
-      // Simulate API call
+
       await new Promise(resolve => setTimeout(resolve, 500));
       
       setNote('');
@@ -95,7 +91,7 @@ export const NotesTab: React.FC = () => {
   return (
     <Container>
       <Form onSubmit={handleSubmit}>
-        <Typography variant="h3">Notes</Typography>
+        <Typography>Notes</Typography>
         <TextArea
           value={note}
           onChange={(e) => setNote(e.target.value)}
@@ -109,12 +105,15 @@ export const NotesTab: React.FC = () => {
       </Form>
 
       <HistorySection>
-        <Typography variant="h3">History</Typography>
+        <Typography >History</Typography>
         {paginatedNotes.map((note) => (
           <HistoryItem key={note.id}>
             <HistoryHeader>
               <Typography variant="small" color="textTertiary">
-                {note.date} • {note.author}
+                {note.date} •
+              </Typography>
+              <Typography color="textTertiary">
+                 {note.author}
               </Typography>
             </HistoryHeader>
             <HistoryTextContainer>

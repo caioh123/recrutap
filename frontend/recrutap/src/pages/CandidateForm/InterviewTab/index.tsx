@@ -9,8 +9,10 @@ import {
   InputGroup,
   Label,
   Input,
+  JobInput,
   RadioGroup,
-  RadioLabel,
+  RadioOption,
+  RadioInput,
   TextArea,
   HistorySection,
   HistoryItem,
@@ -18,7 +20,9 @@ import {
   HistoryText,
   SeeMore,
   JobSelectionList,
-  JobOption
+  JobOption,
+  FormGroup,
+  SubmitButtonContainer
 } from './styles';
 
 interface Job {
@@ -104,7 +108,6 @@ export const InterviewTab: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
-    // Aqui você implementaria a lógica para enviar os dados
   };
 
   return (
@@ -158,7 +161,7 @@ export const InterviewTab: React.FC = () => {
           <Label>Interview Evaluation</Label>
           <RadioGroup>
             {['Excellent', 'Good', 'Regular', 'Bad', 'Poor'].map(option => (
-              <RadioLabel key={option}>
+              <RadioOption key={option}>
                 <input
                   type="radio"
                   name="evaluation"
@@ -166,8 +169,8 @@ export const InterviewTab: React.FC = () => {
                   checked={formData.evaluation === option}
                   onChange={handleChange}
                 />
-                {option}
-              </RadioLabel>
+                {option.charAt(0).toUpperCase() + option.slice(1)}
+              </RadioOption>
             ))}
           </RadioGroup>
         </InputGroup>
@@ -178,12 +181,13 @@ export const InterviewTab: React.FC = () => {
             name="notes"
             value={formData.notes}
             onChange={handleChange}
+            placeholder="Add your observations here..."
           />
         </InputGroup>
 
-        <Button type="submit">
-          SEND
-        </Button>
+        <SubmitButtonContainer>
+          <Button type="submit">SEND</Button>
+        </SubmitButtonContainer>
       </Form>
 
       <Modal

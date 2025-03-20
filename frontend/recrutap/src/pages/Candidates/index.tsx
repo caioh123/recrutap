@@ -15,6 +15,7 @@ import {
   CandidateInfo,
   DateInfo
 } from './styles';
+import { theme } from '../../styles/theme';
 
 interface Candidate {
   id: string;
@@ -36,7 +37,7 @@ const Candidates = () => {
       id: '1',
       name: "Lívia Leite",
       recruiter: "Castro Nunes",
-      date: "Abril 24, 2021",
+      date: "April 24, 2021",
       time: "10:30",
       status: "ANALYSING"
     },
@@ -44,7 +45,7 @@ const Candidates = () => {
       id: '2',
       name: "Carlos Henrique Silveira",
       recruiter: "Andrade",
-      date: "Abril 22, 2021",
+      date: "April 22, 2021",
       time: "09:00",
       status: "CONTRACTED"
     },
@@ -52,7 +53,7 @@ const Candidates = () => {
       id: '3',
       name: "Carlos Henrique Silveira",
       recruiter: "Andrade",
-      date: "Abril 22, 2021",
+      date: "April 22, 2021",
       time: "09:00",
       status: "AVAILABLE"
     }
@@ -62,14 +63,11 @@ const Candidates = () => {
     navigate('/candidate-form');
   };
 
-  // Fetch candidates from API
   useEffect(() => {
     const fetchCandidates = async () => {
       setIsLoading(true);
       try {
-
         await new Promise(resolve => setTimeout(resolve, 500));
-        
         setCandidates(mockCandidates);
       } catch (error) {
         console.error('Error fetching candidates:', error);
@@ -81,31 +79,35 @@ const Candidates = () => {
     fetchCandidates();
   }, []);
 
+  const handleViewDetails = (candidateId: string) => {
+    navigate(`/candidates/${candidateId}`);
+  };
+
   return (
     <CandidatesContainer>
-      <Typography variant="h1">Candidatos</Typography>
+      <Typography variant="h1">Candidates</Typography>
       
       <Header>
         <SearchContainer>
           <SearchInput
-            placeholder="Pesquisar"
+            placeholder="Search"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </SearchContainer>
         <Button onClick={handleAddCandidate}>
-          ADICIONAR CANDIDATO
+          Add Candidate
         </Button>
       </Header>
 
       <FilterBar>
         <FilterButton>
           <Filter size={20} />
-          Filtrar
+          Filter
         </FilterButton>
-        <Typography>Mostrar candidatos: Todos</Typography>
+        <Typography color={theme.colors.textSecondary}>Show candidates: All</Typography>
         <FilterButton>
-          <Typography>Ordenar: Atividade Recente</Typography>
+          <Typography>Sort by: Recent Activity</Typography>
           <ArrowDownUp size={20} />
         </FilterButton>
       </FilterBar>
@@ -114,22 +116,22 @@ const Candidates = () => {
         <table>
           <thead>
             <tr>
-              <th>Candidatos</th>
-              <th>Data</th>
+              <th>Candidates</th>
+              <th>Date</th>
               <th>Status</th>
-              <th>Ações</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             {isLoading ? (
               <tr>
-                <td colSpan={4}>
+                <td>
                   <Typography variant="p">Loading candidates...</Typography>
                 </td>
               </tr>
             ) : candidates.length === 0 ? (
               <tr>
-                <td colSpan={4}>
+                <td>
                   <Typography variant="p">No candidates found</Typography>
                 </td>
               </tr>
@@ -139,7 +141,7 @@ const Candidates = () => {
                   <td>
                     <CandidateInfo>
                       <strong>{candidate.name}</strong>
-                      <div>Recrutador(a): {candidate.recruiter}</div>
+                      <div>Recruiter: {candidate.recruiter}</div>
                     </CandidateInfo>
                   </td>
                   <td>
@@ -154,8 +156,8 @@ const Candidates = () => {
                     </StatusTag>
                   </td>
                   <td>
-                    <Button variant="secondary" size="small" onClick={() => console.log('Ver detalhes', candidate)}>
-                      Ver detalhes
+                    <Button variant="noBackground" size="small" onClick={() => handleViewDetails(candidate.id)}>
+                      View details
                     </Button>
                   </td>
                 </tr>
