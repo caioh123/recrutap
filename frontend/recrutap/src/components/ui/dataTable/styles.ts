@@ -5,10 +5,12 @@ export const TableContainer = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: ${({ theme }) => theme.borderRadius.medium};
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
   
   table {
     width: 100%;
     border-collapse: collapse;
+    table-layout: fixed;
   }
 
   th {
@@ -105,9 +107,3 @@ export const PriorityTag = styled.span<{ type: string }>`
   }}
 `;
 
-// Keeping these for backward compatibility
-export const Table = styled.table``;
-export const TableRow = styled.tr``;
-export const TableHeader = styled.th``;
-export const TableCell = styled.td``;
-export const TableHeaderSecondary = styled.th``;

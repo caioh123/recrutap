@@ -7,6 +7,7 @@ import {
   DateInfo,
   PriorityTag
 } from './styles';
+import { theme } from '../../../styles/theme';
 
 interface HeaderItem {
   main: string;
@@ -43,7 +44,11 @@ export const DataTable: React.FC<DataTableProps> = ({
         <thead>
           <tr>
             {headers.map((header, index) => (
-              <th key={index}>{header.main}</th>
+              <th key={index}>
+                <Typography color={theme.colors.textPrimary}>
+    {header.main}
+  </Typography>
+              </th>
             ))}
           </tr>
         </thead>
@@ -77,7 +82,7 @@ export const DataTable: React.FC<DataTableProps> = ({
                 </td>
                 <td>
                   <PriorityTag type={item.statusType}>
-                    {item.statusType.toUpperCase()}
+                    {item.statusType}
                   </PriorityTag>
                 </td>
                 <td>
