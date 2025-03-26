@@ -3,14 +3,14 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   align-items: center;
-  border: 1px solid ${({ theme }) => theme.colors.border};
+  border: 1px solid ${({ theme }) => theme.colors.textTertiary}20;
   border-radius: ${({ theme }) => theme.borderRadius.small};
 `;
 
 export const IconWrapper = styled.div`
   padding: ${({ theme }) => theme.spacing.small};
   background-color: ${({ theme }) => theme.colors.background};
-  border-right: 1px solid ${({ theme }) => theme.colors.border};
+  border-right: 1px solid ${({ theme }) => theme.colors.textTertiary}20;
   justify-content: center;
   display: flex;
   align-items: center;
@@ -29,3 +29,13 @@ export const Input = styled.input`
     color: ${({ theme }) => theme.colors.textTertiary};
   }
 `;
+
+
+export const ButtonContainer = styled.div`
+  padding: ${({ theme }) => theme.spacing.small};
+  background-color: ${({ theme }) => theme.colors.background};
+  border-right: 1px solid ${({ theme }) => theme.colors.textTertiary}20;
+  width: 20%;
+`;
+
+
