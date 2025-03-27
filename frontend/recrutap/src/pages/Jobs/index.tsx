@@ -12,7 +12,7 @@ import {
 } from './styles';
 import { theme } from '../../styles/theme';
 import { SearchInput } from '../../components/shared/searchInput';
-
+import { useNavigate } from 'react-router-dom';
 interface Job {
   id: string;
   title: string;
@@ -36,7 +36,8 @@ const Jobs = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [jobs, setJobs] = useState<Job[]>([]);
-
+  const navigate = useNavigate();
+  
   const mockJobs: Job[] = [
     {
       id: '1',
@@ -98,7 +99,7 @@ const Jobs = () => {
   const handleViewDetails = (id: string) => {
     const job = jobs.find(j => j.id === id);
     if (job) {
-      console.log('View job details:', job);
+      navigate(`/jobs/${job.id}`);
     }
   };
 

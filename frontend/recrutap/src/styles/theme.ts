@@ -37,3 +37,18 @@ export const theme = {
       large: "12px",
     },
   };
+
+  export const breakpoints = {
+    sm: '320px',    // Smartphones pequenos
+    md: '768px',    // Tablets/Smartphones grandes
+    lg: '1024px',   // Desktops/Tablets landscape
+    xl: '1200px'    // Desktops grandes
+  };
+  
+  // Helper para media queries
+  export const media = {
+    sm: `@media (min-width: ${breakpoints.sm})`,
+    md: `@media (min-width: ${breakpoints.md})`,
+    lg: `@media (min-width: ${breakpoints.lg})`,
+    xl: `@media (min-width: ${breakpoints.xl})`
+  };

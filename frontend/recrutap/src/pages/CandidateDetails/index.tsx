@@ -101,7 +101,7 @@ export const CandidateDetails: React.FC<CandidateDetailsProps> = ({ candidateId 
           <Trash size={20} />
         </ActionButtons>
         
-        {candidate.isRestricted && <RestrictedBadge>RESTRITO</RestrictedBadge>}
+        {candidate.isRestricted && <RestrictedBadge>Restricted</RestrictedBadge>}
       </HeaderSection>
       
       <ContentSection>

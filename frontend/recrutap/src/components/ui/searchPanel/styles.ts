@@ -1,95 +1,59 @@
 import styled from 'styled-components';
+import { media } from '../../../styles/theme';
 
 export const Container = styled.div`
-  padding: 2rem;
+  padding: 1rem;
   width: 100%;
   background: white;
-`;
 
-export const Title = styled.h1`
-  font-size: 1.5rem;
-  margin-bottom: 2rem;
-  color: ${({ theme }) => theme.colors.text};
+  ${media.md} {
+    padding: 1.5rem;
+  }
+
+  ${media.lg} {
+    padding: 2rem;
+  }
 `;
 
 export const SearchContainer = styled.div`
   width: 100%;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   border-bottom: 1px solid ${({ theme }) => theme.colors.textTertiary}20;
   padding-bottom: 1rem;
 
   > div {
-    width: 300px;
-  }
-`;
-
-export const SearchBar = styled.div`
-  margin-bottom: 2rem;
-  
-  input {
     width: 100%;
-    padding: 0.75rem;
-    border: 1px solid ${({ theme }) => theme.colors.border};
-    border-radius: 4px;
-    font-size: 1rem;
-    
-    &:focus {
-      outline: none;
-      border-color: ${({ theme }) => theme.colors.primary};
+
+    ${media.md} {
+      width: 300px;
     }
   }
 `;
 
 export const FiltersGrid = styled.div<{ columns?: number }>`
   display: grid;
-  grid-template-columns: repeat(${({ columns }) => columns || 4}, 1fr);
-  gap: 1.5rem;
+  grid-template-columns:1fr;
+  gap: 1rem;
   margin-bottom: 2rem;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (min-width: 1200px) {
+    grid-template-columns: repeat(${({ columns }) => columns || 4}, 1fr);
+  }
+
 `;
 
 export const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.small};
-`;
-
-export const FilterItem = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-
-  label {
-    font-size: 0.875rem;
-    color: ${({ theme }) => theme.colors.textSecondary};
-  }
-
-  input, select {
-    padding: 0.75rem;
-    border: 1px solid ${({ theme }) => theme.colors.border};
-    border-radius: 4px;
-    font-size: 0.875rem;
-
-    &:focus {
-      outline: none;
-      border-color: ${({ theme }) => theme.colors.primary};
-    }
-  }
-`;
-
-export const SearchButton = styled.button`
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.primaryDark};
-  }
 `;
 
 export const CheckboxContainer = styled.div`

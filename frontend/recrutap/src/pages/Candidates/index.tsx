@@ -20,7 +20,7 @@ interface Candidate {
   recruiter: string;
   date: string;
   time: string;
-  status: 'ANALYSING' | 'CONTRACTED' | 'AVAILABLE';
+  status: 'normal' | 'urgent' | 'non_urgent';
 }
 
 interface TableItem {
@@ -46,7 +46,7 @@ const Candidates = () => {
       recruiter: "Castro Nunes",
       date: "April 24, 2021",
       time: "10:30",
-      status: "ANALYSING"
+      status: "urgent"
     },
     {
       id: '2',
@@ -54,7 +54,7 @@ const Candidates = () => {
       recruiter: "Andrade",
       date: "April 22, 2021",
       time: "09:00",
-      status: "CONTRACTED"
+      status: "non_urgent"
     },
     {
       id: '3',
@@ -62,7 +62,7 @@ const Candidates = () => {
       recruiter: "Andrade",
       date: "April 22, 2021",
       time: "09:00",
-      status: "AVAILABLE"
+      status: "normal"
     }
   ];
 
@@ -102,7 +102,7 @@ const Candidates = () => {
   const handleViewDetails = (id: string) => {
     const candidate = candidates.find(c => c.id === id);
     if (candidate) {
-      console.log('View candidate details:', candidate);
+      navigate(`/candidates/${candidate.id}`);
     }
   };
 
@@ -119,7 +119,7 @@ const Candidates = () => {
             onChange={(e) => setSearchTerm(e.target.value)} />
         </SearchContainer>
         <Button onClick={handleAddCandidate}>
-          ADD CANDIDATE
+          Add Candidate
         </Button>
       </Header>
 
