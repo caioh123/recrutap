@@ -1,12 +1,12 @@
 import styled from "styled-components";
-
+import { media } from "../../styles/theme";
 export const DashboardContainer = styled.div`
     display: flex;
     flex-direction: column;
     padding: ${({ theme }) => theme.spacing.large};
     flex-grow: 1;
 
-    @media (min-width: 768px) {
+    @media (min-width: ${media.md}) {
     padding: 2rem;
   }
 `
@@ -23,11 +23,11 @@ export const OverviewContainer = styled.section`
     margin-top: ${({ theme }) => theme.spacing.large};  
     margin-bottom: 1rem;
 
-    @media (min-width: 768px) {
+    @media (min-width: ${media.md}) {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: ${media.lg}) {
     grid-template-columns: repeat(3, 1fr);
   }
 `
@@ -45,7 +45,7 @@ export const Table = styled.table`
 
     border-collapse: collapse;
 
-    @media (min-width: 768px) {
+    @media (min-width: ${media.md}) {
     display: table;
     margin-top: 2rem;
   }

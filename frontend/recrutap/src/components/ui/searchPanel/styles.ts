@@ -36,15 +36,15 @@ export const FiltersGrid = styled.div<{ columns?: number }>`
   gap: 1rem;
   margin-bottom: 2rem;
 
-  @media (min-width: 768px) {
+  @media (min-width: ${media.md}) {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: ${media.lg}) {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  @media (min-width: 1200px) {
+  @media (min-width: ${media.xl}) {
     grid-template-columns: repeat(${({ columns }) => columns || 4}, 1fr);
   }
 

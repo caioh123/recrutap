@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import { media } from '../../styles/theme';
 export const JobDetailsContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -18,7 +18,7 @@ export const HeaderSection = styled.div`
   color: ${({ theme }) => theme.colors.textSecondary};
   position: relative;
 
-  @media (min-width: 768px) {
+  @media (min-width: ${media.md}) {
     flex-direction: row;
     padding: ${({ theme }) => theme.spacing.large};
   }
@@ -40,7 +40,7 @@ export const JobInfoContainer = styled.div`
   align-items: flex-start;
   width: 100%;
 
-  @media (min-width: 768px) {
+  @media (min-width: ${media.md}) {
     align-items: flex-start;
   }
 `;
@@ -90,7 +90,7 @@ export const ContentSection = styled.div`
   padding: ${({ theme }) => theme.spacing.medium};
   gap: ${({ theme }) => theme.spacing.large};
 
-  @media (min-width: 768px) {
+  @media (min-width: ${media.md}) {
     flex-direction: row;
     padding: ${({ theme }) => theme.spacing.large};
   }
@@ -102,7 +102,7 @@ export const DetailsColumn = styled.div`
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.small};
 
-  @media (min-width: 768px) {
+  @media (min-width: ${media.md}) {
     flex: 3;
     width: auto;
   }
@@ -114,7 +114,7 @@ export const SkillsColumn = styled.div`
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.large};
 
-  @media (min-width: 768px) {
+  @media (min-width: ${media.md}) {
     flex: 2;
     width: auto;
   }
@@ -229,7 +229,7 @@ export const PreviewButton = styled.button`
   margin-top: ${({ theme }) => theme.spacing.medium};
   margin-bottom: ${({ theme }) => theme.spacing.small};
 
-  @media (min-width: 768px) {
+  @media (min-width: ${media.md}) {
     width: fit-content;
     justify-content: flex-start;
     margin-top: ${({ theme }) => theme.spacing.small};
