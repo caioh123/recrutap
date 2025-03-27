@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { media } from '../../styles/theme';
 
 export const JobDetailsContainer = styled.div`
   display: flex;

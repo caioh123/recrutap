@@ -77,7 +77,7 @@ const Jobs = () => {
   }));
 
   const handleAddJob = () => {
-    console.log('Add job');
+    navigate('/jobs-form');
   };
 
   useEffect(() => {

@@ -9,6 +9,7 @@ import Jobs from "./pages/Jobs";
 import { FindCandidates } from "./pages/FindCandidates";
 import { FindJobs } from "./pages/FindJobs";
 import { JobDetails } from "./pages/JobDetails";
+import { JobForm } from "./pages/JobForm";
 
 const App = () => {
   const user = {
@@ -32,7 +33,8 @@ const App = () => {
           <Route path="/candidates/find" element={<FindCandidates />} />
           <Route path="/jobs" element={<Jobs />} />
           <Route path="/jobs/find" element={<FindJobs />} />
-          <Route path="/jobs/:id" element={<JobDetails jobId=":id" />} />
+          <Route path="/jobs/:id" element={<JobDetails jobId=":id" />} /> 
+          <Route path="/jobs-form" element={<JobForm />} />
         </Routes>
       </Layout>
     </BrowserRouter>
