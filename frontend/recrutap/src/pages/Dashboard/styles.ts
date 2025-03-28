@@ -17,8 +17,8 @@ export const TitlePage = styled.h1`
 `
 
 export const OverviewContainer = styled.section`
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
+    display: flex;
+    justify-content: space-between;
     gap: ${({ theme }) => theme.spacing.large};
     margin-top: ${({ theme }) => theme.spacing.large};  
     margin-bottom: 1rem;

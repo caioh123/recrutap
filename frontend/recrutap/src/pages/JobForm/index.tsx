@@ -1,4 +1,4 @@
-import { FormContainer, FormSection } from "./styles";
+import { FormContainer, FormSection, FormRow } from "./styles";
 import { Typography } from "../../components/shared/typography";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { Input } from "../../components/shared/input";
@@ -6,6 +6,7 @@ import { Button } from "../../components/shared/button";
 import { Select } from "../../components/shared/select";
 import { CirclePlus, Linkedin, Paperclip } from 'lucide-react';
 import { validationSchema, initialValues } from "./constants";
+import { Label } from "../../components/shared/input/styles";
 
 
 export const JobForm = () => {
@@ -14,25 +15,32 @@ export const JobForm = () => {
   };
 
   return (
-    <FormContainer>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        {({errors, touched}) => (
+        {({ errors, touched }) => (
           <Form>
             <FormContainer>
               <FormSection>
 
-            <Typography variant="h1">Add Job</Typography>
+                <Typography variant="h2">Add Job</Typography>
+                <FormRow>
+                  <Label>Title</Label>
+                  <Field
+                    name="title"
+                    as={Input}
+                    error={touched.title && errors.title}
+                    touched={touched.title}
+                  />
+                </FormRow>
               </FormSection>
 
             </FormContainer>
           </Form>
         )}
       </Formik>
-    </FormContainer>
   );
 };
 
