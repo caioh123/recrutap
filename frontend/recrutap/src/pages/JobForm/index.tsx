@@ -1,4 +1,4 @@
-import { FormContainer, FormSection, FormRow } from "./styles";
+import { FormContainer, FormSection, FormRow, CompanyContainer } from "./styles";
 import { Typography } from "../../components/shared/typography";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { Input } from "../../components/shared/input";
@@ -123,7 +123,7 @@ export const JobForm: React.FC = () => {
             </FormRow>
             <FormRow>
 
-            <Field
+              <Field
                 as={Select}
                 label="PCD"
                 name="pcd"
@@ -185,7 +185,56 @@ export const JobForm: React.FC = () => {
                 touched={touched.travel}
               />
             </FormRow>
+            <CompanyContainer>
+              <FormRow>
+                <Typography variant="h2">Company Data</Typography>
+              </FormRow>
+              <FormRow>
 
+                <Field
+                  name="company"
+                  label="Company"
+                  as={Input}
+                  error={touched.companyId && errors.companyId}
+                  touched={touched.companyId}
+                />
+                <Field
+                  name="department"
+                  label="Department"
+                  as={Input}
+                  error={touched.department && errors.department}
+                  touched={touched.department}
+                />
+
+              </FormRow>
+              <FormRow>
+              <Field
+                  name="company"
+                  label="Company"
+                  as={Input}
+                  error={touched.companyId && errors.companyId}
+                  touched={touched.companyId}
+                />
+                <Field
+                  name="department"
+                  label="Department"
+                  as={Input}
+                  error={touched.department && errors.department}
+                  touched={touched.department}
+                />
+                <Field
+                as={Input}
+                label="Phone"
+                name="telephone"
+                isPhone={true}
+                error={touched.telephone && errors.telephone}
+                touched={touched.telephone}
+              />
+              </FormRow>
+            </CompanyContainer>
+            <FormRow>
+
+            </FormRow>
             <FormRow>
               <Field
                 name="duration"
@@ -202,6 +251,13 @@ export const JobForm: React.FC = () => {
                 type="number"
                 error={touched.quantity && errors.quantity}
                 touched={touched.quantity}
+              />
+              <Field
+                name="responsible"
+                label="Responsible"
+                as={Input}
+                error={touched.responsible && errors.responsible}
+                touched={touched.responsible}
               />
             </FormRow>
 
@@ -239,7 +295,7 @@ export const JobForm: React.FC = () => {
             <FormRow>
               <label>
                 Description
-                <Field 
+                <Field
                   as="textarea"
                   name="description"
                   rows={4}

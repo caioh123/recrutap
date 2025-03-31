@@ -27,3 +27,10 @@ export const FormRow = styled.div`
         flex-direction: column; 
     }
 `;
+
+export const CompanyContainer = styled.div`
+  display: flex;
+  background-color: ${({theme})=> theme.colors.fill};
+  width: 100%;
+  flex-direction: column;
+`
