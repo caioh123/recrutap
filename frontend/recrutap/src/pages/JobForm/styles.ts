@@ -33,4 +33,5 @@ export const CompanyContainer = styled.div`
   background-color: ${({theme})=> theme.colors.fill};
   width: 100%;
   flex-direction: column;
+  padding-left: 1rem;
 `

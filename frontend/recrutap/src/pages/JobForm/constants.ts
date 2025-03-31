@@ -72,7 +72,10 @@ export const validationSchema = Yup.object({
     .required("Company Owner field is required"),
 
     telephone: Yup.string()
-    .required("Telephone is required")
+    .required("Telephone field is required"),
+
+    email: Yup.string()
+    .required("Email field is required")
     
 });
 
@@ -104,6 +107,7 @@ export const initialValues = {
   tags: [],
   responsible: "",
   department: "",
-  telephone: ""
+  telephone: "",
+  email: ""
   
 }

@@ -197,6 +197,7 @@ export const JobForm: React.FC = () => {
                   as={Input}
                   error={touched.companyId && errors.companyId}
                   touched={touched.companyId}
+                  readOnly
                 />
                 <Field
                   name="department"
@@ -204,32 +205,33 @@ export const JobForm: React.FC = () => {
                   as={Input}
                   error={touched.department && errors.department}
                   touched={touched.department}
+                  readOnly
                 />
 
               </FormRow>
               <FormRow>
-              <Field
-                  name="company"
-                  label="Company"
+                <Field
+                  name="jobOwner"
+                  label="Job Owner"
                   as={Input}
-                  error={touched.companyId && errors.companyId}
-                  touched={touched.companyId}
+                  error={touched.jobOwner && errors.jobOwner}
+                  touched={touched.jobOwner}
                 />
                 <Field
-                  name="department"
-                  label="Department"
+                  name="email"
+                  label="Email"
                   as={Input}
-                  error={touched.department && errors.department}
-                  touched={touched.department}
+                  error={touched.email && errors.email}
+                  touched={touched.email}
                 />
                 <Field
-                as={Input}
-                label="Phone"
-                name="telephone"
-                isPhone={true}
-                error={touched.telephone && errors.telephone}
-                touched={touched.telephone}
-              />
+                  as={Input}
+                  label="Phone"
+                  name="telephone"
+                  isPhone={true}
+                  error={touched.telephone && errors.telephone}
+                  touched={touched.telephone}
+                />
               </FormRow>
             </CompanyContainer>
             <FormRow>
