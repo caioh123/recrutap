@@ -86,38 +86,29 @@ export const ActionButtons = styled.div`
 
 export const ContentSection = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   padding: ${({ theme }) => theme.spacing.medium};
   gap: ${({ theme }) => theme.spacing.large};
 
   @media (min-width: ${media.md}) {
-    flex-direction: row;
     padding: ${({ theme }) => theme.spacing.large};
   }
 `;
 
 export const DetailsColumn = styled.div`
-  width: 100%;
+  flex: 2;
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.small};
-
-  @media (min-width: ${media.md}) {
-    flex: 3;
-    width: auto;
-  }
 `;
 
 export const SkillsColumn = styled.div`
-  width: 100%;
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.large};
-
-  @media (min-width: ${media.md}) {
-    flex: 2;
-    width: auto;
-  }
+  position: sticky;
+  top: ${({ theme }) => theme.spacing.large};
 `;
 
 export const DetailRow = styled.div`
@@ -140,7 +131,7 @@ export const DetailValue = styled.div`
 `;
 
 export const SkillsSection = styled.div`
-  background-color: ${({ theme }) => theme.colors.backgroundGrey};
+  background-color: ${({ theme }) => theme.colors.backgroundLight};
   padding: ${({ theme }) => theme.spacing.medium};
   border-radius: ${({ theme }) => theme.borderRadius.small};
   
@@ -152,7 +143,7 @@ export const SkillsSection = styled.div`
   
   > div {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     gap: ${({ theme }) => theme.spacing.small};
   }
 `;
@@ -168,7 +159,6 @@ export const SkillTag = styled.div`
   color: ${({ theme }) => theme.colors.primary};
   font-size: 14px;
   font-weight: 500;
-  margin-bottom: ${({ theme }) => theme.spacing.small};
 `;
 
 export const CompanySection = styled.div`
@@ -228,7 +218,8 @@ export const PreviewButton = styled.button`
   width: 100%;
   margin-top: ${({ theme }) => theme.spacing.medium};
   margin-bottom: ${({ theme }) => theme.spacing.small};
-
+  max-width: 100px;
+  
   @media (min-width: ${media.md}) {
     width: fit-content;
     justify-content: flex-start;

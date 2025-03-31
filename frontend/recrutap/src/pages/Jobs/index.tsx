@@ -115,7 +115,7 @@ const Jobs = () => {
             onChange={(e) => setSearchTerm(e.target.value)} />
         </SearchContainer>
         <Button onClick={handleAddJob}>
-          ADD JOB
+          Add Job 
         </Button>
       </Header>
 

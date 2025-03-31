@@ -179,6 +179,7 @@ export const JobDetails: React.FC<JobDetailsProps> = ({ jobId }) => {
                 <Typography variant="p">{job.salary}</Typography>
               </DetailValue>
             </DetailRow>
+
             <DetailRow>
               <DetailLabel>
                   <Typography variant="p">Begin Date</Typography>
@@ -228,10 +229,10 @@ export const JobDetails: React.FC<JobDetailsProps> = ({ jobId }) => {
 
             <DetailRow>
               <DetailLabel>
-                  <Typography variant="p">Duration</Typography>
+                <Typography variant="p">Duration</Typography>
               </DetailLabel>
               <DetailValue>
-                  <Typography variant="p">{job.duration}</Typography>
+                <Typography variant="p">{job.duration}</Typography>
               </DetailValue>
             </DetailRow>
             <DetailRow>
@@ -268,7 +269,7 @@ export const JobDetails: React.FC<JobDetailsProps> = ({ jobId }) => {
 
               <DetailRow>
                 <DetailLabel>
-                  <Typography variant="p">Company Responsible</Typography>
+                  <Typography variant="p">Responsible</Typography>
                 </DetailLabel>
                 <DetailValue>
                   <Typography variant="p">{job.companyResponsible}</Typography>
@@ -340,7 +341,7 @@ export const JobDetails: React.FC<JobDetailsProps> = ({ jobId }) => {
               </TextArea>
             </Description>
           </DetailsColumn>
-          
+
           <SkillsColumn>
             <SkillsSection>
               <Typography variant="h3">Required Skills</Typography>

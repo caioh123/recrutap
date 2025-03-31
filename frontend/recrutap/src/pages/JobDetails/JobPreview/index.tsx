@@ -42,7 +42,7 @@ export const JobPreview: React.FC<JobPreviewProps> = ({ job, onClose }) => {
           </Description>
 
           <ShareSection>
-            <Typography variant="h3">Compartilhar essa vaga</Typography>
+            <Typography variant="h3">Share this Job</Typography>
             <ShareButtons>
               <ShareButton title="LinkedIn" onClick={() => handleShare('linkedin')}>
                 <img src={LinkedInIcon} alt="LinkedIn" />
