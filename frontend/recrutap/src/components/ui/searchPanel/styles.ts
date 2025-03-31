@@ -32,16 +32,15 @@ export const SearchContainer = styled.div`
 
 export const FiltersGrid = styled.div<{ columns?: number }>`
   display: grid;
-  grid-template-columns:1fr;
+  grid-template-columns:repeat(${({ columns }) => columns || 1}, 1fr);
   gap: 1rem;
   margin-bottom: 2rem;
-
   @media (min-width: ${media.md}) {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns:repeat(${({ columns }) => columns || 2}, 1fr);
   }
 
   @media (min-width: ${media.lg}) {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(${({ columns }) => columns || 3}, 1fr);
   }
 
   @media (min-width: ${media.xl}) {

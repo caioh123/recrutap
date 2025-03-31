@@ -47,11 +47,7 @@ export const SearchPanel = ({ title, filters, onSearch, pageType, columns = 4 }:
     const [selectedCandidates, setSelectedCandidates] = useState<string[]>([]);
     const [selectedJobs, setSelectedJobs] = useState<string[]>([]);
 
-    const availableJobs = [
-        { id: 'ios-senior', name: 'iOS Senior Developer' },
-        { id: 'fullstack-senior', name: 'Full Stack Senior Developer' },
-        { id: 'backend-net', name: 'Backend .NET Pleno' },
-    ];
+
 
     const candidates = [
         { id: 'ios-senior', name: 'Caio Henrique' },
@@ -90,13 +86,7 @@ export const SearchPanel = ({ title, filters, onSearch, pageType, columns = 4 }:
         });
     }
 
-    const handleJobCheckbox = (jobId: string) => {
-        setSelectedJobs(prev => 
-            prev.includes(jobId)
-                ? prev.filter(id => id !== jobId)
-                : [...prev, jobId]
-        );
-    };
+
 
     const handleCandidateCheckbox = (candidateId: string) => {
         setSelectedCandidates(prev => 

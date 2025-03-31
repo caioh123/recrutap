@@ -7,6 +7,7 @@ import { JobTab } from './jobTab.tsx/index';
 import { InterviewTab } from './InterviewTab';
 import { NotesTab } from './NotesTab';
 import { BlacklistTab } from './BlacklistTab';
+import { Typography } from '../../components/shared/typography';
 
 
 
@@ -52,7 +53,7 @@ export const CandidateForm: React.FC = () => {
 
   return (
     <FormContainer>
-      <FormTitle>Add Candidate</FormTitle>
+      <Typography variant='h1'>Add Candidate</Typography>
       <Tabs tabs={tabs} />
     </FormContainer>
   );

@@ -16,12 +16,12 @@ interface HeaderItem {
 
 interface TableItem {
   id: string;
-  primary: string;    
-  secondary: string;   
+  primary: string;
+  secondary: string;
   date: string;
   time: string;
-  status: string;      
-  statusType: string;  
+  status: string;
+  statusType: string;
 }
 
 interface DataTableProps {
@@ -31,9 +31,9 @@ interface DataTableProps {
   isLoading?: boolean;
 }
 
-export const DataTable: React.FC<DataTableProps> = ({ 
-  headers, 
-  data, 
+export const DataTable: React.FC<DataTableProps> = ({
+  headers,
+  data,
   onActionClick,
   isLoading = false
 }) => {
@@ -46,8 +46,8 @@ export const DataTable: React.FC<DataTableProps> = ({
             {headers.map((header, index) => (
               <th key={index}>
                 <Typography color={theme.colors.textPrimary}>
-    {header.main}
-  </Typography>
+                  {header.main}
+                </Typography>
               </th>
             ))}
           </tr>
@@ -86,9 +86,9 @@ export const DataTable: React.FC<DataTableProps> = ({
                   </PriorityTag>
                 </td>
                 <td>
-                  <Button 
-                    variant="noBackground" 
-                    size="small" 
+                  <Button
+                    variant="noBackground"
+                    size="small"
                     onClick={() => onActionClick?.(item.id)}
                   >
                     View details
