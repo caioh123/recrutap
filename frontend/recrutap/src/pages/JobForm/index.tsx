@@ -1,20 +1,19 @@
-import { FormContainer, FormSection, FormRow, CompanyContainer, CompanyInput } from "./styles";
+import { FormContainer, FormRow, CompanyContainer } from "./styles";
 import { Typography } from "../../components/shared/typography";
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import { Input } from "../../components/shared/input";
 import { Select } from "../../components/shared/select";
 import { validationSchema, initialValues } from "./constants";
 import { Button } from "../../components/shared/button";
 import { useState } from "react";
-import { Modal } from "../../components/ui/modal";
 import { CompanyModal } from "../../components/ui/companyModal";
 
 
 export const JobForm: React.FC = () => {
   const companies = [
-    { id: '1', name: 'Empresa A' },
-    { id: '2', name: 'Empresa B' },
-    { id: '3', name: 'Empresa C' },
+    { id: '1', name: 'Google' },
+    { id: '2', name: 'Facebook' },
+    { id: '3', name: 'Youtube' },
   ];
 
   const [isCompanyModalOpen, setIsCompanyModalOpen] = useState(false);
@@ -27,7 +26,8 @@ export const JobForm: React.FC = () => {
     });
   };
 
-  const handleCompanySelect = (companyId: string) => {
+  const handleCompanySelect = (companyId: string, companyName: string) => {
+    setSelectedCompany(companyName);
     setIsCompanyModalOpen(false);
   };
   return (
@@ -352,7 +352,7 @@ export const JobForm: React.FC = () => {
         onClose={() => setIsCompanyModalOpen(false)}
         title="Select Company"
         companies={companies}
-        handleCompanySelect={()=> {}}
+        handleCompanySelect={handleCompanySelect}
 
         />
         

@@ -49,17 +49,6 @@ export const CompanyItem = styled.div<{ selected: boolean }>`
   }
 `;
 
-export const ModalActions = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 20px;
-
-  button {
-    margin-left: 10px; 
-  }
-`;
-
-
 export const ModalHeader = styled.div`
   display: flex;
   justify-content: space-between;

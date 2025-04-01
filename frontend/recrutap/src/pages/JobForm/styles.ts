@@ -10,13 +10,6 @@ export const FormContainer = styled.div`
   margin: 0 auto;
 `;
 
-export const FormSection = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.medium};
-
-`;
-
 export const FormRow = styled.div`
   display: flex;
   gap: 1rem;
@@ -36,11 +29,3 @@ export const CompanyContainer = styled.div`
   padding-left: 1rem;
 `
 
-export const CompanyInput = styled.input`
-border-radius: 1rem;
-border: 1px solid ${({ theme }) => theme.colors.textTertiary};
-width: 50%;
-margin-right: 1rem;
-height: 3rem;
-;
-`
