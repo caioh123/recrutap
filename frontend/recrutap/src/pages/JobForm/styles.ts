@@ -35,3 +35,12 @@ export const CompanyContainer = styled.div`
   flex-direction: column;
   padding-left: 1rem;
 `
+
+export const CompanyInput = styled.input`
+border-radius: 1rem;
+border: 1px solid ${({ theme }) => theme.colors.textTertiary};
+width: 50%;
+margin-right: 1rem;
+height: 3rem;
+;
+`

@@ -1,17 +1,35 @@
-import { FormContainer, FormSection, FormRow, CompanyContainer } from "./styles";
+import { FormContainer, FormSection, FormRow, CompanyContainer, CompanyInput } from "./styles";
 import { Typography } from "../../components/shared/typography";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { Input } from "../../components/shared/input";
 import { Select } from "../../components/shared/select";
 import { validationSchema, initialValues } from "./constants";
 import { Button } from "../../components/shared/button";
+import { useState } from "react";
+import { Modal } from "../../components/ui/modal";
+import { CompanyModal } from "../../components/ui/companyModal";
 
 
 export const JobForm: React.FC = () => {
+  const companies = [
+    { id: '1', name: 'Empresa A' },
+    { id: '2', name: 'Empresa B' },
+    { id: '3', name: 'Empresa C' },
+  ];
+
+  const [isCompanyModalOpen, setIsCompanyModalOpen] = useState(false);
+  const [selectedCompany, setSelectedCompany] = useState<string>("");
+
   const handleSubmit = (values: any) => {
-    console.log(values);
+    console.log({
+      ...values,
+      companyId: selectedCompany
+    });
   };
 
+  const handleCompanySelect = (companyId: string) => {
+    setIsCompanyModalOpen(false);
+  };
   return (
     <FormContainer>
       <Typography variant="h1">Add Job</Typography>
@@ -198,6 +216,8 @@ export const JobForm: React.FC = () => {
                   error={touched.companyId && errors.companyId}
                   touched={touched.companyId}
                   readOnly
+                  onClick={()=> setIsCompanyModalOpen(true)}
+                  value={selectedCompany}
                 />
                 <Field
                   name="department"
@@ -327,6 +347,17 @@ export const JobForm: React.FC = () => {
           </Form>
         )}
       </Formik>
+      <CompanyModal 
+        isOpen={isCompanyModalOpen} 
+        onClose={() => setIsCompanyModalOpen(false)}
+        title="Select Company"
+        companies={companies}
+        handleCompanySelect={()=> {}}
+
+        />
+        
+
+
     </FormContainer>
   );
 };
