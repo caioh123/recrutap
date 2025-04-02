@@ -43,7 +43,7 @@ export const CompanyModal: React.FC<CompanyModalProps> = ({
                             </CompanyItem>
                         ))}
                     </CompanyList>
-
+                        <Button>Add New Company</Button>
                 </ModalContent>
 
             </ModalOverlay>

@@ -35,6 +35,7 @@ export const CompanyList = styled.div`
   max-height: 300px;
   overflow-y: auto;
   margin-top: 1rem;
+  margin-bottom: 1rem;
 `;
 
 export const CompanyItem = styled.div<{ selected: boolean }>`
