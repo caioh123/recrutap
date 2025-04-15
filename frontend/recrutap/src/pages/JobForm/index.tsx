@@ -7,6 +7,7 @@ import { validationSchema, initialValues } from "./constants";
 import { Button } from "../../components/shared/button";
 import { useState } from "react";
 import { CompanyModal } from "../../components/ui/companyModal";
+import { CreateCompanyModal } from "../../components/ui/createCompanyModal";
 
 
 export const JobForm: React.FC = () => {
@@ -16,8 +17,11 @@ export const JobForm: React.FC = () => {
     { id: '3', name: 'Youtube' },
   ];
 
-  const [isCompanyModalOpen, setIsCompanyModalOpen] = useState(false);
+  const [isCompanyModalOpen, setIsCompanyModalOpen] = useState<boolean>(false);
   const [selectedCompany, setSelectedCompany] = useState<string>("");
+  const [isCreateCompanyModalOpen, setIsCreateCompanyModalOpen] = useState<boolean>(false)
+
+  console.log("isCreateCompanyModalOpenm", isCreateCompanyModalOpen)
 
   const handleSubmit = (values: any) => {
     console.log({
@@ -30,6 +34,8 @@ export const JobForm: React.FC = () => {
     setSelectedCompany(companyName);
     setIsCompanyModalOpen(false);
   };
+
+
   return (
     <FormContainer>
       <Typography variant="h1">Add Job</Typography>
@@ -353,10 +359,15 @@ export const JobForm: React.FC = () => {
         title="Select Company"
         companies={companies}
         handleCompanySelect={handleCompanySelect}
-
+        setIsCreateCompanyModalOpen={setIsCreateCompanyModalOpen}
+        isCreateCompanyModalOpen={isCreateCompanyModalOpen}
         />
         
-
+        <CreateCompanyModal
+          isCreateCompanyModalOpen={isCreateCompanyModalOpen}
+          setIsCreateCompanyModalOpen={setIsCreateCompanyModalOpen}
+          title="Create Company"
+        />
 
     </FormContainer>
   );
