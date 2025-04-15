@@ -47,12 +47,14 @@ export const CreateCompanyModal: React.FC<CreateCompanyModalProps> = ({ isCreate
                                             label="Company Name"
                                             as={Input}
                                             error={touched.name && errors.name}
+                                            touched={touched.name}
                                         />
                                         <Field
                                             name="responsible"
                                             label="Responsible"
                                             as={Input}
                                             error={touched.responsible && errors.responsible}
+                                            touched={touched.responsible}
                                         />
 
                                         <Field
@@ -60,6 +62,7 @@ export const CreateCompanyModal: React.FC<CreateCompanyModalProps> = ({ isCreate
                                             label="Email"
                                             as={Input}
                                             error={touched.email && errors.email}
+                                            touched={touched.email}
                                         />
                                     </FormRow>
 
@@ -70,6 +73,7 @@ export const CreateCompanyModal: React.FC<CreateCompanyModalProps> = ({ isCreate
                                             as={Input}
                                             error={touched.phone && errors.phone}
                                             isPhone={true}
+                                            touched={touched.phone}
                                         />
                                     </FormRow>
                                     <FormRow>
