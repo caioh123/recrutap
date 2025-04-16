@@ -15,12 +15,17 @@ import { useLocation } from 'react-router-dom';
 export const CandidateForm: React.FC = () => {
   let tabs
   const location = useLocation()
+
+  const isCreateMode = location.pathname === "/candidate-form";
+  const mode = isCreateMode ? "create" : "edit";
+
+
   const handleSubmit = (values: typeof initialValues) => {
     console.log('Form submitted', values);
   };
 
-  if(location.pathname !== "/candidate-form") {
-     tabs = [
+  if (isCreateMode) {
+    tabs = [
       {
         id: "data",
         label: "Data",
@@ -29,6 +34,7 @@ export const CandidateForm: React.FC = () => {
             initialValues={initialValues}
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
+            mode={mode}
           />
         )
       },
@@ -54,7 +60,7 @@ export const CandidateForm: React.FC = () => {
         label: 'Blacklist',
         content: <BlacklistTab />
       }
-    ] 
+    ]
   }
   else {
     tabs = [
@@ -66,16 +72,19 @@ export const CandidateForm: React.FC = () => {
             initialValues={initialValues}
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
+            mode={mode}
           />
         )
       }
-    ] 
+    ]
   }
-  
+
 
   return (
     <FormContainer>
-      <Typography variant='h1'>Add Candidate</Typography>
+      <Typography variant='h1'>
+        {mode === "create" ? "Add Candidate" : "Edit Candidate"}
+      </Typography>
       <Tabs tabs={tabs} />
     </FormContainer>
   );

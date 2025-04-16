@@ -32,6 +32,7 @@ const App = () => {
           <Route path="/candidates" element={<Candidates />} />
           <Route path="/candidate-form" element={<CandidateForm  />} />
           <Route path="/candidates/:id" element={<CandidateDetails candidateId=":id" />} />
+          <Route path="/candidates/:id/edit" element={<CandidateForm  />} />
           <Route path="/candidates/find" element={<FindCandidates />} />
           <Route path="/jobs" element={<Jobs />} />
           <Route path="/jobs/find" element={<FindJobs />} />

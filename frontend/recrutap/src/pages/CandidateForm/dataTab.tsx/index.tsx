@@ -2,20 +2,23 @@ import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { FormContainer, FormTitle, FormRow, FormActions, Icon, ButtonContainer } from './styles';
-import { Input } from '../../../components/shared/input'; 
+import { Input } from '../../../components/shared/input';
 import { Button } from '../../../components/shared/button';
 import { Select } from '../../../components/shared/select';
 import { CirclePlus, Linkedin, Paperclip } from 'lucide-react';
 import { Typography } from '../../../components/shared/typography';
+import { useNavigate } from "react-router-dom";
 
 interface DataTabProps {
-    initialValues: any;
-    validationSchema: any;
-    onSubmit: (values: any) => void;
+  initialValues: any;
+  validationSchema: any;
+  onSubmit: (values: any) => void;
+  mode: "create" | "edit"
 }
 
-export const DataTab: React.FC<DataTabProps> = ({initialValues, validationSchema, onSubmit}) => {
-  
+export const DataTab: React.FC<DataTabProps> = ({ initialValues, validationSchema, onSubmit, mode }) => {
+
+  const navigate = useNavigate()
   return (
     <FormContainer>
       <Formik
@@ -28,7 +31,7 @@ export const DataTab: React.FC<DataTabProps> = ({initialValues, validationSchema
             <FormRow>
               <Field
                 as={Input}
-                label="First Name *"
+                label="First Name"
                 name="firstName"
                 error={touched.firstName && errors.firstName}
                 touched={touched.firstName}
@@ -36,7 +39,7 @@ export const DataTab: React.FC<DataTabProps> = ({initialValues, validationSchema
 
               <Field
                 as={Input}
-                label="Last Name *"
+                label="Last Name"
                 name="lastName"
                 error={touched.lastName && errors.lastName}
                 touched={touched.lastName}
@@ -190,32 +193,32 @@ export const DataTab: React.FC<DataTabProps> = ({initialValues, validationSchema
             </FormRow>
             <FormRow>
               <Field
-              as={Select}
-              label="Education"
-              name="education"
-              options={[
-                { value: 'complete_higher', label: 'Complete Higher Education' },
-                { value: 'incomplete_higher', label: 'Incomplete Higher Education' },
-                { value: 'postgraduate', label: 'Postgraduate' },
-                { value: 'complete_basic', label: 'Complete Basic Education' },
-                { value: 'incomplete_basic', label: 'Incomplete Basic Education' },
-              ]}
-              error={touched.education && errors.education}
-              touched={touched.education}
+                as={Select}
+                label="Education"
+                name="education"
+                options={[
+                  { value: 'complete_higher', label: 'Complete Higher Education' },
+                  { value: 'incomplete_higher', label: 'Incomplete Higher Education' },
+                  { value: 'postgraduate', label: 'Postgraduate' },
+                  { value: 'complete_basic', label: 'Complete Basic Education' },
+                  { value: 'incomplete_basic', label: 'Incomplete Basic Education' },
+                ]}
+                error={touched.education && errors.education}
+                touched={touched.education}
               />
               <Field
-              as={Input}
-              label="Skills"
-              name="skills"
-              error={touched.skills && errors.skills}
-              touched={touched.skills}
+                as={Input}
+                label="Skills"
+                name="skills"
+                error={touched.skills && errors.skills}
+                touched={touched.skills}
               />
               <Field
-              as={Input}
-              label="Soft Skills"
-              name="softSkills"
-              error={touched.softSkills && errors.softSkills}
-              touched={touched.softSkills}
+                as={Input}
+                label="Soft Skills"
+                name="softSkills"
+                error={touched.softSkills && errors.softSkills}
+                touched={touched.softSkills}
               />
             </FormRow>
             <FormRow>
@@ -320,7 +323,10 @@ export const DataTab: React.FC<DataTabProps> = ({initialValues, validationSchema
               </ButtonContainer>
             </FormRow>
             <FormActions>
-              <Button type="submit">Submit new candidate</Button>
+              <Button type="submit">
+                {mode === 'create' ? 'Create New Candidate' : 'Edit Candidate Data'}
+              </Button>
+              <Button onClick={() => navigate("/candidates/:id/edit")}>teste</Button>
               <Button type="button" variant="secondary">
                 Cancel
               </Button>
