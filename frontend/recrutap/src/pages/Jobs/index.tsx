@@ -77,7 +77,7 @@ const Jobs = () => {
   }));
 
   const handleAddJob = () => {
-    navigate('/jobs-form');
+    navigate('/job-form');
   };
 
   useEffect(() => {
@@ -143,7 +143,7 @@ const Jobs = () => {
           { main: "Vacancy", secondary: "Jobs" },
           { main: "Sort", secondary: "Date" },
           { main: "Filter", secondary: "Priority" },
-          { main: "Action", secondary: "Action" }
+          { main: "Actions", secondary: "Action" }
         ]}
         data={tableData}
         onActionClick={handleViewDetails}

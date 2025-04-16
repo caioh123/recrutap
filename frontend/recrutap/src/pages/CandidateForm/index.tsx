@@ -10,9 +10,13 @@ import { BlacklistTab } from './BlacklistTab';
 import { Typography } from '../../components/shared/typography';
 import { useLocation } from 'react-router-dom';
 
+interface CandidateFormProps {
+  candidateId?:string
+}
 
 
-export const CandidateForm: React.FC = () => {
+
+export const CandidateForm: React.FC<CandidateFormProps> = ({candidateId}) => {
   let tabs
   const location = useLocation()
 

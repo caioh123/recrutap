@@ -8,14 +8,21 @@ import { Button } from "../../components/shared/button";
 import { useState } from "react";
 import { CompanyModal } from "../../components/ui/companyModal";
 import { CreateCompanyModal } from "../../components/ui/createCompanyModal";
+import { useLocation } from 'react-router-dom';
 
+interface JobFormProps {
+  jobId?: string
+}
 
-export const JobForm: React.FC = () => {
+export const JobForm: React.FC<JobFormProps> = ({ jobId }) => {
   const companies = [
     { id: '1', name: 'Google' },
     { id: '2', name: 'Facebook' },
     { id: '3', name: 'Youtube' },
   ];
+  const location = useLocation()
+  const isCreateMode = location.pathname === "/job-form";
+  const mode = isCreateMode ? "create" : "edit";
 
   const [isCompanyModalOpen, setIsCompanyModalOpen] = useState<boolean>(false);
   const [selectedCompany, setSelectedCompany] = useState<string>("");
@@ -38,7 +45,9 @@ export const JobForm: React.FC = () => {
 
   return (
     <FormContainer>
-      <Typography variant="h1">Add Job</Typography>
+      <Typography variant="h1">
+      {mode === "create" ? "Add Candidate" : "Edit Candidate"}
+      </Typography>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -344,7 +353,9 @@ export const JobForm: React.FC = () => {
             </FormRow>
 
             <FormRow>
-              <Button type="submit">Add Job</Button>
+              <Button type="submit">
+                {mode === "create" ? "Create Job" : "Edit Job Data "}
+              </Button>
               <Button type="button" variant="secondary">Preview</Button>
             </FormRow>
 
