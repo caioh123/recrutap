@@ -29,13 +29,15 @@ interface DataTableProps {
   data: TableItem[];
   onActionClick?: (id: string) => void;
   isLoading?: boolean;
+  onEditClick?: (id: string) => void;
 }
 
 export const DataTable: React.FC<DataTableProps> = ({
   headers,
   data,
   onActionClick,
-  isLoading = false
+  isLoading = false,
+  onEditClick
 }) => {
 
   return (
@@ -92,6 +94,15 @@ export const DataTable: React.FC<DataTableProps> = ({
                     onClick={() => onActionClick?.(item.id)}
                   >
                     View details
+                  </Button>
+                </td>
+                <td>
+                  <Button
+                    variant="noBackground"
+                    size="small"
+                    onClick={() => onEditClick?.(item.id)}
+                  >
+                    Edit
                   </Button>
                 </td>
               </tr>
