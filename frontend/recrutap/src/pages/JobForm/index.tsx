@@ -361,6 +361,7 @@ export const JobForm: React.FC = () => {
         handleCompanySelect={handleCompanySelect}
         setIsCreateCompanyModalOpen={setIsCreateCompanyModalOpen}
         isCreateCompanyModalOpen={isCreateCompanyModalOpen}
+        onCompanyCreated={()=> {}}
         />
         
         <CreateCompanyModal

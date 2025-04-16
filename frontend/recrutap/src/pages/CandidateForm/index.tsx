@@ -8,48 +8,70 @@ import { InterviewTab } from './InterviewTab';
 import { NotesTab } from './NotesTab';
 import { BlacklistTab } from './BlacklistTab';
 import { Typography } from '../../components/shared/typography';
+import { useLocation } from 'react-router-dom';
 
 
 
 export const CandidateForm: React.FC = () => {
+  let tabs
+  const location = useLocation()
   const handleSubmit = (values: typeof initialValues) => {
     console.log('Form submitted', values);
   };
-  const tabs = [
-    {
-      id: "data",
-      label: "Data",
-      content: (
-        <DataTab
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-          onSubmit={handleSubmit}
-        />
-      )
-    },
-    {
-      id: 'jobs',
-      label: 'Jobs',
-      content: (
-        <JobTab />
-      )
-    },
-    {
-      id: 'interview',
-      label: 'Interview',
-      content: <InterviewTab />,
-    },
-    {
-      id: 'observation',
-      label: 'Observation',
-      content: <NotesTab />
-    },
-    {
-      id: 'blacklist',
-      label: 'Blacklist',
-      content: <BlacklistTab />
-    }
-  ]
+
+  if(location.pathname !== "/candidate-form") {
+     tabs = [
+      {
+        id: "data",
+        label: "Data",
+        content: (
+          <DataTab
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
+          />
+        )
+      },
+      {
+        id: 'jobs',
+        label: 'Jobs',
+        content: (
+          <JobTab />
+        )
+      },
+      {
+        id: 'interview',
+        label: 'Interview',
+        content: <InterviewTab />,
+      },
+      {
+        id: 'observation',
+        label: 'Observation',
+        content: <NotesTab />
+      },
+      {
+        id: 'blacklist',
+        label: 'Blacklist',
+        content: <BlacklistTab />
+      }
+    ] 
+  }
+  else {
+    tabs = [
+      {
+        id: "data",
+        label: "Data",
+        content: (
+          <DataTab
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
+          />
+        )
+      }
+    ] 
+  }
+  
 
   return (
     <FormContainer>
