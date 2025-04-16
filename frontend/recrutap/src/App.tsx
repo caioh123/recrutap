@@ -32,12 +32,13 @@ const App = () => {
           <Route path="/candidates" element={<Candidates />} />
           <Route path="/candidate-form" element={<CandidateForm  />} />
           <Route path="/candidates/:id" element={<CandidateDetails candidateId=":id" />} />
-          <Route path="/candidates/:id/edit" element={<CandidateForm  />} />
+          <Route path="/candidates/:id/edit" element={<CandidateForm candidateId=":id" />} />
           <Route path="/candidates/find" element={<FindCandidates />} />
           <Route path="/jobs" element={<Jobs />} />
           <Route path="/jobs/find" element={<FindJobs />} />
           <Route path="/jobs/:id" element={<JobDetails jobId=":id" />} /> 
-          <Route path="/jobs-form" element={<JobForm />} />
+          <Route path="/job/:id/edit" element={<JobForm jobId=":id" />} /> 
+          <Route path="/job-form" element={<JobForm />} />
         </Routes>
       </Layout>
     </BrowserRouter>
