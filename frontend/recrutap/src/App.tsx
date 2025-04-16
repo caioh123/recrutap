@@ -10,6 +10,7 @@ import { FindCandidates } from "./pages/FindCandidates";
 import { FindJobs } from "./pages/FindJobs";
 import { JobDetails } from "./pages/JobDetails";
 import { JobForm } from "./pages/JobForm";
+import LoginPage from "./pages/Login";
 
 const App = () => {
   const user = {
@@ -26,7 +27,8 @@ const App = () => {
     <BrowserRouter>
       <Layout user={user} onLogout={handleLogout}>
         <Routes>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/candidates" element={<Candidates />} />
           <Route path="/candidate-form" element={<CandidateForm  />} />
           <Route path="/candidates/:id" element={<CandidateDetails candidateId=":id" />} />

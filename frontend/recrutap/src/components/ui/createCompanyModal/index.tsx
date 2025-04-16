@@ -37,7 +37,7 @@ export const CreateCompanyModal: React.FC<CreateCompanyModalProps> = ({ isCreate
                             <Form>
                                 <ModalHeader>
                                     <h2>{title}</h2>
-                                    <button onClick={()=>setIsCreateCompanyModalOpen(false)}>&times;</button>
+                                    <button onClick={() => setIsCreateCompanyModalOpen(false)}>&times;</button>
                                 </ModalHeader>
                                 <FormContainer>
                                     <FormRow>
