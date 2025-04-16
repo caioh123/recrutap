@@ -6,6 +6,7 @@ export const TableContainer = styled.div`
   border-radius: ${({ theme }) => theme.borderRadius.medium};
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 2rem;
+  max-height: 500px;
   
   table {
     width: 100%;

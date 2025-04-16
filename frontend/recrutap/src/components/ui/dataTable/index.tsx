@@ -8,6 +8,8 @@ import {
   PriorityTag
 } from './styles';
 import { theme } from '../../../styles/theme';
+import InfiniteScroll from 'react-infinite-scroll-component';
+
 
 interface HeaderItem {
   main: string;
@@ -30,6 +32,8 @@ interface DataTableProps {
   onActionClick?: (id: string) => void;
   isLoading?: boolean;
   onEditClick?: (id: string) => void;
+  fetchMoreData?: () => void;
+  hasMore?: boolean;
 }
 
 export const DataTable: React.FC<DataTableProps> = ({
@@ -37,7 +41,9 @@ export const DataTable: React.FC<DataTableProps> = ({
   data,
   onActionClick,
   isLoading = false,
-  onEditClick
+  onEditClick,
+  fetchMoreData,
+  hasMore = false,
 }) => {
 
   return (
@@ -54,8 +60,30 @@ export const DataTable: React.FC<DataTableProps> = ({
             ))}
           </tr>
         </thead>
-        <tbody>
-          {isLoading ? (
+        <InfiniteScroll
+          dataLength={data.length}
+          next={fetchMoreData || (() => {})}
+          hasMore={hasMore}
+          loader={
+            <tr>
+              <td colSpan={headers.length}>
+                <Typography variant="p">Loading more items...</Typography>
+              </td>
+            </tr>
+          }
+          endMessage={
+            <tr>
+              <td colSpan={headers.length}>
+                <Typography variant="p">
+                  Yay! You have seen it all.
+                </Typography>
+              </td>
+            </tr>
+          }
+          scrollableTarget="scrollableTable"
+          scrollThreshold={0.9}
+        >
+          {isLoading && data.length === 0 ? (
             <tr>
               <td colSpan={headers.length}>
                 <Typography variant="p">Loading items...</Typography>
@@ -69,7 +97,7 @@ export const DataTable: React.FC<DataTableProps> = ({
             </tr>
           ) : (
             data.map((item) => (
-              <tr key={data ? item.id : item.id}>
+              <tr key={item.id}>
                 <td>
                   <JobInfo>
                     <strong>{item.primary}</strong>
@@ -108,7 +136,8 @@ export const DataTable: React.FC<DataTableProps> = ({
               </tr>
             ))
           )}
-        </tbody>
+        </InfiniteScroll>
+
       </table>
     </TableContainer>
   );

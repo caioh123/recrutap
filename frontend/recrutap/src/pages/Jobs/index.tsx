@@ -13,6 +13,8 @@ import {
 import { theme } from '../../styles/theme';
 import { SearchInput } from '../../components/shared/searchInput';
 import { useNavigate } from 'react-router-dom';
+
+
 interface Job {
   id: string;
   title: string;
@@ -62,7 +64,112 @@ const Jobs = () => {
       date: "April 22, 2021",
       time: "09:00",
       priority: "normal"
-    }
+
+    },
+    {
+      id: '4',
+      title: "Senior Full Stack Developer",
+      creator: "Dovano Mendes",
+      date: "April 22, 2021",
+      time: "09:00",
+      priority: "non_urgent"
+    },
+    {
+      id: '5',
+      title: "Senior Full Stack Developer",
+      creator: "Dovano Mendes",
+      date: "April 22, 2021",
+      time: "09:00",
+      priority: "non_urgent"
+    },
+    {
+      id: '6',
+      title: "Senior Full Stack Developer",
+      creator: "Dovano Mendes",
+      date: "April 22, 2021",
+      time: "09:00",
+      priority: "non_urgent"
+    },
+    {
+      id: '5',
+      title: "Senior Full Stack Developer",
+      creator: "Dovano Mendes",
+      date: "April 22, 2021",
+      time: "09:00",
+      priority: "non_urgent"
+    },
+    {
+      id: '5',
+      title: "Senior Full Stack Developer",
+      creator: "Dovano Mendes",
+      date: "April 22, 2021",
+      time: "09:00",
+      priority: "non_urgent"
+    },
+    {
+      id: '5',
+      title: "Senior Full Stack Developer",
+      creator: "Dovano Mendes",
+      date: "April 22, 2021",
+      time: "09:00",
+      priority: "non_urgent"
+    },
+    {
+      id: '5',
+      title: "Senior Full Stack Developer",
+      creator: "Dovano Mendes",
+      date: "April 22, 2021",
+      time: "09:00",
+      priority: "non_urgent"
+    },
+    {
+      id: '5',
+      title: "Senior Full Stack Developer",
+      creator: "Dovano Mendes",
+      date: "April 22, 2021",
+      time: "09:00",
+      priority: "non_urgent"
+    },
+    {
+      id: '5',
+      title: "Senior Full Stack Developer",
+      creator: "Dovano Mendes",
+      date: "April 22, 2021",
+      time: "09:00",
+      priority: "non_urgent"
+    },
+    {
+      id: '5',
+      title: "Senior Full Stack Developer",
+      creator: "Dovano Mendes",
+      date: "April 22, 2021",
+      time: "09:00",
+      priority: "non_urgent"
+    },
+    {
+      id: '5',
+      title: "Senior Full Stack Developer",
+      creator: "Dovano Mendes",
+      date: "April 22, 2021",
+      time: "09:00",
+      priority: "non_urgent"
+    },
+    {
+      id: '5',
+      title: "Senior Full Stack Developer",
+      creator: "Dovano Mendes",
+      date: "April 22, 2021",
+      time: "09:00",
+      priority: "non_urgent"
+    },
+    {
+      id: '5',
+      title: "Senior Full Stack Developer",
+      creator: "Dovano Mendes",
+      date: "April 22, 2021",
+      time: "09:00",
+      priority: "non_urgent"
+    },
   ];
 
   const tableData: TableItem[] = jobs.map(job => ({
