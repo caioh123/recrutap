@@ -26,7 +26,7 @@ export const CandidateForm: React.FC<CandidateFormProps> = ({candidateId}) => {
     console.log('Form submitted', values);
   };
 
-  if (isCreateMode) {
+  if (!isCreateMode) {
     tabs = [
       {
         id: "data",
