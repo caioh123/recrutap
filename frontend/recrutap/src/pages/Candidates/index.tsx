@@ -106,6 +106,13 @@ const Candidates = () => {
     }
   };
 
+  const handleEdit = (id: string) => {
+    const candidate = candidates.find(c => c.id=== id)
+    if(candidate) {
+      navigate(`/candidates/${candidate.id}/edit`)
+    }
+  }
+
 
   return (
     <CandidatesContainer>
@@ -143,9 +150,10 @@ const Candidates = () => {
             { main: "Candidate", secondary: "Information" },
             { main: "Date", secondary: "Time" },
             { main: "Status", secondary: "Status" },
-            { main: "Action", secondary: "Action" }
+            { main: "Actions", secondary: "Action" },
           ]}
           data={tableData}
+          onEditClick={handleEdit}
           onActionClick={handleViewDetails}
         />
       )}

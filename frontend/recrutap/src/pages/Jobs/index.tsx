@@ -103,6 +103,13 @@ const Jobs = () => {
     }
   };
 
+  const handleEdit = (id: string) => {
+    const job = jobs.find(j => j.id === id);
+    if(job) {
+      navigate(`/job/${job.id}/edit`)
+    }
+  }
+
   return (
     <JobsContainer>
       <Typography variant="h1">Jobs</Typography>
@@ -141,6 +148,7 @@ const Jobs = () => {
         data={tableData}
         onActionClick={handleViewDetails}
         isLoading={isLoading}
+        onEditClick={handleEdit}
       />
     </JobsContainer>
   );
