@@ -1,13 +1,13 @@
 import styled from "styled-components";
-import { media, theme } from "../../../styles/theme";
+import {  media, theme } from "../../../styles/theme";
 
 export const InputContainer = styled.div`
     display: flex;
     flex-direction: column;
     min-width: 200px;
-    @media (max-width: ${media.md}) {
+    ${media.md} {
         margin-right: 0; 
-        margin-bottom: 0;
+        margin-bottom: 0; 
     }
 `;
 
