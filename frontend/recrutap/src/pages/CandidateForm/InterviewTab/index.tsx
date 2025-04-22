@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from '../../../components/shared/button';
+import { Input } from '../../../components/shared/input';
 import { Modal } from '../../../components/ui/modal';
 import {
   Container,
@@ -7,7 +8,6 @@ import {
   FormRow,
   InputGroup,
   Label,
-  Input,
   RadioGroup,
   RadioOption,
   TextArea,
@@ -39,41 +39,26 @@ interface InterviewFormData {
 }
 
 const availableJobs: Job[] = [
-  {
-    id: '1',
-    title: 'Senior iOS Developer',
-    department: 'Mobile Development',
-    location: 'Remote'
-  },
-  {
-    id: '2',
-    title: 'Full Stack Developer',
-    department: 'Web Development',
-    location: 'São Paulo, BR'
-  },
-  {
-    id: '3',
-    title: 'Backend .NET Developer',
-    department: 'Backend Development',
-    location: 'Remote'
-  }
+  { id: '1', title: 'Senior iOS Developer', department: 'Mobile Development', location: 'Remote' },
+  { id: '2', title: 'Full Stack Developer', department: 'Web Development', location: 'São Paulo, BR' },
+  { id: '3', title: 'Backend .NET Developer', department: 'Backend Development', location: 'Remote' }
 ];
 
 const mockHistory = [
   {
     date: '05/04/2021',
     interviewer: 'Castro Nunes',
-    text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley.',
+    text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry...',
   },
   {
     date: '02/03/2021',
     interviewer: 'Andrade',
-    text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley.',
+    text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry...',
   },
 ];
 
 export const InterviewTab: React.FC = () => {
-  const [isJobModalOpen, setIsJobModalOpen] = useState<boolean>(false);
+  const [isJobModalOpen, setIsJobModalOpen] = useState(false);
   const [formData, setFormData] = useState<InterviewFormData>({
     interviewer: '',
     interviewee: '',
@@ -84,12 +69,11 @@ export const InterviewTab: React.FC = () => {
     notes: ''
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleJobSelect = (job: Job) => {
@@ -111,44 +95,42 @@ export const InterviewTab: React.FC = () => {
       <Form onSubmit={handleSubmit}>
         <FormRow>
           <InputGroup>
-            <Label>Interviewer</Label>
             <Input
-              type="text"
+              label="Interviewer"
               name="interviewer"
               value={formData.interviewer}
               onChange={handleChange}
             />
           </InputGroup>
           <InputGroup>
-            <Label>Interviewee</Label>
             <Input
-              type="text"
+              label="Interviewee"
               name="interviewee"
               value={formData.interviewee}
               onChange={handleChange}
             />
+
           </InputGroup>
         </FormRow>
 
         <FormRow>
           <InputGroup>
-            <Label>Interview Date</Label>
             <Input
-              type="date"
+              label="Interview Date"
               name="date"
+              type="date"
               value={formData.date}
               onChange={handleChange}
             />
           </InputGroup>
           <InputGroup>
-            <Label>Job</Label>
             <Input
-              type="text"
+              label="Job"
               name="job"
               value={formData.jobTitle}
-              onClick={() => setIsJobModalOpen(true)}
               readOnly
               placeholder="Select a job position..."
+              onClick={() => setIsJobModalOpen(true)}
             />
           </InputGroup>
         </FormRow>
@@ -165,7 +147,7 @@ export const InterviewTab: React.FC = () => {
                   checked={formData.evaluation === option}
                   onChange={handleChange}
                 />
-                {option.charAt(0).toUpperCase() + option.slice(1)}
+                {option}
               </RadioOption>
             ))}
           </RadioGroup>
@@ -182,7 +164,7 @@ export const InterviewTab: React.FC = () => {
         </InputGroup>
 
         <SubmitButtonContainer>
-          <Button type="submit">SEND</Button>
+          <Button type="submit">Send</Button>
         </SubmitButtonContainer>
       </Form>
 
@@ -215,4 +197,4 @@ export const InterviewTab: React.FC = () => {
       </HistorySection>
     </Container>
   );
-}; 
+};

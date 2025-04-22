@@ -46,8 +46,6 @@ export const Input = styled.input`
   }
 `;
 
-
-
 export const RadioGroup = styled.div`
   display: flex;
   gap: ${({ theme }) => theme.spacing.medium};

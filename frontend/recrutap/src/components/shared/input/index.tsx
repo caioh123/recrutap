@@ -10,9 +10,10 @@ interface InputProps {
     label: string;
     name: string;
     type?: string;
-    error: any;
-    touched: boolean;
+    error?: any;
+    touched?: boolean;
     isPhone?: boolean;
+    [key: string]: any;
 }
 
 export const Input = ({ label, name, type = "text", error, touched, isPhone, ...props }: InputProps) => {
@@ -29,8 +30,7 @@ export const Input = ({ label, name, type = "text", error, touched, isPhone, ...
                         {...props}
                     />
                     <Typography variant="p" color="red">
-                        {touched && error && <ErrorMessage name={name} />}
-
+                        {touched && error && <>{error}</>}
                     </Typography>
 
                 </PhoneInputContainer>
