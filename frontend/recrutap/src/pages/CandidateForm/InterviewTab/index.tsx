@@ -20,6 +20,7 @@ import {
   JobOption,
   SubmitButtonContainer
 } from './styles';
+import { SelectJobModal } from '../../../components/shared/selectJobModal';
 
 interface Job {
   id: string;
@@ -38,12 +39,44 @@ interface InterviewFormData {
   notes: string;
 }
 
-const availableJobs: Job[] = [
-  { id: '1', title: 'Senior iOS Developer', department: 'Mobile Development', location: 'Remote' },
-  { id: '2', title: 'Full Stack Developer', department: 'Web Development', location: 'São Paulo, BR' },
-  { id: '3', title: 'Backend .NET Developer', department: 'Backend Development', location: 'Remote' }
+const mockJobs = [
+  {
+    id: 1,
+    title: 'Desenvolvedor IOS Sênior',
+    author: 'Luciano Camargo',
+    date: 'Abril 24, 2021',
+    time: '10:30',
+    status: 'urgent',
+    statusLabel: 'URGENTE',
+  },
+  {
+    id: 2,
+    title: 'Desenvolvedor Full Stack Sênior',
+    author: 'Dovano Mendes',
+    date: 'Abril 22, 2021',
+    time: '09:00',
+    status: 'noUrgent',
+    statusLabel: 'SEM URGÊNCIA',
+  },
+  {
+    id: 3,
+    title: 'Desenvolvedor Backend .NET Pleno',
+    author: 'Daenerys Targaryen',
+    date: 'Abril 22, 2021',
+    time: '09:00',
+    status: 'normal',
+    statusLabel: 'NORMAL',
+  },
+  {
+    id: 4,
+    title: 'Desenvolvedor Backend .NET Pleno',
+    author: 'Daenerys Targaryen',
+    date: 'Abril 22, 2021',
+    time: '09:00',
+    status: 'normal',
+    statusLabel: 'NORMAL',
+  },
 ];
-
 const mockHistory = [
   {
     date: '05/04/2021',
@@ -68,6 +101,7 @@ export const InterviewTab: React.FC = () => {
     evaluation: 'Regular',
     notes: ''
   });
+  const [selectedJobs, setSelectedJobs] = useState<any[]>([]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -76,13 +110,9 @@ export const InterviewTab: React.FC = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleJobSelect = (job: Job) => {
-    setFormData(prev => ({
-      ...prev,
-      job: job.id,
-      jobTitle: job.title
-    }));
-    setIsJobModalOpen(false);
+
+  const handleInsertJobs = () => {
+    console.log("Jobs inseridos:", selectedJobs);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -168,7 +198,7 @@ export const InterviewTab: React.FC = () => {
         </SubmitButtonContainer>
       </Form>
 
-      <Modal
+      {/* <Modal
         isOpen={isJobModalOpen}
         onClose={() => setIsJobModalOpen(false)}
         title="Select Job Position"
@@ -181,7 +211,13 @@ export const InterviewTab: React.FC = () => {
             </JobOption>
           ))}
         </JobSelectionList>
-      </Modal>
+      </Modal> */}
+      <SelectJobModal 
+      isOpen={isJobModalOpen}
+      onClose={() => setIsJobModalOpen(false)}
+      onInsert={handleInsertJobs}
+      jobs={mockJobs}
+      />
 
       <HistorySection>
         {mockHistory.map((item, index) => (

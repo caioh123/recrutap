@@ -20,6 +20,7 @@ import {
 import { Modal } from '../../../components/ui/modal';
 import { Tag } from '../../../components/shared/tag';
 import { Button } from '../../../components/shared/button';
+import { SelectJobModal } from '../../../components/shared/selectJobModal';
 
 export const JobTab: React.FC = () => {
   const [selectedJobs, setSelectedJobs] = useState<any[]>([]);
@@ -66,10 +67,23 @@ export const JobTab: React.FC = () => {
       status: 'normal',
       statusLabel: 'NORMAL',
     },
+    {
+      id: 3,
+      title: 'Desenvolvedor Backend .NET Pleno',
+      author: 'Daenerys Targaryen',
+      date: 'Abril 22, 2021',
+      time: '09:00',
+      status: 'normal',
+      statusLabel: 'NORMAL',
+    },
   ];
 
   const [searchTerm, setSearchTerm] = useState('');
   const [isJobModalOpen, setIsJobModalOpen] = useState<boolean>(false);
+
+  const handleInsertJobs = () => {
+    console.log("Jobs inseridos:", selectedJobs);
+  };
 
   return (
     <Container>
@@ -84,7 +98,7 @@ export const JobTab: React.FC = () => {
           onClick={() => setIsJobModalOpen(true)}
         />
       </JobSearchContainer>
-      <Modal
+      {/* <Modal
         isOpen={isJobModalOpen}
         onClose={() => setIsJobModalOpen(false)}
         title="Select Job Position"
@@ -141,7 +155,13 @@ export const JobTab: React.FC = () => {
             </InsertButton>
           </FooterBar>
         )}
-      </Modal>
+      </Modal> */}
+      <SelectJobModal 
+      isOpen={isJobModalOpen}
+      onClose={() => setIsJobModalOpen(false)}
+      onInsert={handleInsertJobs}
+      jobs={mockJobs}
+      />
     </Container>
   );
 }
