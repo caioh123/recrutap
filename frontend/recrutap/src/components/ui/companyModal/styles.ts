@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { media, theme } from "../../../styles/theme";
 
 export const ModalOverlay = styled.div`
   position: fixed;
@@ -22,11 +23,11 @@ export const CompanyContainer = styled.div`
 `;
 
 export const CompanyInput = styled.input`
-  border-radius: 1rem;
+  border-radius: ${theme.spacing.medium};
   border: 1px solid ${({ theme }) => theme.colors.textTertiary};
   width: 50%;
   height: 3rem;
-  padding: 0 1rem; 
+  padding: 0 ${theme.spacing.medium}; 
 `;
 
 export const CompanyList = styled.div`
@@ -34,8 +35,8 @@ export const CompanyList = styled.div`
   padding: 10px;
   max-height: 300px;
   overflow-y: auto;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-top: ${theme.spacing.medium};
+  margin-bottom: ${theme.spacing.medium};
 `;
 
 export const CompanyItem = styled.div<{ selected: boolean }>`
@@ -54,18 +55,18 @@ export const ModalHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: ${theme.spacing.medium};
 
   h2 {
     margin: 0;
-    font-size: 1.5rem;
+    font-size: ${theme.spacing.medium};
     color: ${({ theme }) => theme.colors.textPrimary};
   }
 
   button {
     background: none;
     border: none;
-    font-size: 1.5rem;
+    font-size: ${theme.spacing.large};
     cursor: pointer;
     color: ${({ theme }) => theme.colors.textPrimary};
   }
@@ -76,7 +77,11 @@ export const ModalContent = styled.div`
   border-radius: 8px;
   width: 90%;
   max-width: 1000px;
-  padding: 1.5rem;
+  padding: ${theme.spacing.medium};
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  ${media.lg} {
+    max-width: 1000px;
+  }
 `;
 

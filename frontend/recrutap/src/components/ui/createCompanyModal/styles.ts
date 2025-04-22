@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { media } from "../../../styles/theme";
 
 export const ModalOverlay = styled.div`
   position: fixed;
@@ -15,11 +16,16 @@ export const ModalOverlay = styled.div`
 
 export const ModalContent = styled.div`
   background-color: ${({ theme }) => theme.colors.background};
-  border-radius: 8px;
+  border-radius: ${({ theme }) => theme.borderRadius.medium};
   width: 90%;
   max-width: 1000px;
-  padding: 1.5rem;
+  padding: ${({ theme }) => theme.spacing.large};
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  ${media.lg} {
+    max-width: 1000px;
+  }
+
 `;
 
 export const FormContainer = styled.div`
@@ -35,12 +41,12 @@ export const FormContainer = styled.div`
 
 export const FormRow = styled.div`
   display: flex;
-  gap: 1rem;
-  margin-bottom: 1rem;
+  gap: ${({ theme }) => theme.spacing.medium};
+  margin-bottom: ${({ theme }) => theme.spacing.medium};
 
-  @media (max-width: 600px) {
-        flex-direction: column; 
-    }
+  ${media.md} { 
+    flex-direction: row;
+  }
 `;
 
 
@@ -48,18 +54,18 @@ export const ModalHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: ${({ theme }) => theme.spacing.large};
 
   h2 {
     margin: 0;
-    font-size: 1.5rem;
+    font-size: ${({ theme }) => theme.spacing.large};
     color: ${({ theme }) => theme.colors.textPrimary};
   }
 
   button {
     background: none;
     border: none;
-    font-size: 1.5rem;
+    font-size: ${({ theme }) => theme.spacing.large};
     cursor: pointer;
     color: ${({ theme }) => theme.colors.textPrimary};
   }

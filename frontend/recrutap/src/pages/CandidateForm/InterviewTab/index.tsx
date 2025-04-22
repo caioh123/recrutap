@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from '../../../components/shared/button';
 import { Modal } from '../../../components/ui/modal';
-import { Search } from 'lucide-react';
 import {
   Container,
   Form,
@@ -9,10 +8,8 @@ import {
   InputGroup,
   Label,
   Input,
-  JobInput,
   RadioGroup,
   RadioOption,
-  RadioInput,
   TextArea,
   HistorySection,
   HistoryItem,
@@ -21,7 +18,6 @@ import {
   SeeMore,
   JobSelectionList,
   JobOption,
-  FormGroup,
   SubmitButtonContainer
 } from './styles';
 

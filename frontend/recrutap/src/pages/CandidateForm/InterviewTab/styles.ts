@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { media } from '../../../styles/theme';
 
 export const Container = styled.div`
   padding: ${({ theme }) => theme.spacing.large};
@@ -14,8 +15,8 @@ export const FormRow = styled.div`
   display: flex;
   gap: ${({ theme }) => theme.spacing.medium};
   
-  @media (max-width: 768px) {
-    flex-direction: column;
+  ${media.md} { 
+    flex-direction: row;
   }
 `;
 
@@ -26,7 +27,6 @@ export const InputGroup = styled.div`
   gap: ${({ theme }) => theme.spacing.small};
 `;
 
-// Alias for InputGroup to maintain compatibility
 export const FormGroup = InputGroup;
 
 export const Label = styled.label`
@@ -46,21 +46,7 @@ export const Input = styled.input`
   }
 `;
 
-export const JobInput = styled.div`
-  padding: ${({ theme }) => theme.spacing.small};
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: ${({ theme }) => theme.borderRadius.small};
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  cursor: pointer;
-  background-color: white;
 
-  &:hover {
-    border-color: ${({ theme }) => theme.colors.primary};
-  }
-`;
 
 export const RadioGroup = styled.div`
   display: flex;
@@ -68,15 +54,13 @@ export const RadioGroup = styled.div`
   margin-top: ${({ theme }) => theme.spacing.small};
 `;
 
-export const RadioLabel = styled.label`
+export const RadioOption = styled.label`
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.small};
   cursor: pointer;
 `;
 
-// Alias for RadioLabel to maintain compatibility
-export const RadioOption = RadioLabel;
 
 export const RadioInput = styled.input`
   cursor: pointer;
