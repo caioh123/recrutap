@@ -77,7 +77,7 @@ const mockHistory = [
 ];
 
 export const InterviewTab: React.FC = () => {
-  const [isJobModalOpen, setIsJobModalOpen] = useState(false);
+  const [isJobModalOpen, setIsJobModalOpen] = useState<boolean>(false);
   const [formData, setFormData] = useState<InterviewFormData>({
     interviewer: '',
     interviewee: '',
