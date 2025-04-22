@@ -4,6 +4,7 @@ export const theme = {
       secondary: "#1E1D1D", 
       tertiary: "#000000", 
       quaternary: "#FFFFFF", 
+      footer: "#c62828",
   
       
       analysis: "#F0F1F7", 
