@@ -1,19 +1,20 @@
 import styled from "styled-components";
+import { media, theme } from "../../../styles/theme";
 
 export const InputContainer = styled.div`
     display: flex;
     flex-direction: column;
     min-width: 200px;
-    @media (max-width: 600px) {
+    @media (max-width: ${media.md}) {
         margin-right: 0; 
-        margin-bottom: 1rem; 
+        margin-bottom: 0;
     }
 `;
 
 export const StyledInput = styled.input`
     padding: ${({ theme }) => theme.spacing.medium};
-    border-radius: 1rem;
-    font-size: 1rem;
+    border-radius: ${theme.spacing.medium};
+    font-size: ${theme.spacing.medium};
     &:focus {
         outline: none;
         border: 1px solid ${({ theme }) => theme.colors.textTertiary};
@@ -34,8 +35,8 @@ export const Label = styled.label`
 
 export const CountryCode = styled.div`
     padding: ${({ theme }) => theme.spacing.medium};
-    border-radius: 1rem 0 0 1rem; 
-    font-size: 1rem;
+    border-radius: ${theme.spacing.medium} 0 0 ${theme.spacing.medium}; 
+    font-size: ${theme.spacing.medium};
     border: 1px solid ${({ theme }) => theme.colors.textTertiary};
     background-color: ${({ theme }) => theme.colors.backgroundGrey};
 `;
@@ -47,7 +48,7 @@ export const PhoneInputContainer = styled(InputContainer)`
 `;
 
 export const StyledPhoneInput = styled(StyledInput)`
-    border-radius: 0 1rem 1rem 0; 
+    border-radius: 0 ${theme.spacing.medium} ${theme.spacing.medium} 0; 
     flex: 1; 
     padding-left: 0.5rem; 
 `;
