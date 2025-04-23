@@ -11,6 +11,7 @@ import { FindJobs } from "./pages/FindJobs";
 import { JobDetails } from "./pages/JobDetails";
 import { JobForm } from "./pages/JobForm";
 import LoginPage from "./pages/Login";
+import { AuthProvider } from "./context/AuthContext";
 
 const App = () => {
   const user = {
@@ -24,6 +25,8 @@ const App = () => {
   };
 
   return (
+    <AuthProvider>
+
     <BrowserRouter>
       <Layout user={user} onLogout={handleLogout}>
         <Routes>
@@ -42,6 +45,8 @@ const App = () => {
         </Routes>
       </Layout>
     </BrowserRouter>
+    </AuthProvider>
+
   );
 };
 

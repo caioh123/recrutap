@@ -39,7 +39,7 @@ const LoginPage: React.FC = () => {
             const response = await signIn({ email, password });
             const token = response.data.token
 
-            localStorage.setItem("token", token)
+            localStorage.setItem("tokenjwt", token)
 
             console.log("token", token)
         } catch (error) {
