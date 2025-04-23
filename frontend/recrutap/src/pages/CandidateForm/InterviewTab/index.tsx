@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from '../../../components/shared/button';
 import { Input } from '../../../components/shared/input';
-import { Modal } from '../../../components/ui/modal';
 import {
   Container,
   Form,
@@ -15,19 +14,10 @@ import {
   HistoryItem,
   HistoryHeader,
   HistoryText,
-  SeeMore,
-  JobSelectionList,
-  JobOption,
   SubmitButtonContainer
 } from './styles';
 import { SelectJobModal } from '../../../components/shared/selectJobModal';
 
-interface Job {
-  id: string;
-  title: string;
-  department: string;
-  location: string;
-}
 
 interface InterviewFormData {
   interviewer: string;
@@ -227,7 +217,6 @@ export const InterviewTab: React.FC = () => {
               <span>Interviewer: {item.interviewer}</span>
             </HistoryHeader>
             <HistoryText>{item.text}</HistoryText>
-            <SeeMore>See more</SeeMore>
           </HistoryItem>
         ))}
       </HistorySection>

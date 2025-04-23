@@ -111,16 +111,7 @@ export const HistoryText = styled.p`
   color: ${({ theme }) => theme.colors.textPrimary};
 `;
 
-export const SeeMore = styled.a`
-  color: ${({ theme }) => theme.colors.primary};
-  text-decoration: none;
-  font-size: 14px;
-  cursor: pointer;
-  
-  &:hover {
-    text-decoration: underline;
-  }
-`;
+
 
 export const JobSelectionList = styled.div`
   display: flex;

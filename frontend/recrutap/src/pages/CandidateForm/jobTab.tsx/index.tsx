@@ -6,20 +6,8 @@ import {
   SearchInput,
   SearchLabel,
   JobSearchContainer,
-  JobList,
-  JobItem,
-  JobAction,
-  JobStatus,
-  JobMeta,
-  JobCheckbox,
-  JobInfo,
-  InsertButton,
-  FooterBar,
-  FooterText
+
 } from './styles';
-import { Modal } from '../../../components/ui/modal';
-import { Tag } from '../../../components/shared/tag';
-import { Button } from '../../../components/shared/button';
 import { SelectJobModal } from '../../../components/shared/selectJobModal';
 
 export const JobTab: React.FC = () => {
@@ -68,7 +56,7 @@ export const JobTab: React.FC = () => {
       statusLabel: 'NORMAL',
     },
     {
-      id: 3,
+      id: 4,
       title: 'Desenvolvedor Backend .NET Pleno',
       author: 'Daenerys Targaryen',
       date: 'Abril 22, 2021',
@@ -98,64 +86,7 @@ export const JobTab: React.FC = () => {
           onClick={() => setIsJobModalOpen(true)}
         />
       </JobSearchContainer>
-      {/* <Modal
-        isOpen={isJobModalOpen}
-        onClose={() => setIsJobModalOpen(false)}
-        title="Select Job Position"
-      >
-        <SearchInput
-          placeholder="Search jobs"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          onClick={() => setIsJobModalOpen(true)}
-        />
-        <JobList>
-          {mockJobs.map((job) => (
-            <JobItem key={job.id}>
-              <JobCheckbox
-              type="checkbox" 
-              checked={selectedJobs.some(j=>j.id === job.id)}
-              onChange={() => toggleJobSelection(job)}
-              />
-              <JobInfo>
-                <Typography variant="p">{job.title}</Typography>
-                <Typography variant="small">
-                  Criada por: {job.author}
-                </Typography>
-              </JobInfo>
-              <JobMeta>
-                <Typography variant="small">{job.date}</Typography>
-                <Typography variant="small">{job.time}</Typography>
-              </JobMeta>
-              <JobStatus>
-                <Tag status={job.status as any}>{job.statusLabel}</Tag>
-              </JobStatus>
-              <JobAction>
-              <Button
-                    variant="noBackground"
-                    size="small"
-                  >
-                    View details
-                  </Button>
-              </JobAction>
-            </JobItem>
-          ))}
-        </JobList>
-        {selectedJobs.length > 0 && (
-          <FooterBar>
-            <FooterText>
-              {selectedJobs.length} selected items
-            </FooterText>
-            <InsertButton onClick={() => {
-              console.log('Inserindo', selectedJobs);
-              setIsJobModalOpen(false);
-              setSelectedJobs([]);
-            }} >
-              Insert
-            </InsertButton>
-          </FooterBar>
-        )}
-      </Modal> */}
+
       <SelectJobModal 
       isOpen={isJobModalOpen}
       onClose={() => setIsJobModalOpen(false)}

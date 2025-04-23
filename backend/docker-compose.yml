@@ -5,15 +5,18 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
+    env_file:
+      - .env.production
     environment:
       - DATABASE_URL=postgresql://admin:admin123@db:5432/tech_recruiter_db
     depends_on:
       - db
     volumes:
       - .:/app
+    restart: unless-stopped
 
   db:
-    image: postgres:latest
+    image: postgres:15
     restart: always
     container_name: postgres
     environment:
