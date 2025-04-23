@@ -37,7 +37,11 @@ const LoginPage: React.FC = () => {
             const { email, password } = values
             console.log('Valores do formulário:', values)
             const response = await signIn({ email, password });
-            console.log('Resposta do login:', response);
+            const token = response.data.token
+
+            localStorage.setItem("token", token)
+
+            console.log("token", token)
         } catch (error) {
             console.error('Erro ao fazer login:', error);
         }
