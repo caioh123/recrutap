@@ -41,7 +41,7 @@ const LoginPage: React.FC = () => {
 
             localStorage.setItem("tokenjwt", token)
 
-            console.log("token", token)
+            navigate("Dashboard")
         } catch (error) {
             console.error('Erro ao fazer login:', error);
         }
