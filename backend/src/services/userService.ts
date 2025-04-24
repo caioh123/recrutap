@@ -25,8 +25,10 @@ export class UserService {
 
     public getMe = async (req: Request) => {
         if (!(req as any).user) {
-            throw new Error("User not authenticated");
+        throw new Error("User not authenticated");
         }
+
+        console.log((req as any).user, "(req as any)")
 
         const user = this.prisma.user.findUnique({
             where: {id: (req as any).user.id},

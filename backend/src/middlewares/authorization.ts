@@ -31,7 +31,6 @@ export const authMiddleware = (roles: string[]) => {
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET || "supersecretkey") as UserPayload;
 
-      console.log("Decoded:", decoded);
 
       if (!roles.includes(decoded.role)) {
          res.status(403).json({ error: "Forbidden: You do not have permission to access this resource." });
