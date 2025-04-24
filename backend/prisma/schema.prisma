@@ -18,7 +18,8 @@ model User {
   updatedAt DateTime  @default(now())
   Invites   Invites[]
 
-  Job Job[]
+  Job       Job[]
+  Candidate Candidate[]
 }
 
 model Company {
@@ -60,9 +61,11 @@ model Candidate {
   skills    String[]
   languages String[]
 
-  socials String?
-  weblink String?
-  cv      String?
+  socials   String?
+  weblink   String?
+  cv        String?
+  createdBy String  @db.Uuid
+  creator   User    @relation(fields: [createdBy], references: [id])
 
   JobCandidate JobCandidate[]
   Interview    Interview[]

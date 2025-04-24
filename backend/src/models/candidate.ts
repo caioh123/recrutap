@@ -31,4 +31,6 @@ export interface Candidate {
     socials?: string;
     weblink?: string;
     cv?: string;
+
+    createdBy: string;
 }

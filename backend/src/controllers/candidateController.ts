@@ -7,15 +7,36 @@ const prisma = new PrismaClient();
 const candidateService = new CandidateService();
 
 const candidateSchema = z.object({
-    name: z.string().regex(/^[A-Za-z\s]+$/, "O nome deve conter apenas letras e espaços."),
-    email: z.string().email("E-mail inválido."),
-    age: z.number().min(18, "A idade mínima é 18 anos."),
-    seniority: z.enum(["Junior", "Mid", "Senior"]).refine((val) => ["Junior", "Pleno", "Senior"].includes(val), {
-        message: "The seniority must be either Junior, Mid or Senior level.",
-    }),
+    name: z.string().min(1, "Name is required."),
+    email: z.string().email("Invalid e-mail."),
+    telephone: z.string().optional(),
+    age: z.number().min(18, "Minimum age is 18.").optional(),
+    wageExpectation: z.number().optional(),
+    wageActual: z.number().optional(),
+    lastCompany: z.string().optional(),
+    seniority: z.enum(["Junior", "Mid", "Senior"]).optional(),
+    gender: z.string().optional(),
+    pcd: z.boolean().optional(),
+  
+    country: z.string().optional(),
+    state: z.string().optional(),
+    city: z.string().optional(),
+    neighbourhood: z.string().optional(),
+  
+    begin: z.coerce.date().optional(),
+    alocation: z.string().optional(),
+    travel: z.boolean().optional(),
+    availabilityOfChange: z.boolean().optional(),
+  
+    education: z.string().optional(),
     skills: z.array(z.string()).optional(),
-    restricted: z.boolean().optional(),
-    observation: z.string().optional(),
+    languages: z.array(z.string()).optional(),
+  
+    socials: z.string().optional(),
+    weblink: z.string().optional(),
+    cv: z.string().optional(),
+
+    createdBy: z.string(),
   });
 
 export class CandidateController {
@@ -32,7 +53,7 @@ export class CandidateController {
             console.error(error);
             return res
                 .status(500)
-                .json({ error: "Ocorreu um erro ao buscar os candidatos." });
+                .json({ error: "An error occurred while fetching candidates." });
         }
     }
 
@@ -56,7 +77,7 @@ export class CandidateController {
             console.error("Error fetching candidate:", error);
             return res
                 .status(500)
-                .json({ error: "Ocorreu um erro ao buscar o candidato." });
+                .json({ error: "An error occurred while fetching the candidate." });
         }
     }
 
@@ -68,7 +89,10 @@ export class CandidateController {
 
             const parsedData = candidateSchema.parse(req.body);
 
-            const newCandidate = await candidateService.createCandidate(parsedData);
+            const newCandidate = await candidateService.createCandidate({
+                ...parsedData,
+                createdBy: (req as any).user?.id
+            });
             return res.status(201).json(newCandidate);
         } catch (error) {
             console.error(error);
@@ -77,7 +101,7 @@ export class CandidateController {
             }
             return res
                 .status(500)
-                .json({ error: "Erro ao criar o candidato." });
+                .json({ error: "An error occurred while creating the candidate." });
         }
     }
 
