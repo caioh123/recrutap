@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
   binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
 
@@ -9,16 +9,16 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid()) @db.Uuid
+  id        String    @id @default(uuid()) @db.Uuid
   name      String
-  email     String   @unique
+  email     String    @unique
   password  String
   role      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-  Invites Invites[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now())
+  Invites   Invites[]
 
-
+  Job Job[]
 }
 
 model Company {
@@ -27,7 +27,7 @@ model Company {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 
-  Job   Job[]
+  Job Job[]
 }
 
 model Candidate {
@@ -38,7 +38,7 @@ model Candidate {
   updatedAt DateTime @default(now())
 
   telephone       String?
-  age        Int?
+  age             Int?
   wageExpectation Decimal?
   wageActual      Decimal?
   lastCompany     String?
@@ -67,7 +67,7 @@ model Candidate {
   JobCandidate JobCandidate[]
   Interview    Interview[]
 
-  restricted Boolean?
+  restricted            Boolean?
   observation_blacklist String?
 }
 
@@ -96,6 +96,8 @@ model Job {
   status        String?
   internalNotes String?
   salary        Float?
+  createdBy     String   @db.Uuid
+  creator       User     @relation(fields: [createdBy], references: [id])
 
   company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
 
@@ -117,11 +119,11 @@ model JobCandidate {
 }
 
 model Interview {
-  id          String   @id @default(uuid()) @db.Uuid
-  recruiter   String
-  dateTime    DateTime
-  notes       String?
-  evaluation  String?
+  id         String   @id @default(uuid()) @db.Uuid
+  recruiter  String
+  dateTime   DateTime
+  notes      String?
+  evaluation String?
 
   candidate   Candidate @relation(fields: [candidateId], references: [id])
   candidateId String    @db.Uuid
@@ -134,14 +136,14 @@ model Interview {
 }
 
 model Invites {
-  id        String   @id @default(uuid()) @db.Uuid
-  status      String @default("Pending")
-  role       String
-  token     String @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-  used     Boolean  @default(false)
-  createdBy String @db.Uuid
-  email    String
-  createdByUser User @relation(fields: [createdBy], references: [id])
+  id            String   @id @default(uuid()) @db.Uuid
+  status        String   @default("Pending")
+  role          String
+  token         String   @unique
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @default(now())
+  used          Boolean  @default(false)
+  createdBy     String   @db.Uuid
+  email         String
+  createdByUser User     @relation(fields: [createdBy], references: [id])
 }
