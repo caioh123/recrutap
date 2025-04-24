@@ -6,6 +6,7 @@ import companiesRoutes  from './companies/companies'
 import interviewRoutes from './interview/interview'
 import authRoutes from './auth/auth'
 import inviteRoutes from './invites/invite'
+import userRoutes from './user/user'
 
 const router = express.Router();
 
@@ -16,5 +17,6 @@ router.use('/companies', companiesRoutes)
 router.use('/interviews', interviewRoutes)
 router.use('/auth', authRoutes)
 router.use('/invites', inviteRoutes)
+router.use("/users", userRoutes)
 
 export default router
