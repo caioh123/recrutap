@@ -16,6 +16,8 @@ model User {
   role      String
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
+  Invites Invites[]
+
 
 }
 
@@ -141,4 +143,5 @@ model Invites {
   used     Boolean  @default(false)
   createdBy String @db.Uuid
   email    String
+  createdByUser User @relation(fields: [createdBy], references: [id])
 }

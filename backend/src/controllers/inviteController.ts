@@ -31,6 +31,26 @@ export class InviteController {
         }
     }
 
+    public async validateToken(req: Request, res: Response):Promise<any> {
+        try {
+            const {token} = req.params;
+            const invite = await inviteService.validateToken(token)
+
+            return res
+                .status(200)
+                .json({
+                    valid: true,
+                    invite: {
+                        email: invite.email,
+                        role: invite.role,
+                        invitedBy: invite.createdByUser?.name
+                    }
+                })
+        } catch (error) {
+            return res.status(400).json({ valid: false, error: "Invalid or expired token" });
+        }
+    }
+
     public async createInvite(req: Request, res: Response): Promise<any> {
         try {
             const {email, role} = inviteSchema.parse(req.body);
@@ -68,21 +88,16 @@ export class InviteController {
     }
 
 
-    public async updateInvite(req: Request, res: Response): Promise<any> {
+    public async acceptInvite(req: Request, res: Response):Promise<any> {
         try {
-            const { token, status } = req.body;
-
-            const updatedInvite = await inviteService.updateInvite(token, status);
-
-            return res.status(200).json(updatedInvite);
-        } catch (error) {
-            console.error("Error:", error);
-            return res
-                .status(500)
-                .json({
-                    error: "An error occurred while updating the invite.",
-                });
-        }
+            const { token, userData } = req.body; 
+            const newUser = await inviteService.acceptInvite(token, userData);
+            
+            return res.status(200).json(newUser);
+          } catch (error: any) {
+            return res.status(400).json({ error: error.message });
+          }
+        
     }
 
 }

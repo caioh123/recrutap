@@ -46,7 +46,7 @@ export class InviteService {
     }
 
 
-    public updateInvite = async (token: string, status: string) => {
+    public validateToken = async (token: string) => {
         try {
             console.log("token", token);
 
@@ -54,29 +54,38 @@ export class InviteService {
                 where: {
                     token,
                 },
+                include: {createdByUser: {select: { name: true}}}
             });
 
-            if (!usedInvite) {
+            if (!usedInvite || usedInvite.used) {
                 throw new Error("Invalid token");
             }
 
-            if (usedInvite.used) {
-                throw new Error("Invite already used");
-            }
-            const invite = await this.prisma.invites.update({
-                where: {
-                    token,
-                },
-                data: {
-                    status,
-                    used: true,
-                },
-            });
 
-            return invite;
+            return usedInvite;
         } catch (error) {
             console.log("error", error);
             throw new Error("An error occurred when updating invite.");
         }
+    }
+
+    public acceptInvite = async (token: string, userData: any) => {
+        const invite = await this.validateToken(token)
+
+        const newUser = await this.prisma.user.create({
+            data: {
+                email: userData.email,
+                role: invite.role,
+                name: userData.name,
+                password: userData.password
+            }
+        })
+
+        await this.prisma.invites.update({
+            where: {token},
+            data: {used: true, status: "accepted", updatedAt: new Date()}
+        })
+
+        return newUser
     }
 }
