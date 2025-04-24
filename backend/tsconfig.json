@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
     "module": "commonjs",                               
-    "typeRoots": ["./node_modules/@types", "./@types"],                                  
-    "outDir": "./dist",                                   
+    "typeRoots": ["./node_modules/@types", "./src/@types"],                                  
+    "outDir": "./dist",                      
+    "types": ["express"],             
     "esModuleInterop": true,                            
     "forceConsistentCasingInFileNames": true,            
     "strict": true,                                      

@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-  "dev": "ts-node src/app.ts",
-  "build": "tsc",
-  "start": "node dist/app.js"
-},
+    "dev": "ts-node src/app.ts",
+    "build": "tsc",
+    "start": "node dist/app.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -26,7 +26,7 @@
     "@types/bcryptjs": "^2.4.6",
     "@types/body-parser": "^1.19.5",
     "@types/cors": "^2.8.17",
-    "@types/express": "^5.0.0",
+    "@types/express": "^5.0.1",
     "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^22.10.3",
     "@types/uuid": "^10.0.0",

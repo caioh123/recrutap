@@ -11,6 +11,7 @@
         email: string;
         password: string;
         role: string;
+        name: string
     }
 
     export class AuthService {
@@ -33,7 +34,7 @@
 
         public generateToken(user: User): string {
             return jwt.sign(
-                { id: user.id, email: user.email, role: user.role }, 
+                { id: user.id, email: user.email, role: user.role, name: user.name }, 
                 this.secret, 
                 {expiresIn: this.tokenExpiration
             });

@@ -3,17 +3,26 @@ import jwt from "jsonwebtoken";
 
 interface UserPayload {
   id: string;
+  email: string;
   role: string;
+  iat?: number;
+  exp?: number;
+  name: string;
+}
+
+interface AuthenticatedRequest extends Request {
+  user?: UserPayload;
 }
 
 export const authMiddleware = (roles: string[]) => {
-  return (req: any, res: any, next: NextFunction) => {
+  return (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
     const authHeader = req.headers.authorization;
 
     
 
     if (!authHeader) {
-      return res.status(401).json({ error: "No token provided." });
+       res.status(401).json({ error: "No token provided." });
+       return
     }
 
     const token = authHeader.split(" ")[1];
@@ -25,15 +34,18 @@ export const authMiddleware = (roles: string[]) => {
       console.log("Decoded:", decoded);
 
       if (!roles.includes(decoded.role)) {
-        return res.status(403).json({ error: "Forbidden: You do not have permission to access this resource." });
+         res.status(403).json({ error: "Forbidden: You do not have permission to access this resource." });
+         return
       }
 
       req.user = decoded;
+
       next();
     } catch (error) {
       console.log("Token:", token);
 
-      return res.status(401).json({ error: "Invalid token." });
+       res.status(401).json({ error: "Invalid token." });
+       return
     }
   };
 };

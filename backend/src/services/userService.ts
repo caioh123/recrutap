@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { Request } from "express";
+import { Request, Response } from "express";
 
 interface User {
     name: string;
@@ -10,6 +10,8 @@ interface User {
     updatedAt: Date;
 }
 
+  
+
 export class UserService {
     private prisma:PrismaClient
 
@@ -17,8 +19,27 @@ export class UserService {
         this.prisma = new PrismaClient()
     }
 
-    public getAllUsers = async (req: Request) => {
-        const user = this.prisma.user.findMany()
+    public getAllUsers = async () => {
+        return this.prisma.user.findMany();
+    }
+
+    public getMe = async (req: Request) => {
+        if (!(req as any).user) {
+            throw new Error("User not authenticated");
+        }
+
+        const user = this.prisma.user.findUnique({
+            where: {id: (req as any).user.id},
+            select: {
+                id: true,
+                email: true,
+                name: true,
+                role: true,
+                createdAt: true,
+                updatedAt: true
+            }
+        })
+
 
         return user
     }
