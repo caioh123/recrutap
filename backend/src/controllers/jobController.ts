@@ -7,21 +7,32 @@ const jobService = new JobService();
 const jobSchema = z.object({
   title: z.string().min(3, "O título deve ter pelo menos 3 caracteres."),
   description: z.string().min(10, "A descrição deve ter pelo menos 10 caracteres."),
-  location: z.string().optional(),
-  seniority: z.enum(["Junior", "Mid", "Senior"], {
-    errorMap: () => ({ message: "A senioridade deve ser Junior, Mid ou Senior." }),
-  }),
-  salary: z.number().positive("O salário deve ser um número positivo.").optional(),
-  isRemote: z.boolean().optional(),
   companyId: z.string(), 
-  education: z.string().optional(),
+  createdAt: z.string().datetime().transform((val) => new Date(val)),
+  updatedAt: z.string().datetime().transform((val) => new Date(val)),
   skills: z.array(z.string()),
+  education: z.string().optional(),
+  languages: z.record(z.string(), z.string()).optional(),
   pcd: z.boolean(),
+  country: z.string().optional(),
+  state: z.string().optional(),
+  city: z.string().optional(),
+  neighbourhood: z.string().optional(),
+  alocation: z.string(),
   travel: z.boolean(),
-  quantity: z.number().positive("A quantidade deve ser um número positivo."),
+  duration: z.string().optional(),
+  quantity: z.number().positive("Quantity must be positive"),
+  jobOwner: z.string().optional(),
+  priority: z.string().optional(),
+  status: z.string().optional(),
+  internalNotes: z.string().optional(),
+  salary: z.number().positive("O salário deve ser um número positivo.").optional(),
+  createdBy: z.string(),
+  
 });
 
 export class JobController {
+
   public async getAllJobs(req: Request, res: Response): Promise<any> {
     try {
       const getAllJobss = await jobService.getAlljobs(req);
@@ -64,7 +75,6 @@ export class JobController {
 
         const newJob = await jobService.createJob({
             ...parsedData,
-            salary: parsedData.salary,
         });
 
         return res.status(201).json(newJob);

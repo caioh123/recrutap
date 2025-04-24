@@ -84,7 +84,7 @@ export class JobService {
         }
     }
 
-    public createJob = async (data: any) => {
+    public createJob = async (data: Job) => {
         try {
             const job = await this.prisma.job.create({
                 data: {
@@ -100,7 +100,7 @@ export class JobService {
         }
     };
 
-    public updateJob = async (id: string, data: any) => {
+    public updateJob = async (id: string, data: Job) => {
         try {
             const job = await this.prisma.job.update({
                 where: { id },

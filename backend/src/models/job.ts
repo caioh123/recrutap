@@ -3,9 +3,11 @@ export interface Job {
     title: string;
     description: string;
     companyId: string;
+    createdAt: Date;
+    updatedAt: Date;
     skills: string[];
     education?: string;
-    languages?: Record<string, string>;
+    languages?: any;
     pcd: boolean;
     country?: string;
     state?: string;
@@ -20,4 +22,6 @@ export interface Job {
     status?: string;
     internalNotes?: string;
     salary?: number;
-}
+    createdBy: string;
+  }
+  
