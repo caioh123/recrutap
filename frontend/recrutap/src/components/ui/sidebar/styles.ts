@@ -67,7 +67,7 @@ export const NavMenu = styled.nav`
 `
 
 export const NavItem = styled.li<SidebarProps>`
-list-style: none;
+    list-style: none;
     padding: 0.5rem 1rem;
     border-radius: 0.375rem;
     cursor: pointer;
@@ -76,7 +76,12 @@ list-style: none;
         transform: translateY(2px);
     }
 
-   color: ${({ active, theme }) => active ? theme.colors.textSecondary : theme.colors.textPrimary};
+   color: ${({  theme }) => theme.colors.textPrimary};
+
+   &[data-active="true"] {
+    background-color: ${({ theme }) => theme.colors.highlight};
+    color: ${({ theme }) => theme.colors.textSecondary};
+  }
 `
 
 export const LogoutButton = styled.button`

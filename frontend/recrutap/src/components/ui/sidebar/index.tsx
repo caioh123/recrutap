@@ -64,10 +64,10 @@ export const Sidebar = ({ user, onLogout }: SidebarProps) => {
       <NavMenu>
         <NavList>
           <NavItem
-            active={activeItem === ""}
-            onClick={() => handleNavigation("")}>Dashboard</NavItem>
+            data-active={activeItem === ""}
+            onClick={() => handleNavigation("dashboard")}>Dashboard</NavItem>
           <NavItem
-            active={activeItem.includes("candidates")}
+            data-active={activeItem.includes("candidates")}
             onClick={() => toggleMenu("candidates")}>
             Candidates
             {isMenuExpanded("candidates") ?
@@ -82,7 +82,7 @@ export const Sidebar = ({ user, onLogout }: SidebarProps) => {
             </>
           )}
           <NavItem
-            active={activeItem.includes("jobs")}
+            data-active={activeItem.includes("jobs")}
             onClick={() => toggleMenu("jobs")}>
             Jobs
             {isMenuExpanded("jobs") ?

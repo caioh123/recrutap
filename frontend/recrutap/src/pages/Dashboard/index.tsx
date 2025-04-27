@@ -1,14 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StatsCard } from '../../components/shared/statsCard'
-import { DashboardContainer, OverviewContainer, ActivitySection, Table, TableHeader, TableRow, TableCell, TableHeaderSecondary, JobTitle, JobCreator, TableHeaderContainer } from './styles'
+import { DashboardContainer, OverviewContainer, ActivitySection } from './styles'
 import { Typography } from '../../components/shared/typography'
 import { Button } from '../../components/shared/button'
-import { Tag } from '../../components/shared/tag'
-import { ArrowDownUp, ArrowRightFromLine, Filter } from 'lucide-react'
 import { Modal } from '../../components/ui/modal'
 import { InviteForm } from '../../components/ui/formModal'
 import { DataTable } from '../../components/ui/dataTable'
-import { theme } from '../../styles/theme'
+import axios from 'axios'
+import api from '../../services/api'
 
 interface Job {
   title: string;
@@ -16,6 +15,15 @@ interface Job {
   date: string;
   priority: "analysis" | "hired" | "urgent";
 }
+
+interface DashboardStats {
+  totals: {
+    totalJobs: number;
+    totalCandidates: number;
+    newCandidates: number;
+  };
+}
+
 
 interface TableItem {
   id: string;
@@ -30,6 +38,42 @@ interface TableItem {
 
 const Dashboard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [stats, setStats] = useState<DashboardStats | null>(null)
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+
+  useEffect(() => {
+    let isMounted = true;
+    
+    const getStats = async () => {
+      try {
+        const response = await api.get("/dashboard");
+        if (isMounted) {
+          setStats(response.data);
+        }
+      } catch (err: unknown) {
+        if (isMounted) {
+          if(err instanceof Error) {
+
+            setError(err.message);
+          }
+        } else {
+          setError('An unexpected error occurred.');
+        }
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
+    };
+
+    getStats();
+
+    return () => {
+      isMounted = false; 
+    };
+  }, []);
   const jobs = [
     {
       id: "1",
@@ -116,9 +160,9 @@ const Dashboard = () => {
   return (
     <DashboardContainer>
       <OverviewContainer>
-        <StatsCard title="Total Vacancies" number={60} />
-        <StatsCard title="Total Candidates" number={20} />
-        <StatsCard title="New Candidates" number={30} />
+        <StatsCard title="Total Vacancies" number={stats?.totals.totalJobs || 0} />
+        <StatsCard title="Total Candidates" number={stats?.totals.totalCandidates || 0} />
+        <StatsCard title="New Candidates" number={stats?.totals.newCandidates || 0} />
       </OverviewContainer>
       <Button style={{ width: "30%" }} onClick={() => setIsModalOpen(true)}>Invite your team</Button>
       <ActivitySection>

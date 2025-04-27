@@ -57,6 +57,7 @@ export const DataTable: React.FC<DataTableProps> = ({
             ))}
           </tr>
         </thead>
+            <tbody>
 
           {isLoading && data.length === 0 ? (
             <tr>
@@ -111,6 +112,7 @@ export const DataTable: React.FC<DataTableProps> = ({
               </tr>
             ))
           )}
+            </tbody>
 
 
       </table>
