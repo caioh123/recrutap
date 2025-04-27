@@ -32,7 +32,6 @@ const LoginPage: React.FC = () => {
     const navigate = useNavigate()
 
     const submitLogin = async (values: signInParams) => {
-        console.log('Valores do forsasdasdmulário:', values)
         try {
             const { email, password } = values
             console.log('Valores do formulário:', values)
