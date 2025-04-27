@@ -9,19 +9,37 @@ import { DataTable } from '../../components/ui/dataTable'
 import axios from 'axios'
 import api from '../../services/api'
 
+interface DashboardResponse {
+  totals: DashboardStats;
+  lastJobs: Job[];
+  lastCandidates: Candidate[];
+}
+
+
 interface Job {
+  id: string
   title: string;
-  creator: string;
-  date: string;
-  priority: "analysis" | "hired" | "urgent";
+  creator: {
+    name: string,
+  };
+  priority: string;
+  createdAt: string
+}
+
+interface Candidate {
+  id: string
+  name: string;
+  creator: {
+    name: string
+  }
+  status: string;
+  createdAt: string
 }
 
 interface DashboardStats {
-  totals: {
     totalJobs: number;
     totalCandidates: number;
     newCandidates: number;
-  };
 }
 
 
@@ -41,6 +59,9 @@ const Dashboard = () => {
   const [stats, setStats] = useState<DashboardStats | null>(null)
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [jobs, setJobs] = useState<Job[] | []>([])
+  const [candidates, setCandidates] = useState<Candidate[]>([])
+
 
 
   useEffect(() => {
@@ -48,9 +69,11 @@ const Dashboard = () => {
     
     const getStats = async () => {
       try {
-        const response = await api.get("/dashboard");
+        const response = await api.get<DashboardResponse>("/dashboard");
         if (isMounted) {
-          setStats(response.data);
+          setStats(response.data.totals);
+          setJobs(response.data.lastJobs)
+          setCandidates(response.data.lastCandidates)
         }
       } catch (err: unknown) {
         if (isMounted) {
@@ -74,32 +97,7 @@ const Dashboard = () => {
       isMounted = false; 
     };
   }, []);
-  const jobs = [
-    {
-      id: "1",
-      title: "Desenvolvedor IOS Sênior",
-      creator: "Criada por: Luciano Camargo",
-      date: "Abril 24, 2021",
-      time: "10:30",
-      priority: "analysis",
-    },
-    {
-      id: "2",
-      title: "Desenvolvedor Full Stack Sênior",
-      creator: "Criada por: Dovano Mendes",
-      date: "Abril 22, 2021",
-      time: "09:00",
-      priority: "hired",
-    },
-    {
-      id: "3",
-      title: "Desenvolvedor Backend .NET Pleno",
-      creator: "Criada por: Victor Lapaluza",
-      date: "Abril 22, 2021",
-      time: "09:00",
-      priority: "urgent",
-    },
-  ];
+
 
   const candidatesData = [
     {
@@ -128,25 +126,38 @@ const Dashboard = () => {
     },
   ];
 
-  const jobsTableData: TableItem[] = jobs.map((job, index) => ({
+  const jobsTableData: TableItem[] = jobs.map((job) => {
+    const dateObj = new Date(job.createdAt)
+
+    const formattedDate = dateObj.toLocaleDateString()
+    const formattedTime = dateObj.toLocaleTimeString()
+    return {
     id: job.id,
     primary: job.title,
-    secondary: job.creator,
-    date: job.date,
-    time: job.time,
+    secondary: `Recruiter: ${job.creator.name}`,
+    date: formattedDate,
+    time: formattedTime,
     status: job.priority,
     statusType: job.priority,
-  }));
+  }
+});
 
-  const candidatesTableData: TableItem[] = candidatesData.map(candidate => ({
+  const candidatesTableData: TableItem[] = candidates.map(candidate => {
+    
+    const dateObj = new Date(candidate.createdAt)
+
+    const formattedDate = dateObj.toLocaleDateString()
+    const formattedTime = dateObj.toLocaleTimeString()
+    
+    return {
     id: candidate.id,
     primary: candidate.name,
-    secondary: `Recruiter: ${candidate.recruiter}`,
-    date: candidate.date,
-    time: candidate.time,
-    status: candidate.status.toUpperCase(),
+    secondary: `Recruiter: ${candidate.creator.name}`,
+    date:formattedDate,
+    time: formattedTime,
+    status: candidate.status,
     statusType: candidate.status
-  }));
+  }});
 
   const handleJobActionClick = (id: string) => {
     const job = jobs.find(job => job.id === id);
@@ -160,9 +171,9 @@ const Dashboard = () => {
   return (
     <DashboardContainer>
       <OverviewContainer>
-        <StatsCard title="Total Vacancies" number={stats?.totals.totalJobs || 0} />
-        <StatsCard title="Total Candidates" number={stats?.totals.totalCandidates || 0} />
-        <StatsCard title="New Candidates" number={stats?.totals.newCandidates || 0} />
+        <StatsCard title="Total Vacancies" number={stats?.totalJobs || 0} />
+        <StatsCard title="Total Candidates" number={stats?.totalCandidates || 0} />
+        <StatsCard title="New Candidates" number={stats?.newCandidates || 0} />
       </OverviewContainer>
       <Button style={{ width: "30%" }} onClick={() => setIsModalOpen(true)}>Invite your team</Button>
       <ActivitySection>
@@ -172,7 +183,7 @@ const Dashboard = () => {
           headers={[
             { main: "Jobs", secondary: "Vacancies" },
             { main: "Sort", secondary: "Date" },
-            { main: "Filter", secondary: "Priority" },
+            { main: "Status", secondary: "Priority" },
             { main: "Action", secondary: "Action" },
           ]}
           onActionClick={handleJobActionClick}
@@ -183,7 +194,7 @@ const Dashboard = () => {
           headers={[
             { main: "Candidate", secondary: "Candidate" },
             { main: "Sort", secondary: "Date" },
-            { main: "Filter", secondary: "Priority" },
+            { main: "Status", secondary: "Priority" },
             { main: "Action", secondary: "Action" },
           ]}
           data={candidatesTableData}

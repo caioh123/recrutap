@@ -51,6 +51,7 @@ model Candidate {
   state         String?
   city          String?
   neighbourhood String?
+  status        String?
 
   begin                DateTime?
   alocation            String?
@@ -65,7 +66,7 @@ model Candidate {
   weblink   String?
   cv        String?
   createdBy String  @db.Uuid
-  creator   User    @relation(fields: [createdBy], references: [id])
+  creator   User    @relation(fields: [createdBy], references: [id], onDelete: Cascade)
 
   JobCandidate JobCandidate[]
   Interview    Interview[]
@@ -100,7 +101,7 @@ model Job {
   internalNotes String?
   salary        Float?
   createdBy     String   @db.Uuid
-  creator       User     @relation(fields: [createdBy], references: [id])
+  creator       User     @relation(fields: [createdBy], references: [id], onDelete: Cascade)
 
   company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
 

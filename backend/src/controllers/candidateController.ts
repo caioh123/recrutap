@@ -37,6 +37,7 @@ const candidateSchema = z.object({
     cv: z.string().optional(),
 
     createdBy: z.string(),
+    status: z.string()
   });
 
 export class CandidateController {
@@ -91,7 +92,6 @@ export class CandidateController {
 
             const newCandidate = await candidateService.createCandidate({
                 ...parsedData,
-                createdBy: (req as any).user?.id
             });
             return res.status(201).json(newCandidate);
         } catch (error) {

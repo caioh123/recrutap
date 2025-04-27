@@ -13,7 +13,7 @@ export class DashboardController {
             ])
 
             const startOfToday = new Date();
-            
+
             startOfToday.setHours(0, 0, 0, 0);
             const newCandidates = await prisma.candidate.count({
                 where: { createdAt: { gte: startOfToday } }
@@ -21,13 +21,39 @@ export class DashboardController {
 
             const lastJobs = await prisma.job.findMany({
                 orderBy: { createdAt: "desc" },
-                select: { id: true, title: true, createdAt: true },
-                take: 5
+                select: {
+                    id: true,
+                    title: true,
+                    createdAt: true,
+                    priority: true,
+                    creator: {
+                        select: {
+                            id: true,
+                            name: true,
+                            email: true
+                        }
+                    }
+                },
+                take: 5,
+
             })
 
-            const lastCandidates = await prisma.job.findMany({
+            const lastCandidates = await prisma.candidate.findMany({
                 orderBy: { createdAt: "desc" },
-                select: { id: true, title: true, createdAt: true },
+                select: { 
+                    id: true,
+                    createdAt: true,
+                    name: true,
+                    status: true,
+                    creator: {
+                        select: {
+                            id: true,
+                            name: true,
+                            email: true
+                        }
+                    }
+
+                 },
                 take: 5
             })
 

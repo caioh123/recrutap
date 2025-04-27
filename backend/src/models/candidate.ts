@@ -33,4 +33,5 @@ export interface Candidate {
     cv?: string;
 
     createdBy: string;
+    status: string
 }
