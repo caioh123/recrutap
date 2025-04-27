@@ -59,6 +59,13 @@ export class JobService {
             const jobs = await this.prisma.job.findMany({
                 where: {
                     ...filters
+                },
+                include: {
+                    creator: {
+                        select: {
+                            name: true
+                        }
+                    }
                 }
             })
 

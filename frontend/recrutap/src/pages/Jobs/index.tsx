@@ -13,14 +13,16 @@ import {
 import { theme } from '../../styles/theme';
 import { SearchInput } from '../../components/shared/searchInput';
 import { useNavigate } from 'react-router-dom';
+import api from '../../services/api';
 
 
 interface Job {
   id: string;
   title: string;
-  creator: string;
-  date: string;
-  time: string;
+  creator: {
+    name: string
+  };
+  createdAt: string;
   priority: 'urgent' | 'non_urgent' | 'normal';
 }
 
@@ -36,90 +38,46 @@ interface TableItem {
 
 const Jobs = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [jobs, setJobs] = useState<Job[]>([]);
   const navigate = useNavigate();
   
-  const mockJobs: Job[] = [
-    {
-      id: '1',
-      title: "Senior iOS Developer",
-      creator: "Daenerys Targaryen",
-      date: "April 24, 2021",
-      time: "10:30",
-      priority: "urgent"
-    },
-    {
-      id: '2',
-      title: "Senior Full Stack Developer",
-      creator: "Dovano Mendes",
-      date: "April 22, 2021",
-      time: "09:00",
-      priority: "non_urgent"
-    },
-    {
-      id: '3',
-      title: "Mid-Level .NET Backend Developer",
-      creator: "Victor Lapaluza",
-      date: "April 22, 2021",
-      time: "09:00",
-      priority: "normal"
 
-    },
-    {
-      id: '4',
-      title: "Senior Full Stack Developer",
-      creator: "Dovano Mendes",
-      date: "April 22, 2021",
-      time: "09:00",
-      priority: "non_urgent"
-    },
-    {
-      id: '5',
-      title: "Senior Full Stack Developer",
-      creator: "Dovano Mendes",
-      date: "April 22, 2021",
-      time: "09:00",
-      priority: "non_urgent"
-    },
-    {
-      id: '6',
-      title: "Senior Full Stack Developer",
-      creator: "Dovano Mendes",
-      date: "April 22, 2021",
-      time: "09:00",
-      priority: "non_urgent"
-    }
+
+  const tableData: TableItem[] = jobs.map(job => {
     
-  ];
+    const dateObj = new Date(job.createdAt)
 
-  const tableData: TableItem[] = jobs.map(job => ({
+    const formattedDate = dateObj.toLocaleDateString()
+    const formattedTime = dateObj.toLocaleTimeString()
+
+    return {
     id: job.id,
     primary: job.title,
-    secondary: job.creator,
-    date: job.date,
-    time: job.time,
+    secondary: `Recruiter: ${job.creator.name}`,
+    date: formattedDate,
+    time: formattedTime,
     priority: job.priority,
     status: job.priority,
     statusType: job.priority
-  }));
+  }});
 
   const handleAddJob = () => {
     navigate('/job-form');
   };
 
+  const fetchJobs = async () => {
+    setIsLoading(true);
+    try {
+      const response = await api.get('/jobs');
+    setJobs(response.data);
+    } catch (error) {
+      console.error('Error fetching jobs:', error)
+    } finally {
+      setIsLoading(false);
+    }
+  };
   useEffect(() => {
-    const fetchJobs = async () => {
-      setIsLoading(true);
-      try {
-        await new Promise(resolve => setTimeout(resolve, 500));
-        setJobs(mockJobs);
-      } catch (error) {
-        console.error('Error fetching jobs:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
 
     fetchJobs();
   }, []);
