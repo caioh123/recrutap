@@ -1,11 +1,10 @@
 import * as Yup from "yup";
 
 export const validationSchema = Yup.object({
-  firstName: Yup.string().required("First name is required"),
-  lastName: Yup.string().required("Last name is required"),
+  name: Yup.string().required("Name is required"),
   email: Yup.string().email("Invalid email").required("Email is required"),
   telephone: Yup.string().nullable(),
-  age: Yup.number().min(0, "Invalid age").nullable(),
+  age: Yup.number().min(0, "Invalid age").required("Age is required."),
   wageExpectation: Yup.number().min(0, "Invalid salary expectation").nullable(),
   wageActual: Yup.number().min(0, "Invalid actual salary").nullable(),
   lastCompany: Yup.string().nullable(),
@@ -24,7 +23,7 @@ export const validationSchema = Yup.object({
   travel: Yup.boolean().nullable(),
 
   education: Yup.string().nullable(),
-  skills: Yup.array().of(Yup.string()).nullable(),
+  skills: Yup.array().nullable(),
   language1: Yup.array().of(Yup.string()).nullable(),
   language2: Yup.array().of(Yup.string()).nullable(),
   language1Level: Yup.array().of(Yup.string()).nullable(),
@@ -32,21 +31,21 @@ export const validationSchema = Yup.object({
   softSkills: Yup.array().of(Yup.string()).nullable(),
 
   socials: Yup.string().nullable(),
-  weblink: Yup.string().url("Invalid URL").nullable(),
+  weblink: Yup.string().nullable(),
   cv: Yup.string().nullable(),
 
-  status: Yup.string().required("Status is required"),
+  languages: Yup.array().of(Yup.string()).min(1, 'At least one language must be selected'),
+  
   
 });
 
 export const initialValues = {
-    firstName: "",
-    lastName: "",
+    name: "",
     email: "",
     telephone: "",
-    age: "",
-    wageExpectation: "",
-    wageActual: "",
+    age: 0,
+    wageExpectation: 0,
+    wageActual: 0,
     lastCompany: "",
     seniority: "",
     gender: "",

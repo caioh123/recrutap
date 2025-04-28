@@ -9,6 +9,7 @@ import { NotesTab } from './NotesTab';
 import { BlacklistTab } from './BlacklistTab';
 import { Typography } from '../../components/shared/typography';
 import { useLocation } from 'react-router-dom';
+import api from '../../services/api';
 
 interface CandidateFormProps {
   candidateId?:string
@@ -22,7 +23,12 @@ export const CandidateForm: React.FC<CandidateFormProps> = ({candidateId}) => {
   const mode = isCreateMode ? "create" : "edit";
 
 
-  const handleSubmit = (values: typeof initialValues) => {
+  const handleSubmit = async (values: typeof initialValues) => {
+    const me = await api.get("/users/me")
+    await api.post("/candidates", {
+      ...values,
+      createdBy: me.data.id
+    })
     console.log('Form submitted', values);
   };
 

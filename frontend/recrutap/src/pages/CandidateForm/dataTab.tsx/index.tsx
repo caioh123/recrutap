@@ -1,6 +1,5 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
 import { FormContainer, FormTitle, FormRow, FormActions, Icon, ButtonContainer } from './styles';
 import { Input } from '../../../components/shared/input';
 import { Button } from '../../../components/shared/button';
@@ -18,6 +17,34 @@ interface DataTabProps {
 
 export const DataTab: React.FC<DataTabProps> = ({ initialValues, validationSchema, onSubmit, mode }) => {
 
+  const prepopulatedInitialValues = {
+    name: initialValues.name || 'John',
+    email: initialValues.email || 'john.doe@example.com',
+    telephone: initialValues.telephone || '123-456-7890',
+    age: initialValues.age || '26-30',
+    wageExpectation: initialValues.wageExpectation || 50000,
+    wageActual: initialValues.wageActual || 60000,
+    lastCompany: initialValues.lastCompany || 'Acme Corp',
+    pcd: initialValues.pcd || 'no',
+    seniority: initialValues.seniority || 'Mid',
+    gender: initialValues.gender || 'male',
+    neighbourhood: initialValues.neighbourhood || 'Anytown',
+    begin: initialValues.begin || '2024-01-01',
+    allocation: initialValues.allocation || 'hybrid',
+    travel: initialValues.travel || 'yes',
+    realocation: initialValues.realocation || 'yes',
+    education: initialValues.education || 'complete_higher',
+    skills: initialValues.skills || 'React, Node.js',
+    softSkills: initialValues.softSkills || 'Teamwork, Communication',
+    language1: initialValues.language1 || 'english',
+    language1Level: initialValues.language1Level || 'advanced',
+    language2: initialValues.language2 || 'spanish',
+    language2Level: initialValues.language2Level || 'intermediate',
+    socials: initialValues.socials || 'linkedin.com/johndoe',
+    weblink: initialValues.weblink || 'johndoe.com',
+    status: initialValues.status || 'available',
+  };
+
   const navigate = useNavigate()
   return (
     <FormContainer>
@@ -31,19 +58,12 @@ export const DataTab: React.FC<DataTabProps> = ({ initialValues, validationSchem
             <FormRow>
               <Field
                 as={Input}
-                label="First Name"
-                name="firstName"
-                error={touched.firstName && errors.firstName}
-                touched={touched.firstName}
+                label="Name"
+                name="name"
+                error={touched.name && errors.name}
+                touched={touched.name}
               />
 
-              <Field
-                as={Input}
-                label="Last Name"
-                name="lastName"
-                error={touched.lastName && errors.lastName}
-                touched={touched.lastName}
-              />
             </FormRow>
             <FormRow>
               <Field
@@ -65,21 +85,10 @@ export const DataTab: React.FC<DataTabProps> = ({ initialValues, validationSchem
             </FormRow>
             <FormRow>
               <Field
-                as={Select}
+                as={Input}
                 label="Age"
                 name="age"
-                options={[
-                  { value: '0-25', label: '0-25' },
-                  { value: '26-30', label: '26-30' },
-                  { value: '31-35', label: '31-35' },
-                  { value: '36-40', label: '36-40' },
-                  { value: '41-45', label: '41-45' },
-                  { value: '46-50', label: '46-50' },
-                  { value: '51-55', label: '51-55' },
-                  { value: '56-60', label: '56-60' },
-                  { value: '61-65', label: '61-65' },
-                  { value: '66-70', label: '66-70' },
-                ]}
+                type="number"
                 error={touched.age && errors.age}
                 touched={touched.age}
               />
@@ -221,6 +230,7 @@ export const DataTab: React.FC<DataTabProps> = ({ initialValues, validationSchem
                 touched={touched.softSkills}
               />
             </FormRow>
+
             <FormRow>
               <Field
                 as={Select}

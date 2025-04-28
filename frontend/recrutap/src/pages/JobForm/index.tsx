@@ -49,7 +49,7 @@ export const JobForm: React.FC<JobFormProps> = ({ jobId }) => {
   return (
     <FormContainer>
       <Typography variant="h1">
-        {mode === "create" ? "Add Candidate" : "Edit Candidate"}
+        {mode === "create" ? "Add Job" : "Edit Job"}
       </Typography>
       <Formik
         initialValues={initialValues}

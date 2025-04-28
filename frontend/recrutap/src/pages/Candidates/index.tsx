@@ -13,6 +13,7 @@ import {
 } from './styles';
 import { theme } from '../../styles/theme';
 import { SearchInput } from '../../components/shared/searchInput';
+import api from '../../services/api';
 
 interface Candidate {
   id: string;
@@ -21,6 +22,10 @@ interface Candidate {
   date: string;
   time: string;
   status: 'normal' | 'urgent' | 'non_urgent';
+  creator: {
+    name: string
+  }
+  createdAt: string
 }
 
 interface TableItem {
@@ -35,69 +40,48 @@ interface TableItem {
 
 const Candidates = () => {
   const navigate = useNavigate();
-  const [searchTerm, setSearchTerm] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [candidates, setCandidates] = useState<Candidate[]>([]);
 
-  const mockCandidates: Candidate[] = [
-    {
-      id: '1',
-      name: "Lívia Leite",
-      recruiter: "Castro Nunes",
-      date: "April 24, 2021",
-      time: "10:30",
-      status: "urgent"
-    },
-    {
-      id: '2',
-      name: "Carlos Henrique Silveira",
-      recruiter: "Andrade",
-      date: "April 22, 2021",
-      time: "09:00",
-      status: "non_urgent"
-    },
-    {
-      id: '3',
-      name: "Maria Silva",
-      recruiter: "Andrade",
-      date: "April 22, 2021",
-      time: "09:00",
-      status: "normal"
-    }
-  ];
 
   const handleAddCandidate = () => {
     navigate('/candidate-form');
   };
 
+  const fetchCandidates = async () => {
+    setIsLoading(true);
+    try {
+      const response = await api.get('/candidates');
+      setCandidates(response.data);
+    } catch (error) {
+      console.error('Error fetching candidates:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
   useEffect(() => {
-    const fetchCandidates = async () => {
-      setIsLoading(true);
-      try {
-        await new Promise(resolve => setTimeout(resolve, 500));
-        setCandidates(mockCandidates);
-      } catch (error) {
-        console.error('Error fetching candidates:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
 
     fetchCandidates();
   }, []);
 
 
-  const tableData: TableItem[] = candidates.map((candidate => (
-    {
+  const tableData: any[] = candidates.map((candidate => {
+    const dateObj = new Date(candidate.createdAt)
+
+    const formattedDate = dateObj.toLocaleDateString()
+    const formattedTime = dateObj.toLocaleTimeString()
+
+    return {
       id: candidate.id,
       primary: candidate.name,
-      secondary: `Recruiter: ${candidate.recruiter}`,
-      date: candidate.date,
-      time: candidate.time,
+      secondary: `Recruiter: ${candidate.creator.name}`,
+      date: formattedDate,
+      time: formattedTime,
       status: candidate.status,
       statusType: candidate.status
     }
-  )))
+  }))
 
   const handleViewDetails = (id: string) => {
     const candidate = candidates.find(c => c.id === id);
@@ -107,8 +91,8 @@ const Candidates = () => {
   };
 
   const handleEdit = (id: string) => {
-    const candidate = candidates.find(c => c.id=== id)
-    if(candidate) {
+    const candidate = candidates.find(c => c.id === id)
+    if (candidate) {
       navigate(`/candidates/${candidate.id}/edit`)
     }
   }
@@ -120,9 +104,9 @@ const Candidates = () => {
 
       <Header>
         <SearchContainer>
-          <SearchInput 
-            placeholder="Search" 
-            value={searchTerm} 
+          <SearchInput
+            placeholder="Search"
+            value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)} />
         </SearchContainer>
         <Button onClick={handleAddCandidate}>
