@@ -11,6 +11,7 @@ export class CompanyService {
     public getAllCompanies = async () => {
         try {
             const companies = await this.prisma.company.findMany()
+            console.log("companies", companies)
             return companies
         } catch (error) {
             console.log("error", error)

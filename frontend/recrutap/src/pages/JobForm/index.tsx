@@ -5,13 +5,19 @@ import { Input } from "../../components/shared/input";
 import { Select } from "../../components/shared/select";
 import { validationSchema, initialValues } from "./constants";
 import { Button } from "../../components/shared/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CompanyModal } from "../../components/ui/companyModal";
 import { CreateCompanyModal } from "../../components/ui/createCompanyModal";
 import { useLocation } from 'react-router-dom';
+import api from "../../services/api";
 
 interface JobFormProps {
   jobId?: string
+}
+
+interface Companies {
+  id: string;
+  name: string;
 }
 
 
@@ -21,12 +27,13 @@ export const JobForm: React.FC<JobFormProps> = ({ jobId }) => {
   const mode = isCreateMode ? "create" : "edit";
 
 
-  const companies = [
-    { id: '1', name: 'Google' },
-    { id: '2', name: 'Facebook' },
-    { id: '3', name: 'Youtube' },
-  ];
-
+  // const companies = [
+  //   { id: '1', name: 'Google' },
+  //   { id: '2', name: 'Facebook' },
+  //   { id: '3', name: 'Youtube' },
+  // ];
+  const [companies, setCompanies] = useState<Companies[]>([])
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isCompanyModalOpen, setIsCompanyModalOpen] = useState<boolean>(false);
   const [selectedCompany, setSelectedCompany] = useState<string>("");
   const [isCreateCompanyModalOpen, setIsCreateCompanyModalOpen] = useState<boolean>(false)
@@ -44,6 +51,22 @@ export const JobForm: React.FC<JobFormProps> = ({ jobId }) => {
     setSelectedCompany(companyName);
     setIsCompanyModalOpen(false);
   };
+
+  const getCompanies = async () => {
+
+    try {
+      const response = await api.get("/companies")
+
+      setCompanies(response.data)
+    } catch (error) {
+      console.error('Error fetching jobs:', error)
+    } finally {
+      setIsLoading(false);
+    }
+  }
+  useEffect(() => {
+    getCompanies()
+  }, [])
 
 
   return (
