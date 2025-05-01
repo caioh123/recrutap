@@ -42,7 +42,6 @@ export const JobDetails: React.FC<JobDetailsProps> = ({ jobId }) => {
     region: 'Botafogo',
     status: 'active',
     department: 'Lorem ipsum',
-    companyResponsible: 'Lorem ipsum',
     email: 'lorem@email.com',
     phone: '+55 21 3333 3333',
     mobile: '+55 21 99999-9999',
@@ -267,14 +266,6 @@ export const JobDetails: React.FC<JobDetailsProps> = ({ jobId }) => {
                 </DetailValue>
               </DetailRow>
 
-              <DetailRow>
-                <DetailLabel>
-                  <Typography variant="p">Responsible</Typography>
-                </DetailLabel>
-                <DetailValue>
-                  <Typography variant="p">{job.companyResponsible}</Typography>
-                </DetailValue>
-              </DetailRow>
 
               <DetailRow>
                 <DetailLabel>

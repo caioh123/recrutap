@@ -62,9 +62,6 @@ export const validationSchema = Yup.object({
     .required("Company ID is required")
     .uuid("Invalid company ID"),
 
-    responsible: Yup.string()
-    .required("Responsible field is required"),
-
     department: Yup.string()
     .required("Department field is required"),
 
@@ -105,7 +102,6 @@ export const initialValues = {
   companyId: "",
   candidates: [],
   tags: [],
-  responsible: "",
   department: "",
   telephone: "",
   email: ""

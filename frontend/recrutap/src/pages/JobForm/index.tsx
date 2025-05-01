@@ -22,12 +22,6 @@ export const JobForm: React.FC<JobFormProps> = ({ jobId }) => {
   const isCreateMode = location.pathname === "/job-form";
   const mode = isCreateMode ? "create" : "edit";
 
-
-  // const companies = [
-  //   { id: '1', name: 'Google' },
-  //   { id: '2', name: 'Facebook' },
-  //   { id: '3', name: 'Youtube' },
-  // ];
   const [companies, setCompanies] = useState<Company[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isCompanyModalOpen, setIsCompanyModalOpen] = useState<boolean>(false);
@@ -64,7 +58,7 @@ export const JobForm: React.FC<JobFormProps> = ({ jobId }) => {
   }
   useEffect(() => {
     getCompanies()
-  }, [])
+  }, [isCreateCompanyModalOpen])
 
 
   return (
@@ -75,7 +69,10 @@ export const JobForm: React.FC<JobFormProps> = ({ jobId }) => {
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={handleSubmit}
+        onSubmit={(values, actions) => {
+          console.log("Formik onSubmit triggered", values); // Verifique se isso aparece
+          // handleCreateSubmit(values, actions);
+        }}
       >
         {({ errors, touched }) => (
           <Form>
@@ -163,13 +160,7 @@ export const JobForm: React.FC<JobFormProps> = ({ jobId }) => {
               />
             </FormRow>
             <FormRow>
-              <Field
-                name="title"
-                label="Title"
-                as={Input}
-                error={touched.title && errors.title}
-                touched={touched.title}
-              />
+
               <Field
                 as={Input}
                 label="Skills"
@@ -318,14 +309,7 @@ export const JobForm: React.FC<JobFormProps> = ({ jobId }) => {
                 as={Input}
                 type="number"
                 error={touched.quantity && errors.quantity}
-                touched={touched.quantity}
-              />
-              <Field
-                name="responsible"
-                label="Responsible"
-                as={Input}
-                error={touched.responsible && errors.responsible}
-                touched={touched.responsible}
+                touched={touched.quantity}  
               />
             </FormRow>
 

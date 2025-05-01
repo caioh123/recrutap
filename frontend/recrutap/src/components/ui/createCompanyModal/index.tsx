@@ -3,6 +3,9 @@ import { ModalContent, ModalOverlay, FormContainer, FormRow, ModalHeader } from 
 import { Formik, Form, Field } from 'formik'
 import { Input } from '../../shared/input';
 import { Button } from '../../shared/button';
+import api from '../../../services/api';
+import { Company } from '../../../types/company';
+import { useState } from 'react';
 
 interface CreateCompanyModalProps {
     isCreateCompanyModalOpen: boolean
@@ -13,11 +16,20 @@ interface CreateCompanyModalProps {
 
 
 export const CreateCompanyModal: React.FC<CreateCompanyModalProps> = ({ isCreateCompanyModalOpen, setIsCreateCompanyModalOpen, title }) => {
+    const [loading, setLoading] = useState<boolean>(false)
 
-    const handleCreateSubmit = (values: any) => {
-        console.log('New company:', values);
-        setIsCreateCompanyModalOpen(false)
-    };
+    const handleCreateSubmit = (values: Company) => {
+        try {
+            const createCompany = api.post("/companies", values)
+
+            return createCompany
+        } catch (error) {
+            console.log("Error", error)
+        } finally {
+            setLoading(true)
+            setIsCreateCompanyModalOpen(false);
+        }
+      };
     return (
         isCreateCompanyModalOpen && (
 
@@ -26,9 +38,10 @@ export const CreateCompanyModal: React.FC<CreateCompanyModalProps> = ({ isCreate
                     <Formik
                         initialValues={{
                             name: "",
-                            responsible: "",
+                            jobOwner: "",
                             phone: "",
-                            email: ""
+                            email: "",
+                            department: ""
                         }}
                         validationSchema={validationSchema}
                         onSubmit={handleCreateSubmit}
@@ -50,11 +63,11 @@ export const CreateCompanyModal: React.FC<CreateCompanyModalProps> = ({ isCreate
                                             touched={touched.name}
                                         />
                                         <Field
-                                            name="responsible"
-                                            label="Responsible"
+                                            name="jobOwner"
+                                            label="jobOwner"
                                             as={Input}
-                                            error={touched.responsible && errors.responsible}
-                                            touched={touched.responsible}
+                                            error={touched.jobOwner && errors.jobOwner}
+                                            touched={touched.jobOwner}
                                         />
 
                                         <Field
@@ -63,6 +76,13 @@ export const CreateCompanyModal: React.FC<CreateCompanyModalProps> = ({ isCreate
                                             as={Input}
                                             error={touched.email && errors.email}
                                             touched={touched.email}
+                                        />
+                                        <Field
+                                            name="department"
+                                            label="Department"
+                                            as={Input}
+                                            error={touched.department && errors.department}
+                                            touched={touched.department}
                                         />
                                     </FormRow>
 

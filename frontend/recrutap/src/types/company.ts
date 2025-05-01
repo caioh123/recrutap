@@ -3,6 +3,6 @@ export interface Company {
     department: string;
     jobOwner: string;
     email: string;
-    number: string;
-    id: string;
+    phone: string;
+    id?: string;
 }
