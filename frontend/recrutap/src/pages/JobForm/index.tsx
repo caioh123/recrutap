@@ -10,14 +10,10 @@ import { CompanyModal } from "../../components/ui/companyModal";
 import { CreateCompanyModal } from "../../components/ui/createCompanyModal";
 import { useLocation } from 'react-router-dom';
 import api from "../../services/api";
+import { Company } from "../../types/company";
 
 interface JobFormProps {
   jobId?: string
-}
-
-interface Companies {
-  id: string;
-  name: string;
 }
 
 
@@ -32,10 +28,11 @@ export const JobForm: React.FC<JobFormProps> = ({ jobId }) => {
   //   { id: '2', name: 'Facebook' },
   //   { id: '3', name: 'Youtube' },
   // ];
-  const [companies, setCompanies] = useState<Companies[]>([])
+  const [companies, setCompanies] = useState<Company[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isCompanyModalOpen, setIsCompanyModalOpen] = useState<boolean>(false);
-  const [selectedCompany, setSelectedCompany] = useState<string>("");
+  const [selectedCompany, setSelectedCompany] = useState<any>({});
+  console.log("selectedCompany", selectedCompany)
   const [isCreateCompanyModalOpen, setIsCreateCompanyModalOpen] = useState<boolean>(false)
 
   console.log("isCreateCompanyModalOpenm", isCreateCompanyModalOpen)
@@ -47,8 +44,9 @@ export const JobForm: React.FC<JobFormProps> = ({ jobId }) => {
     });
   };
 
-  const handleCompanySelect = (companyId: string, companyName: string) => {
-    setSelectedCompany(companyName);
+  const handleCompanySelect = (fields: any) => {
+    console.log("fields", fields)
+    setSelectedCompany(fields);
     setIsCompanyModalOpen(false);
   };
 
@@ -258,7 +256,7 @@ export const JobForm: React.FC<JobFormProps> = ({ jobId }) => {
                   touched={touched.companyId}
                   readOnly
                   onClick={() => setIsCompanyModalOpen(true)}
-                  value={selectedCompany}
+                  value={selectedCompany.name}
                 />
                 <Field
                   name="department"
@@ -267,6 +265,7 @@ export const JobForm: React.FC<JobFormProps> = ({ jobId }) => {
                   error={touched.department && errors.department}
                   touched={touched.department}
                   readOnly
+                  value={selectedCompany.department}
                 />
 
               </FormRow>
@@ -277,6 +276,8 @@ export const JobForm: React.FC<JobFormProps> = ({ jobId }) => {
                   as={Input}
                   error={touched.jobOwner && errors.jobOwner}
                   touched={touched.jobOwner}
+                  value={selectedCompany.jobOwner}
+                  readOnly
                 />
                 <Field
                   name="email"
@@ -284,6 +285,8 @@ export const JobForm: React.FC<JobFormProps> = ({ jobId }) => {
                   as={Input}
                   error={touched.email && errors.email}
                   touched={touched.email}
+                  value={selectedCompany.email}
+                  readOnly
                 />
                 <Field
                   as={Input}
@@ -292,6 +295,8 @@ export const JobForm: React.FC<JobFormProps> = ({ jobId }) => {
                   isPhone={true}
                   error={touched.telephone && errors.telephone}
                   touched={touched.telephone}
+                  value={selectedCompany.phone}
+                  readOnly
                 />
               </FormRow>
             </CompanyContainer>

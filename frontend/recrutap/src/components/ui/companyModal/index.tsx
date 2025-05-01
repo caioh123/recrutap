@@ -2,22 +2,17 @@ import React, { useEffect, useState } from "react";
 import { CompanyContainer, CompanyInput, CompanyList, CompanyItem, ModalOverlay, ModalHeader, ModalContent } from "./styles";
 import { Button } from "../../shared/button";
 import { useNavigate } from "react-router-dom";
+import { Company } from "../../../types/company";
 
-interface Company {
-    title: string;
-    department: string;
-    jobOwner: string;
-    email: string;
-    number: string;
-}
+
 
 interface CompanyModalProps {
     isOpen?: boolean;
     onClose: () => void;
     title?: string;
-    companies?: { id: string; name: string }[];
+    companies?:  Company[];
     selectedCompany?: string;
-    handleCompanySelect: (id: string, name: string) => void;
+    handleCompanySelect: (company: Company) => void;
     onCompanyCreated: (newCompany: Company) => void
     setIsCreateCompanyModalOpen: any;
     isCreateCompanyModalOpen: any;
@@ -77,7 +72,7 @@ export const CompanyModal: React.FC<CompanyModalProps> = ({
                         {companies?.map(company => (
                             <CompanyItem
                                 key={company.id}
-                                onClick={() => handleCompanySelect(company.id, company.name)}
+                                onClick={() => handleCompanySelect(company)}
                                 selected={selectedCompany === company.id}
                             >
                                 {company.name}
