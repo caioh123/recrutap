@@ -4,8 +4,8 @@ import { Company } from "../models/company";
 export class CompanyService {
     private prisma: PrismaClient
 
-    constructor() {
-        this.prisma = new PrismaClient()
+    constructor(prismaClient?: PrismaClient) {
+        this.prisma = prismaClient ?? new PrismaClient();
     }
 
     public getAllCompanies = async () => {
@@ -38,6 +38,7 @@ export class CompanyService {
     }
 
     public createCompany = async (data: Company) => {
+        console.log(data, "data pro teste")
         try {
             const company = await this.prisma.company.create({
                 data: {
