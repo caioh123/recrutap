@@ -11,11 +11,18 @@ interface SelectProps {
   touched?: boolean;
   [key: string]: any; 
 }
-export const Select: React.FC<SelectProps> = ({ label, name, options, error, touched, ...props }) => {
+export const Select: React.FC<SelectProps> = ({ label, name, options, error, touched, onChange, value, ...props }) => {
   return (
     <InputContainer>
             <Label htmlFor={name}>{label}</Label>
-            <StyledSelect id={name} name={name}>
+            <StyledSelect
+             id={name}
+              name={name} 
+              onChange={onChange}
+              value={value}
+              {...props}
+            
+            >
                 <option value="" label="Select an option" />
                 {options.map((option) => (
                     <option key={option.value} value={option.value}>

@@ -44,16 +44,11 @@ export const SearchPanel = ({ title, filters, onSearch, pageType, columns = 4 }:
         recruiter: "",
     });
 
+    console.log('searchParams', searchParams);
+
     const [selectedCandidates, setSelectedCandidates] = useState<string[]>([]);
     const [selectedJobs, setSelectedJobs] = useState<string[]>([]);
 
-
-
-    const candidates = [
-        { id: 'ios-senior', name: 'Caio Henrique' },
-        { id: 'fullstack-senior', name: 'João da Silva' },
-        { id: 'backend-net', name: 'Maria Oliveira' },
-    ];
 
     const educationOptions = [
         { value: "", label: "Select" },
@@ -235,22 +230,6 @@ export const SearchPanel = ({ title, filters, onSearch, pageType, columns = 4 }:
                     </InputContainer>
                 )}
             </FiltersGrid>
-
-            {pageType === "candidates" && (
-                <CheckboxContainer>
-                    {candidates.map((candidate) => (
-                        <CheckboxItem key={candidate.id}>
-                            <input 
-                                type="checkbox" 
-                                id={candidate.id} 
-                                checked={selectedCandidates.includes(candidate.id)} 
-                                onChange={() => handleCandidateCheckbox(candidate.id)} 
-                            />
-                            <label htmlFor={candidate.id}>{candidate.name}</label>
-                        </CheckboxItem>
-                    ))}
-                </CheckboxContainer>
-            )}
 
             <ButtonContainer>
                 <Button

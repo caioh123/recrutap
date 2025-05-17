@@ -3,55 +3,12 @@ import { SearchPanel } from "../../components/ui/searchPanel";
 import { DataTable } from "../../components/ui/dataTable";
 import api from "../../services/api";
 
-interface JobRole {
-    id: string;
-    name: string;
-}
-
-const mockCandidates = [
-  {
-    id: "1",
-    primary: "Carolina Silva",
-    secondary: "Frontend | React | São Paulo",
-    date: "2024-05-20",
-    time: "09:00",
-    status: "Disponível",
-    statusType: "available",
-  },
-  {
-    id: "2",
-    primary: "João Souza",
-    secondary: "Backend | Node.js | Remoto",
-    date: "2024-05-18",
-    time: "14:00",
-    status: "Entrevistando",
-    statusType: "analysing",
-  },
-  {
-    id: "3",
-    primary: "Maria Oliveira",
-    secondary: "UX Designer | Rio de Janeiro",
-    date: "2024-05-15",
-    time: "11:00",
-    status: "Contratada",
-    statusType: "contracted",
-  },
-];
-
 export const FindCandidates = () => {
   const [jobRoles, setJobRoles] = useState<string[]>([]);
   const [results, setResults] = useState<any[]>([]);
   const [searched, setSearched] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-
-  const availableJobs: JobRole[] = [
-    { id: '1', name: 'Software Engineer' },
-    { id: '2', name: 'Product Manager' },
-    { id: '3', name: 'UI/UX Designer' },
-    { id: '4', name: 'Data Analyst' },
-    { id: '5', name: 'Sales Manager' },
-  ]
 
   const handleJobCheckBox = (jobId: string) => {
     setJobRoles((prev) => [...prev, jobId]);
@@ -69,7 +26,7 @@ export const FindCandidates = () => {
       if (filters.education) params.education = filters.education;
       if (filters.company) params.companyId = filters.company;
       if (filters.language) params.language = filters.language;
-      // Adapte outros filtros conforme necessário
+      console.log(filters.status, "params");
       const response = await api.get("/candidates", { params });
       // Adapte o mapeamento conforme o retorno real da API
       const candidates = response.data.map((candidate: any) => ({
