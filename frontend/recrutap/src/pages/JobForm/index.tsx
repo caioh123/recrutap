@@ -99,7 +99,7 @@ export const JobForm: React.FC<JobFormProps> = ({ jobId }) => {
                 label="Education"
                 as={Input}
                 error={touched.education && errors.education}
-                touched={touched.skills}
+                touched={touched.education}
               />
             </FormRow>
             <FormRow>
@@ -159,16 +159,7 @@ export const JobForm: React.FC<JobFormProps> = ({ jobId }) => {
                 ]}
               />
             </FormRow>
-            <FormRow>
 
-              <Field
-                as={Input}
-                label="Skills"
-                name="skills"
-                error={touched.skills && errors.skills}
-                touched={touched.skills}
-              />
-            </FormRow>
             <FormRow>
 
               <Field
@@ -205,6 +196,13 @@ export const JobForm: React.FC<JobFormProps> = ({ jobId }) => {
                 as={Input}
                 error={touched.city && errors.city}
                 touched={touched.city}
+              />
+              <Field
+                name="neighbourhood"
+                label="Neighbourhood"
+                as={Input}
+                error={touched.neighbourhood && errors.neighbourhood}
+                touched={touched.neighbourhood}
               />
             </FormRow>
 

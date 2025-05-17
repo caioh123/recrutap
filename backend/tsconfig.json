@@ -3,7 +3,7 @@
     "module": "commonjs",                               
     "typeRoots": ["./node_modules/@types", "./src/@types"],                                  
     "outDir": "./dist",                      
-    "types": ["express"],             
+    "types": ["express", "jest"],             
     "esModuleInterop": true,                            
     "forceConsistentCasingInFileNames": true,            
     "strict": true,                                      
