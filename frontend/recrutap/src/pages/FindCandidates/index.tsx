@@ -3,6 +3,19 @@ import { SearchPanel } from "../../components/ui/searchPanel";
 import { DataTable } from "../../components/ui/dataTable";
 import api from "../../services/api";
 
+interface Params {
+  status?: string;
+  location?: string;
+  salary?: string;
+  skills?: string;
+  education?: string;
+  company?: string;
+  language?: string;
+  city?: string;
+  wageExpectation?: string;
+  companyId?: string;
+}
+
 export const FindCandidates = () => {
   const [jobRoles, setJobRoles] = useState<string[]>([]);
   const [results, setResults] = useState<any[]>([]);
@@ -18,8 +31,8 @@ export const FindCandidates = () => {
     setLoading(true);
     setError("");
     try {
-      const params: any = {};
-      if (filters.status) params.seniority = filters.status;
+      const params: Params = {};
+      if (filters.status) params.status = filters.status;
       if (filters.location) params.city = filters.location;
       if (filters.salary) params.wageExpectation = filters.salary;
       if (filters.skills) params.skills = filters.skills;

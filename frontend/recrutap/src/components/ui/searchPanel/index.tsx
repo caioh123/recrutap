@@ -59,11 +59,9 @@ export const SearchPanel = ({ title, filters, onSearch, pageType, columns = 4 }:
     ];
 
     const statusOptions = [
-        { value: "", label: "Select" },
-        { value: "available", label: "Available" },
-        { value: "interviewing", label: "Interviewing" },
+        { value: "urgent", label: "Urgent" },
         { value: "hired", label: "Hired" },
-        { value: "rejected", label: "Rejected" }
+        { value: "analysing", label: "Analysing" }
     ];
 
     const languageOptions = [
