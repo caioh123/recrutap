@@ -9,6 +9,7 @@ interface Filter {
     companyId?: string;
     language?: string;
     education?: string;
+    status?: string;
 }
 
 function parseQueryParams(query: any): Filter {
@@ -18,6 +19,8 @@ function parseQueryParams(query: any): Filter {
         salary: query.salary ? Number(query.salary) : undefined,
         companyId: query.companyId || undefined,
         education: query.education || undefined,
+        status: query.status || undefined,
+        language: query.language || undefined,
     }
 }
 
@@ -54,6 +57,12 @@ export class JobService {
 
             if (filter.education) {
                 filters.education = { equals: filter.education };
+            }
+            if(filter.language){
+                filters.language = { equals: filter.language };
+            }
+            if(filter.status){
+                filters.status = { equals: filter.status };
             }
 
             const jobs = await this.prisma.job.findMany({

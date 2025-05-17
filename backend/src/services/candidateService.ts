@@ -11,6 +11,8 @@ interface Filter {
   availabilityOfChange?: boolean;
   jobId?: string;
   restricted?: boolean;
+  status?: string;
+  language?: string;
 }
 
 function parseQueryParams(query: any): Filter {
@@ -23,6 +25,8 @@ function parseQueryParams(query: any): Filter {
     availabilityOfChange: query.availabilityOfChange === 'true' ? true : query.availabilityOfChange === 'false' ? false : undefined,
     jobId: query.jobId || undefined,
     restricted: query.restricted === 'true' ? true : query.restricted === 'false' ? false : undefined,
+    status: query.status || undefined,
+    language: query.language || undefined,
   };
 }
 
@@ -65,6 +69,12 @@ export class CandidateService {
 
       if (filter.restricted !== undefined) {
         filters.restricted = { equals: filter.restricted };
+      }
+      if(filter.status){
+        filters.status = { equals: filter.status };
+      }
+      if(filter.language){
+        filters.language = { equals: filter.language };
       }
 
 
