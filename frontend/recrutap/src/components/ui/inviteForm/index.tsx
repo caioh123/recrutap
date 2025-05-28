@@ -17,6 +17,7 @@ interface FormValues {
     email: string;
     firstName: string;
     lastName: string;
+    role: string;
 }
 
 const validationSchema = Yup.object({
@@ -24,7 +25,7 @@ const validationSchema = Yup.object({
     firstName: Yup.string().required("First name is required"),
     lastName: Yup.string().required("Surname is required"),
     role: Yup.string().required("Role is required")
-})
+});
 
 interface InviteFormProps {
     onClose: () => void;
@@ -33,14 +34,14 @@ interface InviteFormProps {
 export const InviteForm = ({ onClose }: InviteFormProps) => {
     const [isLoading, setIsLoading] = useState(false)
 
-    const initialValues = {
+    const initialValues: FormValues = {
         email: "",
         firstName: "",
         lastName: "",
         role: ""
     }
 
-    const handleSubmit = async (values:FormValues) => {
+    const handleSubmit = async (values: FormValues) => {
         console.log('handleSubmit called with values:', values)
         try {
             setIsLoading(true)
