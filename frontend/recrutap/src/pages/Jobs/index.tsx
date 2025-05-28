@@ -85,7 +85,7 @@ const Jobs = () => {
   const handleViewDetails = (id: string) => {
     const job = jobs.find(j => j.id === id);
     if (job) {
-      navigate(`/jobs/${job.id}`);
+      navigate(`/job/${job.id}`);
     }
   };
 

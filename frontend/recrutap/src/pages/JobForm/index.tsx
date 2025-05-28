@@ -1,6 +1,6 @@
 import { FormContainer, FormRow, CompanyContainer } from "./styles";
 import { Typography } from "../../components/shared/typography";
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, useFormikContext } from 'formik';
 import { Input } from "../../components/shared/input";
 import { Select } from "../../components/shared/select";
 import { validationSchema, initialValues } from "./constants";
@@ -16,50 +16,113 @@ interface JobFormProps {
   jobId?: string
 }
 
+const CompanyFields = () => {
+  const { setFieldValue } = useFormikContext();
+  const [selectedCompany, setSelectedCompany] = useState<any>({});
+  const [isCompanyModalOpen, setIsCompanyModalOpen] = useState<boolean>(false);
+  const [isCreateCompanyModalOpen, setIsCreateCompanyModalOpen] = useState<boolean>(false);
+  const [companies, setCompanies] = useState<Company[]>([]);
+
+  const handleCompanySelect = (fields: any) => {
+    console.log("fields", fields)
+    setSelectedCompany(fields);
+    setIsCompanyModalOpen(false);
+
+    setFieldValue('companyId', fields.id);
+    setFieldValue('department', fields.department);
+    setFieldValue('jobOwner', fields.jobOwner);
+    setFieldValue('email', fields.email);
+    setFieldValue('telephone', fields.phone);
+  };
+
+  const getCompanies = async () => {
+    try {
+      const response = await api.get("/companies")
+      setCompanies(response.data)
+    } catch (error) {
+      console.error('Error fetching companies:', error)
+    }
+  }
+
+  useEffect(() => {
+    getCompanies()
+  }, [isCreateCompanyModalOpen])
+
+  return (
+    <>
+      <CompanyContainer>
+        <FormRow>
+          <Typography variant="h2">Company Data</Typography>
+        </FormRow>
+        <FormRow>
+          <Field
+            name="company"
+            label="Company"
+            as={Input}
+            readOnly
+            onClick={() => setIsCompanyModalOpen(true)}
+            value={selectedCompany.name}
+          />
+          <Field
+            name="department"
+            label="Department"
+            as={Input}
+            readOnly
+            value={selectedCompany.department}
+          />
+        </FormRow>
+        <FormRow>
+          <Field
+            name="jobOwner"
+            label="Job Owner"
+            as={Input}
+            readOnly
+            value={selectedCompany.jobOwner}
+          />
+          <Field
+            name="email"
+            label="Email"
+            as={Input}
+            readOnly
+            value={selectedCompany.email}
+          />
+          <Field
+            as={Input}
+            label="Phone"
+            name="telephone"
+            isPhone={true}
+            readOnly
+            value={selectedCompany.phone}
+          />
+        </FormRow>
+      </CompanyContainer>
+      <CompanyModal
+        isOpen={isCompanyModalOpen}
+        onClose={() => setIsCompanyModalOpen(false)}
+        title="Select Company"
+        companies={companies}
+        handleCompanySelect={handleCompanySelect}
+        setIsCreateCompanyModalOpen={setIsCreateCompanyModalOpen}
+        isCreateCompanyModalOpen={isCreateCompanyModalOpen}
+        onCompanyCreated={() => { }}
+      />
+      <CreateCompanyModal
+        isCreateCompanyModalOpen={isCreateCompanyModalOpen}
+        setIsCreateCompanyModalOpen={setIsCreateCompanyModalOpen}
+        title="Create Company"
+      />
+    </>
+  );
+};
 
 export const JobForm: React.FC<JobFormProps> = ({ jobId }) => {
   const location = useLocation()
   const isCreateMode = location.pathname === "/job-form";
   const mode = isCreateMode ? "create" : "edit";
 
-  const [companies, setCompanies] = useState<Company[]>([])
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [isCompanyModalOpen, setIsCompanyModalOpen] = useState<boolean>(false);
-  const [selectedCompany, setSelectedCompany] = useState<any>({});
-  console.log("selectedCompany", selectedCompany)
-  const [isCreateCompanyModalOpen, setIsCreateCompanyModalOpen] = useState<boolean>(false)
-
-  console.log("isCreateCompanyModalOpenm", isCreateCompanyModalOpen)
-
   const handleSubmit = (values: any) => {
-    console.log({
-      ...values,
-      companyId: selectedCompany
-    });
+    console.log(values);
   };
-
-  const handleCompanySelect = (fields: any) => {
-    console.log("fields", fields)
-    setSelectedCompany(fields);
-    setIsCompanyModalOpen(false);
-  };
-
-  const getCompanies = async () => {
-
-    try {
-      const response = await api.get("/companies")
-
-      setCompanies(response.data)
-    } catch (error) {
-      console.error('Error fetching jobs:', error)
-    } finally {
-      setIsLoading(false);
-    }
-  }
-  useEffect(() => {
-    getCompanies()
-  }, [isCreateCompanyModalOpen])
-
 
   return (
     <FormContainer>
@@ -69,14 +132,10 @@ export const JobForm: React.FC<JobFormProps> = ({ jobId }) => {
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={(values, actions) => {
-          console.log("Formik onSubmit triggered", values); // Verifique se isso aparece
-          // handleCreateSubmit(values, actions);
-        }}
+        onSubmit={handleSubmit}
       >
         {({ errors, touched }) => (
           <Form>
-
             <FormRow>
               <Field
                 name="title"
@@ -97,9 +156,19 @@ export const JobForm: React.FC<JobFormProps> = ({ jobId }) => {
               <Field
                 name="education"
                 label="Education"
-                as={Input}
+                as={Select}
                 error={touched.education && errors.education}
                 touched={touched.education}
+                options={[
+                  { value: 'elementary', label: 'Elementary School' },
+                  { value: 'high_school', label: 'High School' },
+                  { value: 'bachelors_incomplete', label: 'Bachelor\'s Degree (Incomplete)' },
+                  { value: 'bachelors_complete', label: 'Bachelor\'s Degree (Complete)' },
+                  { value: 'masters_incomplete', label: 'Master\'s Degree (Incomplete)' },
+                  { value: 'masters_complete', label: 'Master\'s Degree (Complete)' },
+                  { value: 'phd_incomplete', label: 'PhD (Incomplete)' },
+                  { value: 'phd_complete', label: 'PhD (Complete)' }
+                ]}
               />
             </FormRow>
             <FormRow>
@@ -231,67 +300,7 @@ export const JobForm: React.FC<JobFormProps> = ({ jobId }) => {
                 touched={touched.travel}
               />
             </FormRow>
-            <CompanyContainer>
-              <FormRow>
-                <Typography variant="h2">Company Data</Typography>
-              </FormRow>
-              <FormRow>
-
-                <Field
-                  name="company"
-                  label="Company"
-                  as={Input}
-                  error={touched.companyId && errors.companyId}
-                  touched={touched.companyId}
-                  readOnly
-                  onClick={() => setIsCompanyModalOpen(true)}
-                  value={selectedCompany.name}
-                />
-                <Field
-                  name="department"
-                  label="Department"
-                  as={Input}
-                  error={touched.department && errors.department}
-                  touched={touched.department}
-                  readOnly
-                  value={selectedCompany.department}
-                />
-
-              </FormRow>
-              <FormRow>
-                <Field
-                  name="jobOwner"
-                  label="Job Owner"
-                  as={Input}
-                  error={touched.jobOwner && errors.jobOwner}
-                  touched={touched.jobOwner}
-                  value={selectedCompany.jobOwner}
-                  readOnly
-                />
-                <Field
-                  name="email"
-                  label="Email"
-                  as={Input}
-                  error={touched.email && errors.email}
-                  touched={touched.email}
-                  value={selectedCompany.email}
-                  readOnly
-                />
-                <Field
-                  as={Input}
-                  label="Phone"
-                  name="telephone"
-                  isPhone={true}
-                  error={touched.telephone && errors.telephone}
-                  touched={touched.telephone}
-                  value={selectedCompany.phone}
-                  readOnly
-                />
-              </FormRow>
-            </CompanyContainer>
-            <FormRow>
-
-            </FormRow>
+            <CompanyFields />
             <FormRow>
               <Field
                 name="duration"
@@ -307,7 +316,7 @@ export const JobForm: React.FC<JobFormProps> = ({ jobId }) => {
                 as={Input}
                 type="number"
                 error={touched.quantity && errors.quantity}
-                touched={touched.quantity}  
+                touched={touched.quantity}
               />
             </FormRow>
 
@@ -372,28 +381,9 @@ export const JobForm: React.FC<JobFormProps> = ({ jobId }) => {
               <Button type="button" variant="secondary">Preview</Button>
             </FormRow>
 
-
-
           </Form>
         )}
       </Formik>
-      <CompanyModal
-        isOpen={isCompanyModalOpen}
-        onClose={() => setIsCompanyModalOpen(false)}
-        title="Select Company"
-        companies={companies}
-        handleCompanySelect={handleCompanySelect}
-        setIsCreateCompanyModalOpen={setIsCreateCompanyModalOpen}
-        isCreateCompanyModalOpen={isCreateCompanyModalOpen}
-        onCompanyCreated={() => { }}
-      />
-
-      <CreateCompanyModal
-        isCreateCompanyModalOpen={isCreateCompanyModalOpen}
-        setIsCreateCompanyModalOpen={setIsCreateCompanyModalOpen}
-        title="Create Company"
-      />
-
     </FormContainer>
   );
 };

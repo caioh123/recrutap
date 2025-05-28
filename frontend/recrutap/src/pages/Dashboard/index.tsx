@@ -4,10 +4,11 @@ import { DashboardContainer, OverviewContainer, ActivitySection } from './styles
 import { Typography } from '../../components/shared/typography'
 import { Button } from '../../components/shared/button'
 import { Modal } from '../../components/ui/modal'
-import { InviteForm } from '../../components/ui/formModal'
+import { InviteForm } from '../../components/ui/inviteForm'
 import { DataTable } from '../../components/ui/dataTable'
 import axios from 'axios'
 import api from '../../services/api'
+import { useNavigate } from 'react-router-dom'
 
 interface DashboardResponse {
   totals: DashboardStats;
@@ -61,6 +62,7 @@ const Dashboard = () => {
   const [error, setError] = useState<string | null>(null);
   const [jobs, setJobs] = useState<Job[] | []>([])
   const [candidates, setCandidates] = useState<Candidate[]>([])
+  const navigate = useNavigate();
 
 
 
@@ -99,32 +101,7 @@ const Dashboard = () => {
   }, []);
 
 
-  const candidatesData = [
-    {
-      id: '1',
-      name: "Lívia Leite",
-      recruiter: "Castro Nunes",
-      date: "Abril 24, 2021",
-      time: "10:30",
-      status: "analysing",
-    },
-    {
-      id: '2',
-      name: "Carlos Henrique",
-      recruiter: "Andrade",
-      date: "Abril 22, 2021",
-      time: "09:00",
-      status: "contracted",
-    },
-    {
-      id: '3',
-      name: "Maria Silva",
-      recruiter: "Andrade",
-      date: "Abril 22, 2021",
-      time: "09:00",
-      status: "available",
-    },
-  ];
+
 
   const jobsTableData: TableItem[] = jobs.map((job) => {
     const dateObj = new Date(job.createdAt)
@@ -160,14 +137,21 @@ const Dashboard = () => {
   }});
 
   const handleJobActionClick = (id: string) => {
-    const job = jobs.find(job => job.id === id);
-    console.log("Job action clicked:", job);
+    navigate(`/job/${id}`);
   };
 
   const handleCandidateActionClick = (id: string) => {
-    const candidate = candidatesData.find(candidate => candidate.id === id);
-    console.log("Candidate action clicked:", candidate);
+    navigate(`/candidate/${id}`);
   };
+
+  const handleJobEditClick = (id: string) => {
+    navigate(`/jobs/${id}/edit`);
+  };
+
+  const handleCandidateEditClick = (id: string) => {
+    navigate(`/candidates/${id}/edit`);
+  };
+
   return (
     <DashboardContainer>
       <OverviewContainer>
@@ -187,6 +171,7 @@ const Dashboard = () => {
             { main: "Action", secondary: "Action" },
           ]}
           onActionClick={handleJobActionClick}
+          onEditClick={handleJobEditClick}
           data={jobsTableData}
         />
         <Typography variant="h3">Candidates</Typography>
@@ -199,6 +184,7 @@ const Dashboard = () => {
           ]}
           data={candidatesTableData}
           onActionClick={handleCandidateActionClick}
+          onEditClick={handleCandidateEditClick}
         />
       </ActivitySection>
       <Modal

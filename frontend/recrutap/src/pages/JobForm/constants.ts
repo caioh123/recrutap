@@ -9,19 +9,33 @@ export const validationSchema = Yup.object({
     .required("Description is required")
     .min(10, "Description must be at least 10 characters"),
 
-  skills: Yup.array()
-    .of(Yup.string())
+  skills: Yup.string()
     .required("Skills are required")
     .min(1, "Add at least one skill"),
 
-  education: Yup.string(),
+  education: Yup.string()
+    .required("Education is required")
+    .oneOf([
+      'elementary',
+      'high_school',
+      'bachelors_incomplete',
+      'bachelors_complete',
+      'masters_incomplete',
+      'masters_complete',
+      'phd_incomplete',
+      'phd_complete'
+    ], "Invalid education level"),
 
-  languages: Yup.array().of(
-    Yup.object({
-      name: Yup.string(),
-      level: Yup.string()
-    })
-  ),
+  language1: Yup.string()
+    .required("Language 1 is required"),
+
+  language1Level: Yup.string()
+    .required("Language 1 level is required"),
+
+  language2: Yup.string(),
+
+  language2Level: Yup.string()
+   ,
 
   pcd: Yup.boolean()
     .required("PCD field is required"),
@@ -31,7 +45,7 @@ export const validationSchema = Yup.object({
   city: Yup.string(),
   neighbourhood: Yup.string(),
   
-  alocation: Yup.string()
+  allocation: Yup.string()
     .oneOf(['remote', 'hybrid', 'onsite'], "Invalid allocation type"),
 
   travel: Yup.boolean()
@@ -62,25 +76,24 @@ export const validationSchema = Yup.object({
     .required("Company ID is required")
     .uuid("Invalid company ID"),
 
-    department: Yup.string()
+  department: Yup.string()
     .required("Department field is required"),
 
-    companyOwner: Yup.string()
+  companyOwner: Yup.string()
     .required("Company Owner field is required"),
 
-    telephone: Yup.string()
+  telephone: Yup.string()
     .required("Telephone field is required"),
 
-    email: Yup.string()
+  email: Yup.string()
     .required("Email field is required")
-    
 });
 
 export const initialValues = {
   title: "",
   description: "",
-  skills: [],
-  education: "",
+  skills: "",
+  education: "bachelors_complete",
   language1: "",
   language2: "",
   language1Level: "",
